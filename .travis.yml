@@ -4,6 +4,13 @@ jdk:
 branches:
   only:
     - master
+notifications:
+  email:
+    recipients:
+      - rabahmeradi@gmail.com
+      - talos.du13gmail.com
+      - julien.wallart@outlook.com
+
 script: ./grailsw refresh-dependencies
   && ./grailsw "test-app unit:"
   && ./grailsw refresh-dependencies
