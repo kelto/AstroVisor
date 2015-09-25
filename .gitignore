@@ -190,7 +190,10 @@ dist
 .tmp
 .publish
 .sass-cache
-app/bower_components
+web-app/bower_components
 test/bower_components
 app/main.css
 npm-debug.log
+
+#Bower
+
