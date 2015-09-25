@@ -1,0 +1,24 @@
+{
+  "name": "AstroVisor",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kelto/AstroVisor.git"
+  },
+  "contributors": [
+    {
+      "name": "Julien Wallart",
+      "email": "julien.wallart@outlook.com"
+    }
+  ],
+  "dependencies": {
+    "gulp-livereload": "^3.8.0"
+  },
+  "devDependencies": {
+    "gulp": "3.9.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}

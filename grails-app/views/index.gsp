@@ -79,6 +79,7 @@
 				}
 			}
 		</style>
+		<script type="text/javascript">document.write('<script src="//localhost:5000/livereload.js?snipver=1" type="text/javascript"><\/script>')</script>
 	</head>
 	<body>
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
