@@ -183,3 +183,14 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Gulp Bower Node
+node_modules
+dist
+.tmp
+.publish
+.sass-cache
+app/bower_components
+test/bower_components
+app/main.css
+npm-debug.log
