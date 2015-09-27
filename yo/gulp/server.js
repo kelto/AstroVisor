@@ -23,7 +23,8 @@ function browserSyncInit(baseDir, browser) {
 
   var server = {
     baseDir: baseDir,
-    routes: routes
+    routes: routes,
+    ws: true
   };
 
   /*
@@ -33,7 +34,7 @@ function browserSyncInit(baseDir, browser) {
    *
    * For more details and option, https://github.com/chimurai/http-proxy-middleware/blob/v0.0.5/README.md
    */
-  server.middleware = proxyMiddleware('/api', {target: 'http://localhost:8080/AstroVisor/api'});
+  server.middleware = proxyMiddleware('/api', {target: 'http://127.0.0.1:8080/AstroVisor/'});
 
   browserSync.instance = browserSync.init({
     startPath: '/',
