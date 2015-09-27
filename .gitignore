@@ -6,6 +6,10 @@
 # suggested that you use the "grails integrate-with --git" command
 # to generate your .gitignore file.
 
+#assets
+/grails-app/assets
+.asscache
+
 # web application files
 /web-app/WEB-INF/classes
 
@@ -197,3 +201,4 @@ npm-debug.log
 
 #Bower
 
+grails_app/assets
