@@ -14,8 +14,8 @@ class User {
 	static transients = ['springSecurityService']
 
 	static constraints = {
-		username blank: false, unique: true
-		password blank: false
+		username blank: false, unique: true, minSize: 4
+		password blank: false, minSize: 5
 	}
 
 	static mapping = {
