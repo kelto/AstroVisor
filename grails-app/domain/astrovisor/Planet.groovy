@@ -1,7 +1,5 @@
 package astrovisor
 
-import grails.rest.*
-@Resource(uri='/planet')
 class Planet {
 
     String code_name
