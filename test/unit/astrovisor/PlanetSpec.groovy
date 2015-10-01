@@ -37,7 +37,6 @@ class PlanetSpec extends Specification {
     void "test valid planet" () {
         given: "A valid planet"
         Planet planet = new Planet(code_name: planet_code_name, age: planet_age, name: planet_name)
-        println planet.name
 
         when: "We try to validate"
         def isValid = planet.validate()
