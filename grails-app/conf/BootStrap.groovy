@@ -1,15 +1,17 @@
 import astrovisor.Planet
+import com.astrovisor.User
+
 
 class BootStrap {
 
     def init = { servletContext ->
-        seedTestData()
+        userTestData()
+        planetTestData()
     }
 
-    private void seedTestData() {
-        def planet = null
+    private void planetTestData() {
         println "Start loading planets into database"
-        planet = new Planet(code_name: "XO-000",age:0, name: 'kelto')
+        def planet = new Planet(code_name: "XO-000",age:0, name: 'kelto')
         assert planet.save(failOnError:true, flush:true, insert: true)
         planet.errors = null
 
@@ -19,7 +21,13 @@ class BootStrap {
 
         assert Planet.count == 2;
         println "Finished loading $Planet.count planets into database"
+
     }
         def destroy = {
+    }
+
+    def userTestData() {
+        User user = new User(username:"user", password: "password")
+        user.save()
     }
 }
