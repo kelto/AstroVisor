@@ -30,10 +30,10 @@ class ClimateSpec extends Specification {
         -500      | 30       | 23        | 1         | false
         -20       | -500     | 23        | 1         | false
         -20       | -500     | -500      | 1         | false
-
         -20       | -10      | 23        | 1         | false
         -20       | -10      | -30       | 1         | false
         -20       | -50      | -30       | 1         | false
         -80       | 55       | 13        | 0         | false
+        -80       | 60       | 13        | 4         | true
     }
 }
