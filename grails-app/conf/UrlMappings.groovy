@@ -3,9 +3,17 @@ class UrlMappings {
 	static mappings = {
 
         //all RestFull Controller
+
         group "/api", {
-            "/planets"(controller: "planet")
+            "/planets/$id?"(controller: "planet") {
+                action = [GET: "index", PUT: "update", POST: "save", DELETE: "delete"]
+            }
+
+            "/descriptions/$id?"(controller: "description") {
+                action = [GET: "index", PUT: "update", POST: "save", DELETE: "delete"]
+            }
         }
+
 
         "/"(view:"/index")
         "500"(view:'/error')

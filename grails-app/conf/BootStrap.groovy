@@ -1,6 +1,6 @@
+import com.astrovisor.Description
 import com.astrovisor.Planet
 import com.astrovisor.User
-
 
 class BootStrap {
 
@@ -22,6 +22,8 @@ class BootStrap {
         assert Planet.count == 2;
         println "Finished loading $Planet.count planets into database"
 
+        def description = new Description(text: "Hehehe", planet: planet)
+        assert description.save(failOnError:true, flush:true, insert: true)
     }
         def destroy = {
     }
