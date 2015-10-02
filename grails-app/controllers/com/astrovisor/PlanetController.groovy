@@ -1,5 +1,5 @@
 package com.astrovisor
-
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
 import static org.springframework.http.HttpStatus.*
@@ -10,12 +10,19 @@ class PlanetController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Planet.list(params), [status: OK]
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def index(Planet planetInstance) {
+        if(planetInstance != null) {
+            respond planetInstance
+        }
+        else {
+            respond Planet.list(max: 10), [status: OK]
+        }
+
     }
 
     @Transactional
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def save(Planet planetInstance) {
         if (planetInstance == null) {
             render status: NOT_FOUND
@@ -50,6 +57,7 @@ class PlanetController {
     }
 
     @Transactional
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def delete(Planet planetInstance) {
 
         if (planetInstance == null) {
