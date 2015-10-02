@@ -5,6 +5,7 @@ class Planet {
     String code_name
     String name
     int age
+    List<Description> descriptions
 
 
     static constraints = {
