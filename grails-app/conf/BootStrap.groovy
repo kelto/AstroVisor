@@ -1,4 +1,4 @@
-import astrovisor.Planet
+import com.astrovisor.Planet
 import com.astrovisor.User
 
 

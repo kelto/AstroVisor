@@ -7,7 +7,7 @@ import spock.lang.*
 /**
  *
  */
-class UserSpec extends Specification {
+class UserIntegrationSpec extends Specification {
 
     def setup() {
     }

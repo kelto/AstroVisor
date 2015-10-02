@@ -1,4 +1,4 @@
-package astrovisor
+package com.astrovisor
 
 class Planet {
 
