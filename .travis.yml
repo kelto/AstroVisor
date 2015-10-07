@@ -12,6 +12,4 @@ notifications:
       - julien.wallart@outlook.com
 
 script: ./grailsw refresh-dependencies
-  && ./grailsw "test-app unit:"
-  && ./grailsw refresh-dependencies
-  && ./grailsw "test-app functional:"
+  && ./grailsw "test-app"
