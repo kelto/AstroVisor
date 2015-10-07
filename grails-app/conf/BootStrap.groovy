@@ -1,12 +1,18 @@
 import com.astrovisor.Description
 import com.astrovisor.Planet
 import com.astrovisor.User
+import com.astrovisor.Trade
+
+import grails.util.Environment
 
 class BootStrap {
 
     def init = { servletContext ->
+        if (Environment.current == Environment.DEVELOPMENT) {
         userTestData()
         planetTestData()
+        tradeTestData()
+        }
     }
 
     private void planetTestData() {
@@ -31,5 +37,10 @@ class BootStrap {
     def userTestData() {
         User user = new User(username:"user", password: "password")
         user.save()
+    }
+
+    def tradeTestData(){
+        def trade = new Trade(name: "tradeBoot")
+        trade.save()
     }
 }
