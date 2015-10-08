@@ -1,9 +1,6 @@
 language: groovy
 jdk:
   - oraclejdk8
-branches:
-  only:
-    - master
 notifications:
   email:
     recipients:
