@@ -8,5 +8,8 @@ notifications:
       - talos.du13gmail.com
       - julien.wallart@outlook.com
 
-script: ./grailsw refresh-dependencies
-  && ./grailsw "test-app"
+script:
+    - ./grailsw refresh-dependencies
+    - ./grailsw test-app -coverage -xml
+after_success:
+    - ./grailsw coveralls
