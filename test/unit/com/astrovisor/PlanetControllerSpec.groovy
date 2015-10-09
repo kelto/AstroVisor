@@ -7,17 +7,19 @@ import org.springframework.http.HttpStatus
 import spock.lang.Specification
 import spock.lang.Unroll
 
+import static com.astrovisor.Planet.Type.*
+
 @TestFor(PlanetController)
 @Mock(Planet)
 class PlanetControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params['name'] = 'someValidName'
         params['name'] = "test"
         params['code_name'] = "XO-003"
         params['age'] = 10
+        params['image'] = 'image'
+        params['type'] = GAS
     }
 
     @Unroll
@@ -35,8 +37,6 @@ class PlanetControllerSpec extends Specification {
     void "Test the save action correctly persists an instance"() {
 
         when:"The save action is executed with an invalid instance"
-            // Make sure the domain class has at least one non-null property
-            // or this test will fail.
             def planet = new Planet()
             controller.save(planet)
 
@@ -48,6 +48,7 @@ class PlanetControllerSpec extends Specification {
             populateValidParams(params)
             planet = new Planet(params)
 
+            planet.validate()
             controller.save(planet)
 
         then:"The response status is CREATED and the instance is returned"

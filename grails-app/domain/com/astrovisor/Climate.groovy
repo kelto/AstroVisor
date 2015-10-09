@@ -14,21 +14,17 @@ class Climate {
     ClimateType type
 
     static constraints = {
-        minTemp validator: { val, obj ->
-            return (val >= -273 && val <= obj.maxTemp)
-        }
-        maxTemp validator: { val, obj ->
-            return (val >= -273 && val >= obj.minTemp)
+        minTemp validator: { val, obj -> val >= -273
         }
         meanTemp validator: { val, obj ->
-            return (val >= -273 && val >= obj.minTemp && val <= obj.maxTemp)
+            return (val >= obj.minTemp && val <= obj.maxTemp)
         }
         seasons validator: { val ->
             return val >= 1
         }
     }
 
-    Climate(float minTemp, float maxTemp, float meanTemp, float seasons){
+    Climate(float minTemp, float maxTemp, float meanTemp, int seasons){
         this.minTemp = minTemp
         this.maxTemp = maxTemp
         this.meanTemp = meanTemp

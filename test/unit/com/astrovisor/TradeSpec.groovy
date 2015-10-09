@@ -7,11 +7,12 @@ import spock.lang.Specification
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
 @TestFor(Trade)
+@Mock([Planet])
 class TradeSpec extends Specification {
 
     void "test trade is valid"() {
         given: "A trade with a valid name"
-            Trade trade = new Trade(name: "trade")
+            Trade trade = new Trade(name: "trade", planet: new Planet())
 
         expect: "the trade is valid"
             trade.validate()
