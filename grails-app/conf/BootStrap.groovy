@@ -5,31 +5,37 @@ import com.astrovisor.Trade
 
 import grails.util.Environment
 
+import static com.astrovisor.Planet.Type.*
+
 class BootStrap {
 
     def init = { servletContext ->
         if (Environment.current == Environment.DEVELOPMENT) {
-        userTestData()
-        planetTestData()
-        tradeTestData()
+            userTestData()
+            planetTestData()
+            tradeTestData()
         }
     }
 
     private void planetTestData() {
         println "Start loading planets into database"
-        def planet = new Planet(code_name: "XO-000",age:0, name: 'kelto')
+
+        def description = new Description(text: "Hehehe")
+        assert description.save(failOnError:true, flush:true, insert: true)
+        def planet = new Planet(code_name: "XO-000",age:0, name: 'kelto',
+                                image: "image", description: "description",
+                                type: GAS)
+        planet.addToDescriptions(description)
         assert planet.save(failOnError:true, flush:true, insert: true)
         planet.errors = null
 
-        planet = new Planet(code_name: "XO-001",age:0, name: 'keltorin')
+        planet = new Planet(code_name: "XO-001",age:0, name: 'keltorin',
+                            image: "image", description: "desc",
+                            type: TELLURIC)
         assert planet.save(failOnError:true, flush:true, insert: true)
-        planet.errors = null
 
         assert Planet.count == 2;
         println "Finished loading $Planet.count planets into database"
-
-        def description = new Description(text: "Hehehe", planet: planet)
-        assert description.save(failOnError:true, flush:true, insert: true)
     }
         def destroy = {
     }
@@ -40,7 +46,8 @@ class BootStrap {
     }
 
     def tradeTestData(){
-        def trade = new Trade(name: "tradeBoot")
-        trade.save()
+        def planet = Planet.get(1)
+        def trade = new Trade(name: "tradeBoot", planet: planet)
+        trade.save(flush: true, failOnError: true)
     }
 }

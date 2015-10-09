@@ -11,7 +11,7 @@ class TradeController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     TradeService tradeService
-    
+
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)

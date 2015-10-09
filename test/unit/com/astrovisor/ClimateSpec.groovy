@@ -15,7 +15,7 @@ class ClimateSpec extends Specification {
     def cleanup() {
     }
 
-    void "test a climate validity"(float aMinTemp, float aMaxTemp, float aMeanTemp, float nbSeasons, boolean expectedState) {
+    void "test a climate validity"(float aMinTemp, float aMaxTemp, float aMeanTemp, int nbSeasons, boolean expectedState) {
         given:"a climate"
         Climate climate = new Climate(aMinTemp, aMaxTemp, aMeanTemp, nbSeasons)
 

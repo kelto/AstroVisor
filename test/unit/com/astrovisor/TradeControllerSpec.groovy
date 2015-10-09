@@ -8,19 +8,27 @@ import spock.lang.Unroll
 
 import static org.springframework.http.HttpStatus.*
 
+import static com.astrovisor.Planet.Type.*
+
 @TestFor(TradeController)
-@Mock([Trade, TradeService])
+@Mock([Trade, TradeService, Planet])
 class TradeControllerSpec extends Specification {
-    
+
     def populateValidParams(params) {
         assert params != null
+        def planet = new Planet(code_name: "XO-000",age:0, name: 'kelto',
+                                image: "image", description: "description",
+                                type: GAS)
+        planet.save(flush:true)
+        params['planet'] = planet.id
         params['name'] = "trade"
     }
 
     @Unroll
     void "Test the index action returns the correct model"() {
         given:"A trade"
-            def trade = new Trade(name: "trade")
+            populateValidParams(params)
+            def trade = new Trade(params)
             trade.save(flush: true)
 
         when:"The index action is executed"
@@ -33,8 +41,9 @@ class TradeControllerSpec extends Specification {
 
 
     void "test save ok"() {
-        given: 
-            controller.request.json = new Trade(name: "trade")
+        given:
+            populateValidParams(params)
+            controller.request.json = new Trade(params)
             controller.request.method = 'POST'
             def serviceMock = mockFor(TradeService)
             serviceMock.demand.insertOrUpdate {}
@@ -46,9 +55,9 @@ class TradeControllerSpec extends Specification {
         then:
            controller.response.status == CREATED.value
     }
-    
+
     void "test save not ok"() {
-        given: 
+        given:
             controller.request.json = new Trade()
             controller.request.method = 'POST'
             def serviceMock = mockFor(TradeService)
@@ -81,8 +90,8 @@ class TradeControllerSpec extends Specification {
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            trade = new Trade(name: "name1").save(flush: true)
-            
+            trade = new Trade(params).save(flush: true)
+
             def serviceMock = mockFor(TradeService)
             serviceMock.demand.insertOrUpdate {}
             controller.tradeService = serviceMock.createMock()
