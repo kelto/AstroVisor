@@ -78,5 +78,58 @@
         expect(data2[0]).toEqual(jasmine.any(Object));
       });
     });
+
+    describe('get a planet by code name', function(){
+      it('should exist', function(){
+        expect(planetService.getPlanetByCodeName).not.toEqual(null);
+      });
+
+      var data = [{
+        'code_name':'ae3ede123sqd',
+        'name':'Vénus',
+        'age':4000000000,
+        'texture':'',
+        'rings':false,
+        'orbital_speed':2.0,
+        'size':'SMALL'
+      },{
+        'code_name':'az123sqd',
+        'name':'Pluton',
+        'age':4000000000,
+        'texture':'',
+        'rings':false,
+        'orbital_speed':2.0,
+        'size':'SMALL'
+      }];
+
+      it('it should return data', function(){
+        $httpBackend.when('GET',  planetService.getUri()).respond(200, data);
+        planetService.fetchPlanets().then(function(){
+          var code = 'az123sqd';
+          var res = planetService.getPlanetByCodeName(code);
+          expect(res).toEqual(jasmine.any(Object));
+          expect(res['code_name']).toEqual(code);
+        });
+
+        $httpBackend.flush();
+      });
+
+      it('it should return a not found exception', function(){
+        $httpBackend.when('GET',  planetService.getUri()).respond(200, data);
+        planetService.fetchPlanets().then(function(){
+          expect(function(){
+            planetService.getPlanetByCodeName('test');
+          }).toThrow('Planet not found.');
+        });
+
+        $httpBackend.flush();
+      });
+
+      it('it should return a not found exception', function(){
+        expect(function(){
+          planetService.getPlanetByCodeName('test');
+        }).toThrow('No planets available.');
+      });
+    });
   });
 })();
