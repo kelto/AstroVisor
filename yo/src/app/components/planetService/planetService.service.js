@@ -4,23 +4,26 @@
   angular.module('yo').factory('planetService', planetService);
 
   /** @ngInject */
-  function planetService($http) {
-    var uri = '/api/planets';
-
-    function service(){
-      //var self = this;
+  function planetService($http, $q) {
+    function service(_uri_){
+      var uri = _uri_;
       var planets = null;
 
       service.prototype.fetchPlanets = function(){
-        return new Promise(function(resolve, reject){
-          return $http.get(uri).then(getPlanetsComplete).catch(getPlanetsFailed);
+        return $q(function(resolve, reject){
+          return $http.get(uri).then(fetchPlanetsComplete).catch(fetchPlanetsFailed);
 
-          function getPlanetsComplete(response){
-            planets = response.data;
-            resolve(response.data);
+          function fetchPlanetsComplete(response){
+            if(response.data.length > 0){
+              planets = response.data;
+              resolve(response.data);
+            }
+            else{
+              reject('No planets found.');
+            }
           }
 
-          function getPlanetsFailed(error){
+          function fetchPlanetsFailed(error){
             reject('XHR Failed for getPlanets.\n' + angular.toJson(error.data, true));
           }
         });
@@ -28,7 +31,7 @@
 
       service.prototype.getPlanets = function(){
         if(planets != null){
-          return new Promise(function(resolve, reject){
+          return $q(function(resolve){
             resolve(planets);
           });
         }
@@ -36,8 +39,12 @@
           return this.fetchPlanets();
         }
       };
+
+      service.prototype.getUri = function(){
+        return uri;
+      };
     }
 
-    return new service();
+    return new service('/api/planets');
   }
 })();
