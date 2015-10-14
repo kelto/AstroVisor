@@ -21,7 +21,6 @@ class TradeServiceSpec extends Specification {
 
         when:
             trade.validate()
-            println trade.errors
             tradeService.insertOrUpdate(trade)
 
         then:
