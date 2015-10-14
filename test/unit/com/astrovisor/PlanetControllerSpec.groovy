@@ -35,6 +35,11 @@ class PlanetControllerSpec extends Specification {
 
     @Unroll
     void "Test the save action correctly persists an instance"() {
+        when:
+            controller.save(null)
+
+        then:"A NOT_FOUND is returned"
+            response.status == HttpStatus.NOT_FOUND.value
 
         when:"The save action is executed with an invalid instance"
             def planet = new Planet()

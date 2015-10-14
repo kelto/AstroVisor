@@ -48,6 +48,11 @@ class TradeControllerSpec extends Specification {
             def serviceMock = mockFor(TradeService)
             serviceMock.demand.insertOrUpdate {}
             controller.tradeService = serviceMock.createMock()
+        when:
+            controller.save(null)
+
+        then:"A NOT_FOUND is returned"
+            response.status == NOT_FOUND.value
 
         when:
             controller.save()
@@ -99,5 +104,33 @@ class TradeControllerSpec extends Specification {
 
         then:"The response status is OK and the updated instance is returned"
             response.status == OK.value
+    }
+
+    @Unroll
+    void "Test that the delete action deletes an instance if it exists"() {
+        given:"The delete action is called for a null instance"
+            def serviceMock = mockFor(TradeService)
+            serviceMock.demand.delete {trade -> trade.delete(flush: true)}
+            controller.tradeService = serviceMock.createMock()
+        when:
+            controller.delete(null)
+
+        then:"A NOT_FOUND is returned"
+            response.status == NOT_FOUND.value
+
+        when:"A domain instance is created"
+            response.reset()
+            populateValidParams(params)
+            def trade = new Trade(params).save(flush: true)
+
+        then:"It exists"
+            Trade.count() == 1
+
+        when:"The domain instance is passed to the delete action"
+            controller.delete(trade)
+
+        then:"The instance is deleted"
+            Trade.count() == 0
+            response.status == NO_CONTENT.value
     }
 }
