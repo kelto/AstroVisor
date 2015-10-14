@@ -14,8 +14,8 @@
   "type":"telluric",
   "age":4000000000,
   "texture":"mars",
-  "rings":true,
-  "atmosphere":true,
+  "rings":false,
+  "atmosphere":false,
   "orbital_speed":3.0,
   "size":"MEDIUM"
 },{
@@ -34,8 +34,8 @@
   "type":"telluric",
   "age":4000000000,
   "texture":"venus",
-  "rings":true,
-  "atmosphere":true,
+  "rings":false,
+  "atmosphere":false,
   "orbital_speed":4.0,
   "size":"NORMAL"
 },{
@@ -45,7 +45,7 @@
   "age":4000000000,
   "texture":"venus",
   "rings":false,
-  "atmosphere":false,
+  "atmosphere":true,
   "orbital_speed":0.5,
   "size":"LARGE"
 },{

@@ -1,11 +1,11 @@
 (function(){
   'use strict';
 
-  if (!document.URL.match(/\?nobackend$/)) {
-    nostub();
+  if (!document.URL.match(/\?withbackend$/)) {
+    stub();
   }
   else {
-    stub();
+    nostub();
   }
 
   function nostub(){

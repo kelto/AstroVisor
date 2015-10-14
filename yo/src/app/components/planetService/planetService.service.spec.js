@@ -7,10 +7,9 @@
     var $log;
 
     beforeEach(module('yo'));
-    beforeEach(inject(function(_planetService_, _$httpBackend_, _$log_) {
+    beforeEach(inject(function(_planetService_, _$httpBackend_) {
       planetService = _planetService_;
       $httpBackend = _$httpBackend_;
-      $log = _$log_;
     }));
 
     it('should be registered', function() {

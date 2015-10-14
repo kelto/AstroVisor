@@ -1,12 +1,12 @@
 (function() {
-  'use strict';
+  //'use strict';
 
   angular
       .module('yo')
       .directive('map', map);
 
   /** @ngInject */
-  function map($log, planetService) {
+  function map($log, planetService, sphereService) {
     var directive = {
       restrict: 'E',
       templateUrl: 'app/components/map/map.html',
@@ -27,8 +27,12 @@
 
       watcher = scope.$watch('vm.planets', function() {
         angular.forEach(vm.planets, function(planet) {
-          $log.debug(planet);
-          el.find('ul').append('<li>'+planet.name+'</li>');
+          var sphere = sphereService.renderPlanet(planet);
+          angular.element(sphere).attr('id', planet.code_name);
+          angular.element(sphere).click(function(){
+            alert(planet.name);
+          });
+          el.find('#map-contents').append(sphere);
         });
       });
 
