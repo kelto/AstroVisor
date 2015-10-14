@@ -5,11 +5,13 @@
 <div class="modal-body">
  <!--   <button class="btn btn-primary" ng-click="delete()">Confirmer</button>
     -->
-    <form action="demo_form.asp">
-  		Username: <input type="text" name="uname" placeholder="Enter your username"><br>
-  		Password: <input type="text" name="pass" placeholder="Enter your password"><br>
-
-  		<input type="submit" value="Submit">
+    <form id="loginForm">
+      <div class="form-group">
+  		<label for="username" class="control-label">Username</label><input id="username" type="text" name="uname" placeholder="Enter your username" class="form-control">
+  		<label for="password" class="control-label">Password</label> <input id="password" type="text" name="pass" placeholder="Enter your password" class="form-control">
+      </div>
 	</form>
-	<button class="submit" ng-click="cancel()">Annuler</button>
+  <button class="btn btn-primary" ng-click="process()">Submit</button>
+  <button class="btn btn-danger" ng-click="cancel()">Annuler</button>
+
 </div>

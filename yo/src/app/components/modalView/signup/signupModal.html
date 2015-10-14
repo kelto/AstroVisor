@@ -3,15 +3,16 @@
 <div class="modal-body">Voulez-vous supprimer cette élement ? </div>
 -->
 <div class="modal-body">
- <!--   <button class="btn btn-primary" ng-click="delete()">Confirmer</button>
-    -->
-    <form action="demo_form.asp">
-  		Username: <input type="text" name="uname"><br>
-  		E-mail:   <input type="text" name="email"><br><br>
 
-  		Password:         <input type="text" name="pass"><br>
-  		Confirm Password: <input type="text" name="cpass"><br>
-  		<input type="submit" value="Submit">
+    <form id="signupForm">
+      <div class="form-group">
+  		<label for="usernameInput" class="control-label">Username</label><input class="form-control" id="usernameInput" type="text" name="uname">
+
+  		<label for="passwordInput" class="control-label">Password</label><input class="form-control" id="passwordInput" type="text" name="pass">
+
+  		<label for="confirmPassInput" class="control-label">Confirm Password</label> <input class="form-control" id="confirmPassInput" type="text" name="cpass">
+          </div>
 	</form>
-	<button class="submit" ng-click="cancel()">Annuler</button>
+  <button class="btn btn-primary" ng-click="process()">Confirmer</button>
+	<button class="btn btn-danger" ng-click="cancel()">Annuler</button>
 </div>
