@@ -1,21 +1,101 @@
 [{
   "code_name":"ae3ede123sqd",
   "name":"La Terre",
-  "age":4000000000
+  "type":"telluric",
+  "age":4000000000,
+  "texture":"earth",
+  "rings":false,
+  "atmosphere":true,
+  "orbital_speed":1.0,
+  "size":"NORMAL"
 },{
   "code_name":"ae3ede123sqd",
   "name":"Mars",
-  "age":4000000000
+  "type":"telluric",
+  "age":4000000000,
+  "texture":"mars",
+  "rings":true,
+  "atmosphere":true,
+  "orbital_speed":3.0,
+  "size":"MEDIUM"
 },{
   "code_name":"ae3ede123sqd",
   "name":"Mercure",
-  "age":4000000000
+  "type":"telluric",
+  "age":4000000000,
+  "texture":"mercury",
+  "rings":false,
+  "atmosphere":false,
+  "orbital_speed":6.0,
+  "size":"SMALL"
 },{
   "code_name":"ae3ede123sqd",
   "name":"Vénus",
-  "age":4000000000
+  "type":"telluric",
+  "age":4000000000,
+  "texture":"venus",
+  "rings":true,
+  "atmosphere":true,
+  "orbital_speed":4.0,
+  "size":"NORMAL"
 },{
   "code_name":"ae3ede123sqd",
+  "name":"Cérès",
+  "type":"telluric",
+  "age":4000000000,
+  "texture":"venus",
+  "rings":false,
+  "atmosphere":false,
+  "orbital_speed":0.5,
+  "size":"LARGE"
+},{
+  "code_name":"az123sqd",
   "name":"Pluton",
-  "age":4000000000
+  "type":"telluric",
+  "age":4000000000,
+  "texture":"pluto",
+  "rings":false,
+  "atmosphere":false,
+  "orbital_speed":30.0,
+  "size":"NORMAL"
+},{
+  "code_name":"ae3ede123dsqd",
+  "name":"Jupiter",
+  "type":"gas",
+  "age":4000000000,
+  "texture":"jupiter",
+  "rings":false,
+  "atmosphere":false,
+  "orbital_speed":1000.0,
+  "size":"XXXL"
+},{
+  "code_name":"ae3ede123dsqd",
+  "name":"Uranus",
+  "type":"gas",
+  "age":4000000000,
+  "texture":"uranus",
+  "rings":false,
+  "atmosphere":false,
+  "orbital_speed":3.0,
+  "size":"XL"
+},{
+  "code_name":"ae3ede123dsqd",
+  "name":"Neptune",
+  "type":"gas",
+  "age":4000000000,
+  "texture":"neptune",
+  "rings":false,
+  "atmosphere":false,
+  "orbital_speed":8.0,
+  "size":"XL"
+},{
+  "code_name":"ae3ede123dsqd",
+  "name":"Saturne",
+  "type":"gas",
+  "age":4000000000,
+  "texture":"saturn",
+  "rings":true,
+  "atmosphere":false,
+  "orbital_speed":10.0,
+  "size":"XXXL"
 }]
