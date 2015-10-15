@@ -1,4 +1,4 @@
-angular.module('yo').controller('ModalsController', function ($scope, $modal, $log) {
+angular.module('yo').controller('ModalsController', function ($scope, $modal) {
   /* jshint validthis: true */
   var vm = this;
 
