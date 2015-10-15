@@ -20,14 +20,12 @@ class BootStrap {
     private void planetTestData() {
         println "Start loading planets into database"
 
-        def description = new Description(text: "Hehehe")
-        assert description.save(failOnError:true, flush:true, insert: true)
         def planet = new Planet(code_name: "XO-000",age:0, name: 'kelto',
                                 image: "image", description: "description",
                                 type: GAS)
-        planet.addToDescriptions(description)
         assert planet.save(failOnError:true, flush:true, insert: true)
-        planet.errors = null
+        def description = new Description(text: "Hehehe", planet: planet)
+        assert description.save(failOnError:true, flush:true, insert: true)
 
         planet = new Planet(code_name: "XO-001",age:0, name: 'keltorin',
                             image: "image", description: "desc",

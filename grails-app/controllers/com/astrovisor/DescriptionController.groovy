@@ -15,14 +15,22 @@ class DescriptionController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
-    def index(Description description) {
-        if(description == null) {
-            respond Description.list(), [status: OK]
+    DescriptionService descriptionService
 
-        } else {
-            respond description, [status: OK]
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def index(int max) {
+        max = Math.min(max ?: 10, 100)
+        int offset = params.offset ?: 0
+        def descriptions = [];
+        if(params.planet)
+            descriptions = descriptionService.getDescriptionsOfPlanet(params.planet, offset, max)
+        else{
+            if(params.trade)
+                descriptions = descriptionService.getDescriptionsOfTrade(params.trade, offset, max)
+            else
+                descriptions = descriptionService.getDescriptions(offset, max)
         }
+        respond descriptions, [status: OK]
     }
 
     @Transactional
@@ -32,7 +40,6 @@ class DescriptionController {
             render status: NOT_FOUND
             return
         }
-//        def description = new Description(text: null)
         description.validate()
         if (description.hasErrors()) {
             render status: NOT_ACCEPTABLE

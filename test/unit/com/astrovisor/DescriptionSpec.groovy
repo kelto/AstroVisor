@@ -2,22 +2,19 @@ package com.astrovisor
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
+import spock.lang.Unroll
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
 @TestFor(Description)
+@Mock([Planet, Trade])
 class DescriptionSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
+    @Unroll
     void "test invalid Description"() {
         given: "An invalid Description and a Planet"
-        Description description = new Description(text: desc_text)
+        Description description = new Description(text: desc_text, planet: planet, trade: trade)
 
         when: "We try to validate"
         def isValid = description.validate()
@@ -26,12 +23,17 @@ class DescriptionSpec extends Specification {
         isValid == false
 
         where:
-        desc_text << ["", null, "   "]
+        desc_text | planet         | trade
+        ""        | Mock(Planet)   | Mock(Trade)
+        null      | Mock(Planet)   | Mock(Trade)
+        "   "     | Mock(Planet)   | Mock(Trade)
+        "text"    | null           | null
+        "text"    | Mock(Planet)   | Mock(Trade)
     }
 
     void "test valid Description"() {
         given: "A valid description"
-        Description description = new Description(text: desc_text)
+        Description description = new Description(text: desc_text, planet: planet, trade: trade)
 
         when: "We try to validate"
         def isValid = description.validate()
@@ -40,7 +42,8 @@ class DescriptionSpec extends Specification {
         isValid == true
 
         where:
-        desc_text << ["plop"]
-
+        desc_text | planet       | trade
+        "plop"    | Mock(Planet) | null
+        "plop"    | null         | Mock(Trade)
     }
 }
