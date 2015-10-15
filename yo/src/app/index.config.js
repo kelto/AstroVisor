@@ -21,12 +21,6 @@
     var baseUrl = 'http://localhost:3000/api';
     $authProvider.loginUrl = baseUrl + '/login';
     $authProvider.signupUrl = baseUrl + '/users';
-    $authProvider.oauth1({
-      name: 'astrovisor',
-      url: 'http://localhost:3000/api/login',
-      type: null,
-      popupOptions: null
-    });
   }
 
 })();
