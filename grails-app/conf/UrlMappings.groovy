@@ -17,6 +17,9 @@ class UrlMappings {
             "/trades/$id?"(controller: "trade") {
                 action = [GET: "index", PUT: "update", POST: "save", DELETE: "delete"]
             }
+            "/users/$id?"(controller: "user") {
+                action = [POST: "save", PUT: "update"]
+            }
         }
 
 
