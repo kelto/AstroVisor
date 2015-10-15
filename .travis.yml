@@ -9,7 +9,6 @@ notifications:
       - julien.wallart@outlook.com
 
 script:
-    - ./grailsw refresh-dependencies
     - ./grailsw test-app -coverage -xml
 after_success:
     - ./grailsw coveralls
