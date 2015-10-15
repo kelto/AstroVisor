@@ -15,3 +15,10 @@ gulp.task('scripts', function () {
     .pipe(browserSync.reload({ stream: true }))
     .pipe($.size())
 });
+
+gulp.task('jshint', function() {
+  return gulp.src(path.join(conf.paths.src, '/app/**/*.js'))
+    .pipe($.eslint())
+    .pipe($.eslint.format())
+    .pipe($.size())
+});
