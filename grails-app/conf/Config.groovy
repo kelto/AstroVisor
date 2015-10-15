@@ -125,6 +125,10 @@ log4j = {
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.astrovisor.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.astrovisor.UserRole'
 grails.plugin.springsecurity.authority.className = 'com.astrovisor.Role'
+grails.plugin.springsecurity.filterChain.chainMap = [
+    '/api/**': 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter',
+    '/**': 'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter'
+        ]
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
 	'/index':                         ['permitAll'],
