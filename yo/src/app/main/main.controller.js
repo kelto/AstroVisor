@@ -6,16 +6,13 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr,$http) {
+  function MainController($timeout, webDevTec, toastr) {
     var vm = this;
 
     vm.awesomeThings = [];
     vm.classAnimation = '';
     vm.creationDate = 1443277623774;
     vm.showToastr = showToastr;
-    $http.get('/api/planet').success(function(data) {
-      vm.planets = data;
-    });
 
     activate();
 
