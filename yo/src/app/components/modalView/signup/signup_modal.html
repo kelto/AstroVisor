@@ -1,18 +1,32 @@
 <div class="modal-header"><h4>SignUp</h4></div>
-<!--
-<div class="modal-body">Voulez-vous supprimer cette élement ? </div>
--->
+
 <div class="modal-body">
 
-    <form id="signupForm">
-      <div class="form-group">
-  		<label for="usernameInput" class="control-label">Username</label><input class="form-control" id="usernameInput" type="text" name="uname">
-
-  		<label for="passwordInput" class="control-label">Password</label><input class="form-control" id="passwordInput" type="text" name="pass">
-
-  		<label for="confirmPassInput" class="control-label">Confirm Password</label> <input class="form-control" id="confirmPassInput" type="text" name="cpass">
-          </div>
-	</form>
-  <button class="btn btn-primary" ng-click="signup.signup()">Confirmer</button>
-	<button class="btn btn-danger" ng-click="signup.cancel()">Annuler</button>
+  <form id="form" name="form" novalidate>
+    <div class="form-group"  ng-class="{ 'has-error' : form.username.$dirty && form.username.$invalid}">
+      <label for="usernameInput" class="control-label">Username</label>
+      <input ng-model="signup.user.username" class="form-control" id="usernameInput" type="text" name="username" ng-minlength="4" required>
+      <div ng-messages="form.username.$dirty && form.username.$error">
+        <p ng-message="required">Your username is required.</p>
+        <p ng-message="minlength">Your username should be at least 4 characters.</p>
+      </div>
+    </div>
+    <div class="form-group"  ng-class="{ 'has-error' : form.password.$dirty && form.password.$invalid}">
+      <label for="passwordInput" class="control-label">Password</label>
+      <input ng-model="signup.user.password" class="form-control" id="passwordInput" type="password" name="password" ng-minlength="5" required>
+      <div ng-messages="form.password.$dirty && form.password.$error">
+        <p ng-message="required">Your password is required.</p>
+        <p ng-message="minlength">Your password should be at least 5 characters.</p>
+      </div>
+    </div>
+    <div class="form-group"  ng-class="{ 'has-error' : form.confirmPassword.$dirty && form.confirmPassword.$invalid}">
+      <label for="confirmPassInput" class="control-label">Confirm Password</label>
+      <input ng-model="signup.confirmPassword" class="form-control" id="confirmPassInput" type="password" name="confirmPassword" data-confirm-password="signup.user.password" required>
+      <div ng-messages="form.confirmPassword.$dirty && form.confirmPassword.$error">
+        <p ng-message="confirm-password">Your password must match.</p>
+      </div>
+    </div>
+    <button class="btn btn-primary" ng-click="signup.signup()" type="submit">Confirmer</button>
+    <button class="btn btn-danger" ng-click="signup.close()">Annuler</button>
+  </form>
 </div>
