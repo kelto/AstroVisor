@@ -21,6 +21,7 @@
     var baseUrl = 'http://localhost:3000/api';
     $authProvider.loginUrl = baseUrl + '/login';
     $authProvider.signupUrl = baseUrl + '/users';
+    $authProvider.tokenName = 'access_token';
   }
 
 })();

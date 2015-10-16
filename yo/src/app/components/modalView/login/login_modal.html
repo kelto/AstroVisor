@@ -2,13 +2,27 @@
 
 
 <div class="modal-body">
-    <form id="loginForm">
-      <div class="form-group">
-  		<label for="username" class="control-label">Username</label><input id="username" type="text" name="uname" placeholder="Enter your username" class="form-control">
-  		<label for="password" class="control-label">Password</label> <input id="password" type="text" name="pass" placeholder="Enter your password" class="form-control">
+  <form id="form" name="form" novalidate>
+    <div class="form-group"  ng-class="{ 'has-error' : form.username.$dirty && form.username.$invalid}">
+      <label for="usernameInput" class="control-label">Username</label>
+      <input ng-model="login.user.username" class="form-control" id="usernameInput" type="text" name="username" ng-minlength="4" required>
+      <div ng-messages="form.username.$dirty && form.username.$error">
+        <p ng-message="required">Your username is required.</p>
+        <p ng-message="minlength">Your username should be at least 4 characters.</p>
       </div>
-	</form>
-  <button class="btn btn-primary" ng-click="login.login()">Submit</button>
-  <button class="btn btn-danger" ng-click="youla()">Annuler</button>
+    </div>
+    <div class="form-group"  ng-class="{ 'has-error' : form.password.$dirty && form.password.$invalid}">
+      <label for="passwordInput" class="control-label">Password</label>
+      <input ng-model="login.user.password" class="form-control" id="passwordInput" type="password" name="password" ng-minlength="5" required>
+      <div ng-messages="form.password.$dirty && form.password.$error">
+        <p ng-message="required">Your password is required.</p>
+        <p ng-message="minlength">Your password should be at least 5 characters.</p>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" ng-click="login.login()" type="submit">Confirmer</button>
+    <button class="btn btn-danger" ng-click="login.close()">Annuler</button>
+  </form>
+
 
 </div>
