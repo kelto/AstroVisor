@@ -7,19 +7,26 @@
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
-      <div ng-controller="ModalsController as modals">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active">
-            <a ng-click="modals.login()">Login</a>
+        <ul class="nav navbar-nav navbar-right" ng-if="! (vm.isAuthenticated())">
+          <li>
+            <a ng-click="vm.login()">Login</a>
           </li>
           <li>
-            <a ng-click="modals.signup()">Sign Up</a>
+            <a ng-click="vm.signup()">Sign Up</a>
+          </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right" ng-if="vm.isAuthenticated()">
+          <li>
+            <a ng-click="vm.user()">User</a>
           </li>
           <li>
-            <a ng-click="modals.planets()">planet</a>
+            <a ng-click="vm.logout()">Logout</a>
+          </li>
+            </span>
+          <li>
+            <a ng-click="vm.planets()">planet</a>
           </li>
         </ul>
-      </div>
     </div>
   </div>
 </nav>
