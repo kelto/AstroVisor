@@ -25,7 +25,7 @@
     };
 
     vm.logout = function () {
-
+      $auth.logout();
     };
 
     vm.user = function () {
