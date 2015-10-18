@@ -10,9 +10,6 @@
     var directive = {
       restrict: 'E',
       templateUrl: 'app/components/map/map.html',
-      scope: {
-        creationDate: '='
-      },
       link: linkFunc,
       controller: MapController,
       controllerAs: 'vm',

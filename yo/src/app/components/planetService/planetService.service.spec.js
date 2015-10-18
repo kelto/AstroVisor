@@ -83,27 +83,36 @@
       });
 
       var data = [{
-        'code_name':'ae3ede123sqd',
-        'name':'Vénus',
-        'age':4000000000,
-        'texture':'',
-        'rings':false,
-        'orbital_speed':2.0,
-        'size':'SMALL'
-      },{
-        'code_name':'az123sqd',
-        'name':'Pluton',
-        'age':4000000000,
-        'texture':'',
-        'rings':false,
-        'orbital_speed':2.0,
-        'size':'SMALL'
+        "name": "Alpha Centauri",
+        "planets": [
+          {
+            "code_name": "ae3ede123swwwwwqd",
+            "name": "Pandora",
+            "type": "gas",
+            "age": 4000000000,
+            "texture": "neptune",
+            "rings": false,
+            "atmosphere": false,
+            "orbital_speed": 6.0,
+            "size": "XXL"
+          },{
+            "code_name":"ae3ede123sqd",
+            "name":"Cérès",
+            "type":"telluric",
+            "age":4000000000,
+            "texture":"MARS",
+            "rings":false,
+            "atmosphere":true,
+            "orbital_speed":10.5,
+            "size":"NORMAL"
+          }
+        ]
       }];
 
       it('it should return data', function(){
         $httpBackend.when('GET',  planetService.getUri()).respond(200, data);
         planetService.fetchPlanets().then(function(){
-          var code = 'az123sqd';
+          var code = 'ae3ede123sqd';
           var res = planetService.getPlanetByCodeName(code);
           expect(res).toEqual(jasmine.any(Object));
           expect(res['code_name']).toEqual(code);

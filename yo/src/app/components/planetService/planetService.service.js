@@ -45,7 +45,24 @@
           throw 'No planets available.';
         }
 
-        var res = $filter('filter')(planets, {'code_name':code}, true);
+        var predicate = function(value, index, array){
+          var res = false;
+          console.log(code);
+          console.log(value);
+          console.log(index);
+          console.log(array);
+          value.planets.forEach(function(planet){
+            if(planet.code_name == code){
+              console.log('OKAY');
+              //console.log(planet.code_name);
+              //console.log(code);
+              res = true;
+            }
+          });
+          return res;
+        };
+
+        var res = $filter('filter')(planets, predicate, true);
         if(res.length === 0){
           throw 'Planet not found.';
         }
