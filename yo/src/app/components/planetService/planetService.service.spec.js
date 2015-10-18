@@ -4,7 +4,6 @@
   describe('test a planetService', function() {
     var planetService;
     var $httpBackend;
-    var $log;
 
     beforeEach(module('yo'));
     beforeEach(inject(function(_planetService_, _$httpBackend_) {

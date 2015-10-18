@@ -1,12 +1,12 @@
 (function() {
-  //'use strict';
+  'use strict';
 
   angular
       .module('yo')
       .directive('map', map);
 
   /** @ngInject */
-  function map($log, planetService, sphereService) {
+  function map($log, $timeout, planetService, sphereService) {
     var directive = {
       restrict: 'E',
       templateUrl: 'app/components/map/map.html',
@@ -23,22 +23,39 @@
 
     function linkFunc(scope, el, attr, vm) {
       var watcher;
-      $log.debug(el);
 
-      watcher = scope.$watch('vm.planets', function() {
-        angular.forEach(vm.planets, function(planet) {
-          var sphere = sphereService.renderPlanet(planet);
-          angular.element(sphere).attr('id', planet.code_name);
-          angular.element(sphere).click(function(){
-            alert(planet.name);
-          });
-          el.find('#map-contents').append(sphere);
-        });
+      watcher = scope.$watch('vm.planets', function(){
+        for(var i=0; i<vm.planets.length; i++){
+          var system = vm.planets[i];
+          var stellarSystem = angular.element(' <div class="section stellar-system"></div>');
+          stellarSystem.attr('id', system.name);
+          el.find('#map-contents').append(stellarSystem);
+
+          for(var j=0; j<system.planets.length; j++){
+            var planet = system.planets[j];
+            var planetWrapper = angular.element('<div class="slide" data-anchor="'+planet.name+'"></div>');
+            planetWrapper.append(renderPlanet(planet));
+            stellarSystem.append(planetWrapper);
+          }
+        }
+
+        el.find('#map-contents').fullpage();
       });
 
       scope.$on('$destroy', function () {
         watcher();
       });
+    }
+
+    function renderPlanet(planet){
+      var sphere = sphereService.renderPlanet(planet);
+      angular.element(sphere).attr('class', 'planet');
+      angular.element(sphere).attr('id', planet.code_name);
+      angular.element(sphere).click(function(){
+        alert(planet.name);
+      });
+
+      return sphere;
     }
 
     /** @ngInject */
@@ -50,7 +67,6 @@
 
       function activate(){
         return getPlanets().then(function(){
-          $log.info('Planets fetched.');
         });
       }
 

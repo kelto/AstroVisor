@@ -21,7 +21,8 @@
     "angular-mocks": "~1.4.2",
     "three.js": "~0.72.0",
     "threex.planets": "https://github.com/Wallart/threex.planets/archive/master.zip",
-    "satellizer": "~0.12.5"
+    "satellizer": "~0.12.5",
+    "fullpage.js": "fullpage#~2.7.4"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.2"

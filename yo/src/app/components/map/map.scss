@@ -5,18 +5,17 @@ body {
 #map {
   position:absolute;
   width:100%;
-  height:600px;
   left:0;
-}
 
-#map-contents {
-  width:100%;
-  position:relative;
-}
+  .section {
+    text-align:center;
+    font-size: 3em;
+    color: whitesmoke;
+    /* This is important to make the button position relative to the section*/
+    position:relative;
+  }
 
-.planet {
-  border:1px solid red;
-  /*position:absolute;
-  top:0;
-  left:0;*/
+  .fp-controlArrow {
+    opacity:.5;
+  }
 }
