@@ -8,14 +8,6 @@
       $modal.open({
         animation: true,
         templateUrl: 'app/components/modalView/login/login_modal.html',
-        /*resolve: {
-          newPath: function(){
-            return 'home.login'
-          },
-          oldPath: function(){
-            return 'home'
-          }
-        },*/
         controller: 'LoginController as login'
       }).result.then(function() {
         }, function(){
@@ -28,7 +20,10 @@
         animation: true,
         templateUrl: 'app/components/modalView/signup/signup_modal.html',
         controller: 'SignupController as signup'
-      });
+      }).result.then(function() {
+        }, function(){
+          $state.go('home')
+        });
     };
 
     vm.isAuthenticated = function () {

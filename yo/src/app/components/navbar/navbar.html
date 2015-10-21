@@ -10,10 +10,11 @@
         <ul class="nav navbar-nav navbar-right" ng-if="! (vm.isAuthenticated())">
           <li>
             <!--<a ng-click="vm.login()">Login</a>-->
-            <a ui-sref="home.login({path: 'login'})" class="btn btn-default" ng-click="vm.login()">Login</a>
+            <a ui-sref="home.login({path: 'login'})" ng-click="vm.login()">Login</a>
           </li>
           <li>
-            <a ng-click="vm.signup()">Sign Up</a>
+            <!--<a ng-click="vm.signup()">Sign Up</a>-->
+            <a ui-sref="home.signup({path: 'signup'})" ng-click="vm.signup()">Sign Up</a>
           </li>
           </ul>
           <ul class="nav navbar-nav navbar-right" ng-if="vm.isAuthenticated()">

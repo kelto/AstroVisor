@@ -15,6 +15,16 @@
         controllerAs: 'main'
       });
 
+    $stateProvider
+      .state('home.login', {
+        url: ':path/'
+        //templateUrl: 'app/components/modalView/login/login_modal.html',
+        //controller: 'LoginController as login'
+      })
+      .state('home.signup', {
+        url: ':path/'
+      });
+
     $urlRouterProvider.otherwise('/');
   }
 
