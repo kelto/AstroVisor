@@ -1,12 +1,20 @@
 /*global THREE, THREEx*/
-
-(function() {
+(function(){
   'use strict';
 
-  angular.module('yo').factory('sphereService', sphereService);
+  angular.module('yo').directive('asSphere', sphere);
 
-  /** @ngInject */
-  function sphereService($log, $document) {
+  sphere.$inject = ['$document', 'planets'];
+  function sphere($document, planets){
+    var directive = {
+      restrict:'A',
+      require:'^asMap',
+      link:linkFunc
+    };
+
+    var baseURL = 'images/textures/';
+    var docSize = 90*$document.height()/100;
+    var standardWidth = docSize, standardHeight = docSize;
     var sizeEnum = {
       XS:0.3,
       SMALL:0.4,
@@ -17,16 +25,16 @@
       XXL:0.95,
       XXXL:1
     };
-    var baseURL = 'images/textures/';
 
-    var docSize = 90*$document.height()/100;
-    var standardWidth = docSize, standardHeight = docSize;
+    return directive;
 
-    var service = {
-      renderPlanet:renderer
-    };
+    function linkFunc(scope, el, attr, vm){
+      var planetId = attr.id;
+      var planet = planets.getPlanetByCodeName(planetId);
+      el.append(renderer(planet));
 
-    return service;
+      vm.newRenderedPlanet();
+    }
 
     function renderer(data){
       var width = sizeEnum[data.size]*standardWidth;
@@ -78,9 +86,6 @@
         renderer.render(scene, camera);
       });
 
-      //////////////////////////////////////////////////////////////////////////////////
-      //		loop runner							//
-      //////////////////////////////////////////////////////////////////////////////////
       var lastTimeMsec = null;
       requestAnimationFrame(function animate(nowMsec) {
         // keep looping
@@ -212,14 +217,14 @@
         var imageTrans	= new Image();
         imageTrans.addEventListener("load", function(){
           // create dataTrans ImageData for earthcloudmaptrans
-          var canvasTrans		= angular.element('<canvas></canvas>').get(0);
+          var canvasTrans	= angular.element('<canvas></canvas>').get(0);
           canvasTrans.width	= imageTrans.width;
-          canvasTrans.height	= imageTrans.height;
-          var contextTrans	= canvasTrans.getContext('2d');
+          canvasTrans.height = imageTrans.height;
+          var contextTrans = canvasTrans.getContext('2d');
           contextTrans.drawImage(imageTrans, 0, 0);
-          var dataTrans		= contextTrans.getImageData(0, 0, canvasTrans.width, canvasTrans.height);
+          var dataTrans	= contextTrans.getImageData(0, 0, canvasTrans.width, canvasTrans.height);
           // merge dataMap + dataTrans into dataResult
-          var dataResult		= contextMap.createImageData(canvasResult.width, canvasResult.height);
+          var dataResult = contextMap.createImageData(canvasResult.width, canvasResult.height);
           for(var y = 0, offset = 0; y < imageMap.height; y++){
             for(var x = 0; x < imageMap.width; x++, offset += 4){
               dataResult.data[offset+0]	= dataMap.data[offset+0];
@@ -229,21 +234,21 @@
             }
           }
           // update texture with result
-          contextResult.putImageData(dataResult,0,0);
+          contextResult.putImageData(dataResult, 0, 0);
           material.map.needsUpdate = true;
         });
-        imageTrans.src	= baseURL+texture+'_ringpattern.gif';
+        imageTrans.src = baseURL+texture+'_ringpattern.gif';
       }, false);
-      imageMap.src	= baseURL+texture+'_ringcolor.jpg';
+      imageMap.src = baseURL+texture+'_ringcolor.jpg';
 
-      var geometry	= new THREEx.Planets._RingGeometry(0.55, 0.75, 64);
-      var material	= new THREE.MeshPhongMaterial({
-        map		: new THREE.Texture(canvasResult),
-        side		: THREE.DoubleSide,
-        transparent	: true,
-        opacity		: 0.8
+      var geometry = new THREEx.Planets._RingGeometry(0.55, 0.75, 64);
+      var material = new THREE.MeshPhongMaterial({
+        map:new THREE.Texture(canvasResult),
+        side:THREE.DoubleSide,
+        transparent:true,
+        opacity:0.8
       });
-      var mesh	= new THREE.Mesh(geometry, material);
+      var mesh = new THREE.Mesh(geometry, material);
       mesh.lookAt(new THREE.Vector3(0.5,-4,1));
       return mesh;
     }

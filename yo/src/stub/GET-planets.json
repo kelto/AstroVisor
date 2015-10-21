@@ -1,7 +1,7 @@
 [{
   "name":"Sol",
   "planets":[{
-    "code_name":"ae3ede123sqd",
+    "code_name":"1",
     "name":"Mercure",
     "type":"telluric",
     "age":4000000000,
@@ -11,7 +11,7 @@
     "orbital_speed":6.0,
     "size":"SMALL"
   },{
-    "code_name":"ae3ede123sqd",
+    "code_name":"2",
     "name":"Vénus",
     "type":"telluric",
     "age":4000000000,
@@ -21,7 +21,7 @@
     "orbital_speed":4.0,
     "size":"NORMAL"
   },{
-    "code_name":"ae3ede123sqd",
+    "code_name":"3",
     "name":"La Terre",
     "type":"telluric",
     "age":4000000000,
@@ -31,7 +31,7 @@
     "orbital_speed":1.0,
     "size":"NORMAL"
   },{
-    "code_name":"ae3ede123sqd",
+    "code_name":"4",
     "name":"Mars",
     "type":"telluric",
     "age":4000000000,
@@ -41,7 +41,7 @@
     "orbital_speed":3.0,
     "size":"MEDIUM"
   },{
-    "code_name":"ae3ede123dsqd",
+    "code_name":"5",
     "name":"Jupiter",
     "type":"gas",
     "age":4000000000,
@@ -51,7 +51,7 @@
     "orbital_speed":10.0,
     "size":"XXXL"
   },{
-    "code_name":"ae3ede123dsqd",
+    "code_name":"6",
     "name":"Saturne",
     "type":"gas",
     "age":4000000000,
@@ -61,7 +61,7 @@
     "orbital_speed":10.0,
     "size":"XXXL"
   },{
-    "code_name":"ae3ede123dsqd",
+    "code_name":"7",
     "name":"Uranus",
     "type":"gas",
     "age":4000000000,
@@ -71,7 +71,7 @@
     "orbital_speed":3.0,
     "size":"XL"
   },{
-    "code_name":"ae3ede123dsqd",
+    "code_name":"8",
     "name":"Neptune",
     "type":"gas",
     "age":4000000000,
@@ -81,7 +81,7 @@
     "orbital_speed":8.0,
     "size":"XL"
   },{
-    "code_name":"az123sqd",
+    "code_name":"9",
     "name":"Pluton",
     "type":"telluric",
     "age":4000000000,
@@ -96,7 +96,7 @@
   "name": "Alpha Centauri",
   "planets": [
     {
-      "code_name": "ae3ede123sqd",
+      "code_name": "10",
       "name": "Pandora",
       "type": "gas",
       "age": 4000000000,
@@ -106,7 +106,7 @@
       "orbital_speed": 6.0,
       "size": "XXL"
     },{
-      "code_name":"ae3ede123sqd",
+      "code_name":"11",
       "name":"Cérès",
       "type":"telluric",
       "age":4000000000,
