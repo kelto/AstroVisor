@@ -9,7 +9,8 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
         <ul class="nav navbar-nav navbar-right" ng-if="! (vm.isAuthenticated())">
           <li>
-            <a ng-click="vm.login()">Login</a>
+            <!--<a ng-click="vm.login()">Login</a>-->
+            <a ui-sref="home.login({path: 'login'})" class="btn btn-default" ng-click="vm.login()">Login</a>
           </li>
           <li>
             <a ng-click="vm.signup()">Sign Up</a>
@@ -22,7 +23,6 @@
           <li>
             <a ng-click="vm.logout()">Logout</a>
           </li>
-            </span>
           <li>
             <a ng-click="vm.planets()">planet</a>
           </li>

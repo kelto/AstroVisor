@@ -1,6 +1,6 @@
 (function () {
 
-  angular.module('yo').controller('NavbarController', function ($scope, $modal, $auth) {
+  angular.module('yo').controller('NavbarController', function ($scope, $modal, $auth, $state) {
     /* jshint validthis: true */
     var vm = this;
 
@@ -8,8 +8,19 @@
       $modal.open({
         animation: true,
         templateUrl: 'app/components/modalView/login/login_modal.html',
+        /*resolve: {
+          newPath: function(){
+            return 'home.login'
+          },
+          oldPath: function(){
+            return 'home'
+          }
+        },*/
         controller: 'LoginController as login'
-      });
+      }).result.then(function() {
+        }, function(){
+          $state.go('home')
+        });
     };
 
     vm.signup = function () {
