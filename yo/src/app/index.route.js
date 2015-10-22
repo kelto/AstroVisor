@@ -14,7 +14,6 @@
         controller: 'MainController',
         controllerAs: 'main'
       });
-
     $stateProvider
       .state('home.login', {
         url: ':path/'
@@ -23,6 +22,17 @@
       })
       .state('home.signup', {
         url: ':path/'
+      })
+      .state('home.planets', {
+        url: 'path:/'
+      });
+
+    $stateProvider
+      .state('home.logged', {
+        url: 'path:/'
+      })
+      .state('home.logged.user', {
+        url: 'path'
       });
 
     $urlRouterProvider.otherwise('/');

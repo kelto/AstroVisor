@@ -1,4 +1,4 @@
-angular.module('yo').controller('LoginController', function ($scope, $modalInstance, $log, $auth, $state/*, newPath, oldPath*/) {
+angular.module('yo').controller('LoginController', function ($scope, $modalInstance, $log, $auth) {
   /* jshint validthis: true */
   var vm = this;
   vm.user = {
@@ -7,10 +7,8 @@ angular.module('yo').controller('LoginController', function ($scope, $modalInsta
   };
 
   vm.login = function() {
-
     $auth.login(vm.user)
       .then(function() {
-        $state.go('home');
         $modalInstance.close();
       })
       .catch(function(response) {
@@ -22,7 +20,6 @@ angular.module('yo').controller('LoginController', function ($scope, $modalInsta
 
   vm.close = function() {
     $modalInstance.dismiss('cancel');
-    $state.go('home.login');
   };
 
 });

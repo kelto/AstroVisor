@@ -9,12 +9,13 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
         <ul class="nav navbar-nav navbar-right" ng-if="! (vm.isAuthenticated())">
           <li>
-            <!--<a ng-click="vm.login()">Login</a>-->
             <a ui-sref="home.login({path: 'login'})" ng-click="vm.login()">Login</a>
           </li>
           <li>
-            <!--<a ng-click="vm.signup()">Sign Up</a>-->
             <a ui-sref="home.signup({path: 'signup'})" ng-click="vm.signup()">Sign Up</a>
+          </li>
+          <li>
+            <a ng-click="vm.planets()">planet</a>
           </li>
           </ul>
           <ul class="nav navbar-nav navbar-right" ng-if="vm.isAuthenticated()">
@@ -22,7 +23,7 @@
             <a ng-click="vm.user()">User</a>
           </li>
           <li>
-            <a ng-click="vm.logout()">Logout</a>
+            <a  ui-sref="home({path: ''})" ng-click="vm.logout()">Logout</a>
           </li>
           <li>
             <a ng-click="vm.planets()">planet</a>
