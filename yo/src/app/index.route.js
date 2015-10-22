@@ -5,6 +5,7 @@
     .module('yo')
     .config(routerConfig);
 
+
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -35,7 +36,7 @@
         url: ':path/'
       });
 
+
     $urlRouterProvider.otherwise('/');
   }
-
 })();
