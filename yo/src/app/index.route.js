@@ -6,7 +6,7 @@
     .config(routerConfig);
 
   /** @ngInject */
-  function routerConfig($stateProvider, $urlRouterProvider) {
+  function routerConfig($stateProvider, $urlRouterProvider, modalStateProvider) {
     $stateProvider
       .state('home', {
         url: '/',
@@ -14,6 +14,21 @@
         controller: 'MainController',
         controllerAs: 'main'
       });
+    modalStateProvider
+      .state('home.login', {
+        url: 'login',
+        animation: true,
+        templateUrl: 'app/components/modalView/login/login_modal.html',
+        controller: 'LoginController as login'
+
+      })
+      .state('home.signup', {
+        url: 'signup',
+        animation: true,
+        templateUrl: 'app/components/modalView/signup/signup_modal.html',
+        controller: 'SignupController as signup'
+      });
+
 
     $urlRouterProvider.otherwise('/');
   }
