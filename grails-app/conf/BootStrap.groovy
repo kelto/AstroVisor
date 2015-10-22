@@ -26,6 +26,8 @@ class BootStrap {
         assert planet.save(failOnError:true, flush:true, insert: true)
         def description = new Description(text: "Hehehe", planet: planet)
         assert description.save(failOnError:true, flush:true, insert: true)
+        description = new Description(text: "Second desc", planet: planet);
+        assert description.save(failOnError:true, flush:true, insert: true)
 
         planet = new Planet(code_name: "XO-001",age:0, name: 'keltorin',
                             image: "image", description: "desc",
