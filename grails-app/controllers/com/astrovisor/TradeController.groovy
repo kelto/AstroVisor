@@ -18,7 +18,7 @@ class TradeController {
         int offset = params.offset ?: 0
         def trades = []
         if(params.planet)
-            trades = tradeService.getTradesOfPlanet(params.trade, offset, max)
+            trades = tradeService.getTradesOfPlanet(params.planet, offset, max)
         else
             trades = tradeService.getTrades(offset, max)
         respond trades, [status: OK]
