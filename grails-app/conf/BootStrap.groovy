@@ -22,14 +22,14 @@ class BootStrap {
 
         def planet = new Planet(code_name: "XO-000",age:0, name: 'kelto',
                                 image: "image", description: "description",
-                                type: GAS)
+                                type: GAS, region: "region")
         assert planet.save(failOnError:true, flush:true, insert: true)
         def description = new Description(text: "Hehehe", planet: planet)
         assert description.save(failOnError:true, flush:true, insert: true)
 
         planet = new Planet(code_name: "XO-001",age:0, name: 'keltorin',
                             image: "image", description: "desc",
-                            type: TELLURIC)
+                            type: TELLURIC, region: "region")
         assert planet.save(failOnError:true, flush:true, insert: true)
 
         assert Planet.count == 2;

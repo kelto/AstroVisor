@@ -20,6 +20,7 @@ class PlanetControllerSpec extends Specification {
         params['age'] = 10
         params['image'] = 'image'
         params['type'] = GAS
+        params['region'] = "region"
     }
 
     @Unroll

@@ -21,7 +21,9 @@ class PlanetSpec extends Specification {
     //todo : change last row planet_age to 100, should still pass.
     void "test invalid planet"() {
         given : "An invalid planet"
-        Planet planet = new Planet(code_name: planet_code_name, age: planet_age, name: planet_name, image: image, type: type)
+        Planet planet = new Planet(code_name: planet_code_name, age: planet_age,
+                                   name: planet_name, image: image, type: type,
+                                   region: region)
 
         when: "We try to validate"
         def isValid = planet.validate()
@@ -30,18 +32,22 @@ class PlanetSpec extends Specification {
         isValid == false
 
         where:
-        planet_code_name | planet_age | planet_name | image  | type
-        ""               | 0          | null        | null   | GAS
-        "XO-344"         | -1         | null        | null   | GAS
-        null             | 100        | null        | null   | GAS
-        "XO-355"         | -100       | ""          | ""     | GAS
-        "XO-355"         | -100       | ""          | ""     | null
+        planet_code_name | planet_age | planet_name | image  | type | region
+        ""               | 0          | null        | null   | GAS  | "region"
+        "XO-344"         | -1         | null        | null   | GAS  | "region"
+        null             | 100        | null        | null   | GAS  | "region"
+        "XO-355"         | -100       | ""          | ""     | GAS  | "region"
+        "XO-355"         | -100       | ""          | ""     | null | "region"
+        "XO-355"         | -100       | ""          | ""     | null | ""
+        "XO-355"         | -100       | ""          | ""     | null | null
 
     }
 
     void "test valid planet" () {
         given: "A valid planet"
-        Planet planet = new Planet(code_name: planet_code_name, age: planet_age, name: planet_name, image: image, type: type)
+        Planet planet = new Planet(code_name: planet_code_name, age: planet_age,
+                                   name: planet_name, image: image, type: type,
+                                   region: region)
 
         when: "We try to validate"
         def isValid = planet.validate()
@@ -50,10 +56,10 @@ class PlanetSpec extends Specification {
         isValid == true
 
         where:
-        planet_code_name | planet_age | planet_name   | image   | type
-        "Test"           | 0          | null          | "image" | GAS
-        "XO-345"         | 1          | "HelloPlanet" | "image" | GAS
-        "XA-033"         | 100        | null          | "image" | GAS
-        "XO-356"         | 100        | "ByePlanet"   | "image" | TELLURIC
+        planet_code_name | planet_age | planet_name   | image   | type     | region
+        "Test"           | 0          | null          | "image" | GAS      | "region"
+        "XO-345"         | 1          | "HelloPlanet" | "image" | GAS      | "region"
+        "XA-033"         | 100        | null          | "image" | GAS      | "region"
+        "XO-356"         | 100        | "ByePlanet"   | "image" | TELLURIC | "region"
     }
 }

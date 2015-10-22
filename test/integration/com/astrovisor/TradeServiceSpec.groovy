@@ -13,10 +13,7 @@ class TradeServiceSpec extends Specification {
 
     void "test save or update"() {
         given:"A trade"
-            def planet = new Planet(code_name: "XO-000",age:0, name: 'kelto',
-                                    image: "image", description: "description",
-                                    type: GAS)
-            planet.save()
+            def planet = Planet.build()
             def trade = new Trade(name: "trade", planet: planet)
 
         when:

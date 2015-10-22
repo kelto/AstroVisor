@@ -5,6 +5,7 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 import spock.lang.Unroll
+import grails.buildtestdata.mixin.Build
 
 import static org.springframework.http.HttpStatus.*
 
@@ -12,14 +13,12 @@ import static com.astrovisor.Planet.Type.*
 
 @TestFor(TradeController)
 @Mock([Trade, TradeService, Planet])
+@Build([Planet])
 class TradeControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
-        def planet = new Planet(code_name: "XO-000",age:0, name: 'kelto',
-                                image: "image", description: "description",
-                                type: GAS)
-        planet.save(flush:true)
+        def planet = Planet.build()
         params['planet'] = planet.id
         params['name'] = "trade"
     }
