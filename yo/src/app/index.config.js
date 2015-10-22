@@ -18,7 +18,7 @@
     toastrConfig.progressBar = true;
 
     //TODO: make it so that it use different uri on dev or prod
-    var baseUrl = 'http://localhost:3000/api';
+    var baseUrl = '/api';
     $authProvider.loginUrl = baseUrl + '/login';
     $authProvider.signupUrl = baseUrl + '/users';
     $authProvider.tokenName = 'access_token';
