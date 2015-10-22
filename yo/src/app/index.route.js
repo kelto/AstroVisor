@@ -7,6 +7,7 @@
 
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider, modalStateProvider) {
+
     $stateProvider
       .state('home', {
         url: '/',
@@ -14,6 +15,7 @@
         controller: 'MainController',
         controllerAs: 'main'
       });
+
     modalStateProvider
       .state('home.login', {
         url: 'login',
@@ -27,6 +29,12 @@
         animation: true,
         templateUrl: 'app/components/modalView/signup/signup_modal.html',
         controller: 'SignupController as signup'
+      })
+      .state('home.planet', {
+        url: 'planet/{id:int}',
+        animation: true,
+        templateUrl: 'app/components/modalView/planet/planet_modal.html',
+        controller: 'PlanetController as vm'
       });
 
 

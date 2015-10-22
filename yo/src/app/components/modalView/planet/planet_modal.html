@@ -1,15 +1,39 @@
 <div class="modal-header">
-  <h4>Planet XO-305</h4>
+  <h5>{{vm.planet.code_name}}</h5>
 
 </div>
 
 <div class="modal-body">
-  <ul class="nav nav-pills">
-    <li class="active"><a>Description</a></li>
-    <li><a>Commerces</a></li>
-  </ul>
-  <div id="planet-description">
+  <tabset>
+    <tab heading="Home">
+      <div class="well">
+      {{vm.planet.description}}
+        </div>
+    </tab>
+    <tab heading="Descriptions">
+      <div class="well">
+      {{vm.currentDescription().text}}
+      </div>
+        <pager total-items="vm.nbDesc" ng-model="vm.currentDesc" items-per-page="1"></pager>
+    </tab>
+    <tab heading="Commerces">
+      <div class="well">
+      <ul>
+        <li data-ng-repeat="trade in vm.trades"><a>{{trade.name}}</a></li>
+      </ul>
+        </div>
+      <a ui-shref="home.create-trade" class="btn btn-primary">Create Trade</a>
+    </tab>
+    <tab heading="Information">
+      <div class="well">
+      <ul>
+        <li>Has Ring : {{vm.planet.ring ? 'Yes' : 'No'}}</li>
+        <li>Size : {{vm.planet.size}}</li>
+        <li>Climate : {{vm.planet.climate }}</li>
+        <li>Orbit : {{vm.planet.orbit}}</li>
+      </ul>
+      </div>
+    </tab>
+  </tabset>
 
-
-  </div>
 </div>

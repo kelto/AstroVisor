@@ -33,7 +33,8 @@ class BootStrap {
                             image: "image", description: "desc",
                             type: TELLURIC, region: "region")
         assert planet.save(failOnError:true, flush:true, insert: true)
-
+        description = new Description(text: "Desc of second planet", planet: planet);
+        assert description.save(failOnError:true, flush:true, insert: true)
         assert Planet.count == 2;
         println "Finished loading $Planet.count planets into database"
     }
