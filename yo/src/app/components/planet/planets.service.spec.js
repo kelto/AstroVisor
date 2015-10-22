@@ -1,29 +1,29 @@
 (function() {
   'use strict';
 
-  describe('test a planetService', function() {
-    var planetService;
+  describe('test a planets service', function() {
+    var planets;
     var $httpBackend;
 
     beforeEach(module('yo'));
-    beforeEach(inject(function(_planetService_, _$httpBackend_) {
-      planetService = _planetService_;
+    beforeEach(inject(function(_planets_, _$httpBackend_) {
+      planets = _planets_;
       $httpBackend = _$httpBackend_;
     }));
 
     it('should be registered', function() {
-      expect(planetService).not.toEqual(null);
+      expect(planets).not.toEqual(null);
     });
 
     describe('fetchPlanets function', function() {
       it('should exist', function () {
-        expect(planetService.fetchPlanets).not.toEqual(null);
+        expect(planets.fetchPlanets).not.toEqual(null);
       });
 
       it('should return data', function() {
-        $httpBackend.when('GET',  planetService.getUri()).respond(200, [{pprt: 'value'}]);
+        $httpBackend.when('GET',  planets.uri).respond(200, [{pprt: 'value'}]);
         var data;
-        planetService.fetchPlanets().then(function(fetchedData) {
+        planets.fetchPlanets().then(function(fetchedData) {
           data = fetchedData;
         });
 
@@ -34,16 +34,16 @@
       });
 
       it('should return an error', function() {
-        $httpBackend.when('GET',  planetService.getUri()).respond(500);
-        planetService.fetchPlanets().catch(function(error){
+        $httpBackend.when('GET',  planets.uri).respond(500);
+        planets.fetchPlanets().catch(function(error){
           expect(error).toEqual(jasmine.stringMatching('XHR Failed for'));
         });
         $httpBackend.flush();
       });
 
       it('should return an error', function() {
-        $httpBackend.when('GET',  planetService.getUri()).respond(200, []);
-        planetService.fetchPlanets().catch(function(error){
+        $httpBackend.when('GET',  planets.uri).respond(200, []);
+        planets.fetchPlanets().catch(function(error){
           expect(error).toEqual(jasmine.stringMatching('No planets found.'));
         });
         $httpBackend.flush();
@@ -52,15 +52,15 @@
 
     describe('getPlanets function', function() {
       it('should exist', function() {
-        expect(planetService.getPlanets).not.toEqual(null);
+        expect(planets.getPlanets).not.toEqual(null);
       });
 
       it('should return data', function() {
-        $httpBackend.when('GET',  planetService.getUri()).respond(200, [{pprt: 'value'}]);
+        $httpBackend.when('GET',  planets.uri).respond(200, [{pprt: 'value'}]);
         var data1, data2;
-        planetService.getPlanets().then(function(fetchedData1) {
+        planets.getPlanets().then(function(fetchedData1) {
           data1 = fetchedData1;
-          planetService.getPlanets().then(function(fetchedData2) {
+          planets.getPlanets().then(function(fetchedData2) {
             data2 = fetchedData2;
             expect(data2).toEqual(data1);
           });
@@ -79,7 +79,7 @@
 
     describe('get a planet by code name', function(){
       it('should exist', function(){
-        expect(planetService.getPlanetByCodeName).not.toEqual(null);
+        expect(planets.getPlanetByCodeName).not.toEqual(null);
       });
 
       var data = [{
@@ -110,10 +110,10 @@
       }];
 
       it('it should return data', function(){
-        $httpBackend.when('GET',  planetService.getUri()).respond(200, data);
-        planetService.fetchPlanets().then(function(){
+        $httpBackend.when('GET',  planets.uri).respond(200, data);
+        planets.fetchPlanets().then(function(){
           var code = 'ae3ede123sqd';
-          var res = planetService.getPlanetByCodeName(code);
+          var res = planets.getPlanetByCodeName(code);
           expect(res).toEqual(jasmine.any(Object));
           expect(res['code_name']).toEqual(code);
         });
@@ -122,10 +122,10 @@
       });
 
       it('it should return a not found exception', function(){
-        $httpBackend.when('GET',  planetService.getUri()).respond(200, data);
-        planetService.fetchPlanets().then(function(){
+        $httpBackend.when('GET',  planets.uri).respond(200, data);
+        planets.fetchPlanets().then(function(){
           expect(function(){
-            planetService.getPlanetByCodeName('test');
+            planets.getPlanetByCodeName('test');
           }).toThrow('Planet not found.');
         });
 
@@ -134,7 +134,7 @@
 
       it('it should return a not found exception', function(){
         expect(function(){
-          planetService.getPlanetByCodeName('test');
+          planets.getPlanetByCodeName('test');
         }).toThrow('No planets available.');
       });
     });
