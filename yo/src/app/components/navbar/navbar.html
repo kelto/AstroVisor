@@ -14,19 +14,21 @@
           <li>
             <a ui-sref="home.signup({path: 'signup'})" ng-click="vm.signup()">Sign Up</a>
           </li>
+          <!-- just for test-->
           <li>
-            <a ng-click="vm.planets()">planet</a>
+            <a ui-sref="home.planets({path: 'planets'})" ng-click="vm.planets()">planet</a>
           </li>
-          </ul>
+          <!-- just for test-->
+        </ul>
           <ul class="nav navbar-nav navbar-right" ng-if="vm.isAuthenticated()">
           <li>
-            <a ng-click="vm.user()">User</a>
+            <a ui-sref="home.logged.user({path: 'user'})" ng-click="vm.user()">User</a>
           </li>
           <li>
             <a  ui-sref="home({path: ''})" ng-click="vm.logout()">Logout</a>
           </li>
           <li>
-            <a ng-click="vm.planets()">planet</a>
+            <a ng-click="vm.openPlanets()">planet</a>
           </li>
         </ul>
     </div>

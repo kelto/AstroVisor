@@ -1,11 +1,13 @@
 <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="planet.close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
   <h4>Planet XO-305</h4>
-
 </div>
 
 <div class="modal-body">
   <ul class="nav nav-pills">
-    <li class="active"><a>Description</a></li>
+    <li class="active"><a ng-click="vm.description()">Description</a></li>
     <li><a>Commerces</a></li>
   </ul>
   <div id="planet-description">

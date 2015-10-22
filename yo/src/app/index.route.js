@@ -24,15 +24,15 @@
         url: ':path/'
       })
       .state('home.planets', {
-        url: 'path:/'
+        url: ':path/'
       });
 
     $stateProvider
       .state('home.logged', {
-        url: 'path:/'
+        url: ':path/'
       })
       .state('home.logged.user', {
-        url: 'path'
+        url: ':path/'
       });
 
     $urlRouterProvider.otherwise('/');

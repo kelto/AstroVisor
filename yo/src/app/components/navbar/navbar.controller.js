@@ -18,12 +18,26 @@
     };
 
     vm.signup = function () {
+      $state.go('home.signup');
       $modal.open({
         animation: true,
         templateUrl: 'app/components/modalView/signup/signup_modal.html',
         controller: 'SignupController as signup'
       }).result.then(function() {
           $state.go('home');
+        }, function(){
+          $state.go('home');
+        });
+    };
+
+    vm.planets = function() {
+      $state.go('home.planets');
+      $modal.open({
+        animation : true,
+        templateUrl: 'app/components/modalView/planet/planet_modal.html',
+        controller: 'PlanetController as planet'
+      }).result.then(function() {
+          //DO Something ...
         }, function(){
           $state.go('home');
         });

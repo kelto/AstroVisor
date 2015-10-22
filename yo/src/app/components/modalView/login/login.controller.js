@@ -6,7 +6,7 @@ angular.module('yo').controller('LoginController', function ($scope, $modalInsta
     password: ""
   };
 
-  vm.login = function() {
+  vm.planets = function() {
     $auth.login(vm.user)
       .then(function() {
         $modalInstance.close();
