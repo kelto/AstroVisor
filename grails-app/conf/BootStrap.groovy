@@ -49,5 +49,7 @@ class BootStrap {
         def planet = Planet.get(1)
         def trade = new Trade(name: "tradeBoot", planet: planet)
         trade.save(flush: true, failOnError: true)
+        trade = new Trade(name: "TradeBootaaaa", planet: planet);
+        trade.save(flush: true, failOnError: true)
     }
 }
