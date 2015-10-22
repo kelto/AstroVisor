@@ -13,36 +13,41 @@ import static com.astrovisor.Planet.Type.*
 
 @TestFor(TradeController)
 @Mock([Trade, TradeService, Planet])
-@Build([Planet])
+@Build([Planet, Trade])
 class TradeControllerSpec extends Specification {
-
-    def populateValidParams(params) {
-        assert params != null
-        def planet = Planet.build()
-        params['planet'] = planet.id
-        params['name'] = "trade"
-    }
 
     @Unroll
     void "Test the index action returns the correct model"() {
-        given:"A trade"
-            populateValidParams(params)
-            def trade = new Trade(params)
-            trade.save(flush: true)
+        given:
+            def serviceMock = mockFor(TradeService)
+            def planet = Planet.build()
+            def trades = (1..5).collect { Trade.build(planet: planet) }
 
         when:"The index action is executed"
+            serviceMock.demand.getTrades {offset, max -> []}
+            controller.tradeService = serviceMock.createMock()
             controller.index()
 
         then:"The response is correct"
             response.status == OK.value
-            response.text == ([trade] as JSON).toString()
+            response.text == ([] as JSON).toString()
+
+        when:"The index action is executed"
+            response.reset()
+            serviceMock.demand.getTradesOfPlanet {planetId, offset, max -> trades}
+            controller.tradeService = serviceMock.createMock()
+            params.planet = planet.id
+            controller.index()
+
+        then:"The response is correct"
+            response.status == OK.value
+            response.text == (trades as JSON).toString()
     }
 
 
     void "test save ok"() {
         given:
-            populateValidParams(params)
-            controller.request.json = new Trade(params)
+            controller.request.json = Trade.build()
             controller.request.method = 'POST'
             def serviceMock = mockFor(TradeService)
             serviceMock.demand.insertOrUpdate {}
@@ -93,8 +98,7 @@ class TradeControllerSpec extends Specification {
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
-            populateValidParams(params)
-            trade = new Trade(params).save(flush: true)
+            trade = Trade.build().save(flush: true)
 
             def serviceMock = mockFor(TradeService)
             serviceMock.demand.insertOrUpdate {}
@@ -119,8 +123,7 @@ class TradeControllerSpec extends Specification {
 
         when:"A domain instance is created"
             response.reset()
-            populateValidParams(params)
-            def trade = new Trade(params).save(flush: true)
+            def trade = Trade.build().save(flush: true)
 
         then:"It exists"
             Trade.count() == 1

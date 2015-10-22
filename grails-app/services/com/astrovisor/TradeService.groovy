@@ -13,4 +13,13 @@ class TradeService {
     void delete(Trade trade) {
         trade.delete()
     }
+
+    def getTradesOfPlanet(long planetId, int offset, int max) {
+        def planet = Planet.get(planetId)
+        return Trade.findAllByPlanet(planet, [offset: offset, max: max])
+    }
+
+    def getTrades(int offset, int max) {
+        return Trade.list([offset: offset, max:max])
+    }
 }

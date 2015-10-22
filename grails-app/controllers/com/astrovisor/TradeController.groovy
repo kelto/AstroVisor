@@ -14,8 +14,14 @@ class TradeController {
 
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Trade.list(params), [status: OK]
+        max = Math.min(max ?: 10, 100)
+        int offset = params.offset ?: 0
+        def trades = []
+        if(params.planet)
+            trades = tradeService.getTradesOfPlanet(params.trade, offset, max)
+        else
+            trades = tradeService.getTrades(offset, max)
+        respond trades, [status: OK]
     }
 
     @Transactional
