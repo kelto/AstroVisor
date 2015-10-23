@@ -11,10 +11,13 @@ class PlanetController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Planet.list(max: 10), [status: OK]
-
+    def index(Planet planet) {
+        if(planet) {
+            respond planet;
+        } else {
+            def max = Math.min(params.max ?: 10, 100)
+            respond Planet.list(max: max), [status: OK]
+        }
     }
 
     @Transactional
