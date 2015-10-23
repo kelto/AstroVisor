@@ -1,4 +1,4 @@
-angular.module('yo').controller('SignupController', function ($scope, $modalInstance, $log, $auth) {
+angular.module('yo').controller('SignupController', function ($scope, $modalInstance, $auth,toastr) {
   /* jshint validthis: true */
   var vm = this;
   vm.user = {
@@ -10,12 +10,11 @@ angular.module('yo').controller('SignupController', function ($scope, $modalInst
   vm.signup = function() {
     $auth.signup(vm.user)
       .then(function() {
+        toastr.success('Signup success')
         $modalInstance.close();
       })
-      .catch(function(response) {
-        //TODO: Should send a warning to the user
-        $log.log('failed to signup');
-        $log.log(response);
+      .catch(function() {
+        toastr.error('This username is probably used already.','Failed to signup');
       });
   };
 

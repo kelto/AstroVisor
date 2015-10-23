@@ -1,4 +1,4 @@
-angular.module('yo').controller('LoginController', function ($scope, $modalInstance, $log, $auth) {
+angular.module('yo').controller('LoginController', function ($scope, $modalInstance, $auth, toastr) {
   /* jshint validthis: true */
   var vm = this;
   vm.user = {
@@ -10,12 +10,11 @@ angular.module('yo').controller('LoginController', function ($scope, $modalInsta
 
     $auth.login(vm.user)
       .then(function() {
+        toastr.success('Login success');
         $modalInstance.close();
       })
-      .catch(function(response) {
-        //TODO: Should send a warning to the user
-        $log.log('failed to login');
-        $log.log(response);
+      .catch(function() {
+        toastr.error('Either the user does not exist or the password does not fit.','Failed to login');
       });
   };
 
