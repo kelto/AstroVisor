@@ -7,7 +7,7 @@
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
-        <ul class="nav navbar-nav navbar-right" ng-if="! (vm.isAuthenticated())">
+        <ul class="nav navbar-nav navbar-right" ng-hide="navbar.isAuthenticated()">
           <li>
             <a ui-sref=".login">Login</a>
           </li>
@@ -15,12 +15,12 @@
             <a ui-sref=".signup">Sign Up</a>
           </li>
           </ul>
-          <ul class="nav navbar-nav navbar-right" ng-if="vm.isAuthenticated()">
+          <ul class="nav navbar-nav navbar-right" ng-show="navbar.isAuthenticated()">
           <li>
             <a ng-click="vm.user()">User</a>
           </li>
           <li>
-            <a ng-click="vm.logout()">Logout</a>
+            <a ng-click="navbar.logout()">Logout</a>
           </li>
         </ul>
     </div>

@@ -11,7 +11,7 @@
       restrict: 'E',
       templateUrl: 'app/components/navbar/navbar.html',
       controller: 'NavbarController',
-      controllerAs: 'vm'
+      controllerAs: 'navbar'
     };
 
     return directive;
