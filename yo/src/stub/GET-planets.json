@@ -1,0 +1,25 @@
+[{
+  "name":"Sol",
+  "planets":[{
+    "code_name":"1",
+    "name":"Mercure",
+    "type":"telluric",
+    "age":4000000000,
+    "texture":"mercury",
+    "rings":false,
+    "atmosphere":false,
+    "orbital_speed":6.0,
+    "size":"SMALL"
+  },{
+    "code_name":"2",
+    "name":"Vénus",
+    "type":"telluric",
+    "age":4000000000,
+    "texture":"venus",
+    "rings":false,
+    "atmosphere":false,
+    "orbital_speed":4.0,
+    "size":"NORMAL"
+  }
+  ]
+}]
