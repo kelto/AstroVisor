@@ -2,6 +2,7 @@ import com.astrovisor.Description
 import com.astrovisor.Planet
 import com.astrovisor.User
 import com.astrovisor.Trade
+import com.astrovisor.StellarSystem
 
 import grails.util.Environment
 
@@ -12,45 +13,73 @@ class BootStrap {
     def init = { servletContext ->
         if (Environment.current == Environment.DEVELOPMENT) {
             userTestData()
+            stellarSystemTestData()
             planetTestData()
+            descriptionTestData()
             tradeTestData()
         }
     }
 
-    private void planetTestData() {
-        println "Start loading planets into database"
+    def destroy = {
 
-        def planet = new Planet(code_name: "XO-000",age:0, name: 'kelto',
-                                image: "image", description: "description",
-                                type: GAS, region: "region")
+    }
+
+    def userTestData(){
+        User user = new User(username:"John Doe", password: "123456A")
+        assert user.save(failOnError: true, flush: true, insert: true)
+
+        user = new User(username:"Jane Doe", password: "123456A")
+        user.save(failOnError: true, flush: true, insert: true)
+
+        assert User.count == 2
+    }
+
+    def stellarSystemTestData(){
+        def system = new StellarSystem(code_name:"S0-000", name:"Système Local")
+        assert system.save(failOnError: true, flush: true, insert: true)
+
+        system = new StellarSystem(code_name:"S0-001", name:"Alpha Centauri")
+        system.save(failOnError: true, flush: true, insert: true)
+
+        system = new StellarSystem(code_name:"S0-002", name:"Proxima Centauri")
+        system.save(failOnError: true, flush: true, insert: true)
+
+        assert StellarSystem.count == 3
+    }
+
+    def planetTestData() {
+        def system = StellarSystem.get(1)
+
+        def planet = new Planet(code_name: "XO-000", age:0, name: 'kelto',
+            image: "mars", description: "desc", system:system,
+            type: GAS)
         assert planet.save(failOnError:true, flush:true, insert: true)
-        def description = new Description(text: "Hehehe", planet: planet)
-        assert description.save(failOnError:true, flush:true, insert: true)
-        description = new Description(text: "Second desc", planet: planet);
-        assert description.save(failOnError:true, flush:true, insert: true)
 
         planet = new Planet(code_name: "XO-001",age:0, name: 'keltorin',
-                            image: "image", description: "desc",
-                            type: TELLURIC, region: "region")
+            image: "pluto", description: "desc", system:system,
+            type: TELLURIC)
         assert planet.save(failOnError:true, flush:true, insert: true)
-        description = new Description(text: "Desc of second planet", planet: planet);
-        assert description.save(failOnError:true, flush:true, insert: true)
+
         assert Planet.count == 2;
-        println "Finished loading $Planet.count planets into database"
-    }
-        def destroy = {
     }
 
-    def userTestData() {
-        User user = new User(username:"user", password: "password")
-        user.save()
+    def descriptionTestData(){
+        def planet = Planet.get(1)
+        def description = new Description(text:"Hehehe", planet: planet)
+        assert description.save(failOnError:true, flush:true, insert: true)
+
+        planet = Planet.get(2)
+        description = new Description(text:"Hehehe", planet: planet)
+        description.save()
+
+        assert Description.count == 2
     }
 
     def tradeTestData(){
         def planet = Planet.get(1)
         def trade = new Trade(name: "tradeBoot", planet: planet)
-        trade.save(flush: true, failOnError: true)
-        trade = new Trade(name: "TradeBootaaaa", planet: planet);
-        trade.save(flush: true, failOnError: true)
+        assert trade.save(failOnError:true, flush: true, insert:true)
+
+        assert Trade.count == 1
     }
 }
