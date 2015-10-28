@@ -9,8 +9,6 @@ class UrlMappings {
                 action = [GET: "index", PUT: "update", POST: "save", DELETE: "delete"]
             }
 
-            "/planets/$id?"(controller: "planet") {
-                action = [GET: "index", PUT: "update", POST: "save", DELETE: "delete"]
             }
 
             "/descriptions/$id?"(controller: "description") {
@@ -23,9 +21,6 @@ class UrlMappings {
 
             "/users/$id?"(controller: "user") {
                 action = [POST: "save", PUT: "update"]
-            }
-            "/me"(controller: "user") {
-                action = [GET: "me"]
             }
         }
 
