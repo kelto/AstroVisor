@@ -3,15 +3,19 @@
 
   angular.module('yo').controller('MapController', MapController);
 
-  MapController.$inject = ['planets'];
-  function MapController(planets) {
+  /* @ngInject */
+  function MapController(planets,$state) {
     var vm = this;
     vm.planets = [];
     vm.totalPlanets = 0;
     vm.rendered = 0;
-
+    vm.$state = $state;
     vm.newRenderedPlanet = function(){
       vm.rendered++;
+    };
+
+    vm.openPlanet = function(id) {
+      $state.go('.planet', {id: id});
     };
 
     activate();

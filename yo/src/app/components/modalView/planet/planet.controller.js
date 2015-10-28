@@ -10,7 +10,7 @@ angular.module('yo').controller('PlanetController', function ($scope,$http, $sta
   });
 
   $http.get('/api/planets/'+$stateParams.id).then(function(data) {
-    vm.planet = data.data[0];
+    vm.planet = data.data;
   });
 
   $http.get('/api/trades?planet='+$stateParams.id).then(function(data) {
