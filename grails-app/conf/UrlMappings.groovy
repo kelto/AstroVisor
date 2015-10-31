@@ -5,9 +5,12 @@ class UrlMappings {
         //all RestFull Controller
 
         group "/api", {
+            "/systems/$id?"(controller: "stellarSystem") {
+                action = [GET: "index", PUT: "update", POST: "save", DELETE: "delete"]
+            }
+
             "/planets/$id?"(controller: "planet") {
                 action = [GET: "index", PUT: "update", POST: "save", DELETE: "delete"]
-
             }
 
             "/descriptions/$id?"(controller: "description") {
@@ -23,9 +26,7 @@ class UrlMappings {
             }
         }
 
-
         "/"(view:"/index")
-        "500"(view:'/error')
-
+        "500"(view:"/error")
 	}
 }

@@ -14,7 +14,6 @@ class Planet {
     boolean rings
     boolean atmosphere
     float size
-    String region
     Orbit orbit
     Climate climate
     Type type
@@ -24,6 +23,8 @@ class Planet {
     static hasMany = [descriptions: Description,
                       trades: Trade
                      ]
+
+    static belongsTo = [system: StellarSystem]
 
     static mapping = {
         descriptions cascade: 'all'
@@ -35,7 +36,6 @@ class Planet {
         name blank: false, nullable: true
         image blank: false, nullable: false
         age min: 0
-        region blank: false, nullable: false
         orbit nullable: true
         description nullable: true, blank: true
         climate nullable: true

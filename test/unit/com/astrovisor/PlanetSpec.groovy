@@ -2,7 +2,7 @@ package com.astrovisor
 
 import grails.test.mixin.TestMixin
 import grails.test.mixin.support.GrailsUnitTestMixin
-import spock.lang.Specification
+import spock.lang.*
 
 import static com.astrovisor.Planet.Type.*
 
@@ -12,18 +12,13 @@ import static com.astrovisor.Planet.Type.*
 @TestMixin(GrailsUnitTestMixin)
 class PlanetSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     //todo : change last row planet_age to 100, should still pass.
+    @Unroll
     void "test invalid planet"() {
         given : "An invalid planet"
         Planet planet = new Planet(code_name: planet_code_name, age: planet_age,
                                    name: planet_name, image: image, type: type,
-                                   region: region)
+                                   system: system)
 
         when: "We try to validate"
         def isValid = planet.validate()
@@ -32,22 +27,24 @@ class PlanetSpec extends Specification {
         isValid == false
 
         where:
-        planet_code_name | planet_age | planet_name | image  | type | region
-        ""               | 0          | null        | null   | GAS  | "region"
-        "XO-344"         | -1         | null        | null   | GAS  | "region"
-        null             | 100        | null        | null   | GAS  | "region"
-        "XO-355"         | -100       | ""          | ""     | GAS  | "region"
-        "XO-355"         | -100       | ""          | ""     | null | "region"
-        "XO-355"         | -100       | ""          | ""     | null | ""
-        "XO-355"         | -100       | ""          | ""     | null | null
+        planet_code_name | planet_age | planet_name | image  | type | system
+        ""               | 0          | null        | null   | GAS  | Mock(StellarSystem)
+        "XO-344"         | -1         | null        | null   | GAS  | Mock(StellarSystem)
+        null             | 100        | null        | null   | GAS  | Mock(StellarSystem)
+        "XO-355"         | -100       | ""          | ""     | GAS  | Mock(StellarSystem)
+        "XO-355"         | -100       | ""          | ""     | null | Mock(StellarSystem)
+        "XO-355"         | -100       | ""          | ""     | null | Mock(StellarSystem)
+        "XO-355"         | -100       | ""          | ""     | null | Mock(StellarSystem)
+        "XO-355"         | -100       | ""          | ""     | GAS  | null
 
     }
 
+    @Unroll
     void "test valid planet" () {
         given: "A valid planet"
         Planet planet = new Planet(code_name: planet_code_name, age: planet_age,
                                    name: planet_name, image: image, type: type,
-                                   region: region)
+                                   system: Mock(StellarSystem))
 
         when: "We try to validate"
         def isValid = planet.validate()
@@ -56,10 +53,10 @@ class PlanetSpec extends Specification {
         isValid == true
 
         where:
-        planet_code_name | planet_age | planet_name   | image   | type     | region
-        "Test"           | 0          | null          | "image" | GAS      | "region"
-        "XO-345"         | 1          | "HelloPlanet" | "image" | GAS      | "region"
-        "XA-033"         | 100        | null          | "image" | GAS      | "region"
-        "XO-356"         | 100        | "ByePlanet"   | "image" | TELLURIC | "region"
+        planet_code_name | planet_age | planet_name   | image   | type
+        "Test"           | 0          | null          | "image" | GAS
+        "XO-345"         | 1          | "HelloPlanet" | "image" | GAS
+        "XA-033"         | 100        | null          | "image" | GAS
+        "XO-356"         | 100        | "ByePlanet"   | "image" | TELLURIC
     }
 }

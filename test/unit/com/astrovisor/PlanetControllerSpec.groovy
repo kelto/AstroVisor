@@ -6,22 +6,14 @@ import grails.test.mixin.TestFor
 import org.springframework.http.HttpStatus
 import spock.lang.Specification
 import spock.lang.Unroll
+import grails.buildtestdata.mixin.Build
 
 import static com.astrovisor.Planet.Type.*
 
 @TestFor(PlanetController)
-@Mock(Planet)
+@Mock([StellarSystem,, Planet])
+@Build([Planet, StellarSystem])
 class PlanetControllerSpec extends Specification {
-
-    def populateValidParams(params) {
-        assert params != null
-        params['name'] = "test"
-        params['code_name'] = "XO-003"
-        params['age'] = 10
-        params['image'] = 'image'
-        params['type'] = GAS
-        params['region'] = "region"
-    }
 
     @Unroll
     void "Test the index action returns the correct model"() {
@@ -36,6 +28,8 @@ class PlanetControllerSpec extends Specification {
 
     @Unroll
     void "Test the save action correctly persists an instance"() {
+        given:
+            def system = StellarSystem.build()
         when:
             controller.save(null)
 
@@ -51,8 +45,7 @@ class PlanetControllerSpec extends Specification {
 
         when:"The save action is executed with a valid instance"
             response.reset()
-            populateValidParams(params)
-            planet = new Planet(params)
+            planet = Planet.build(system: system)
 
             planet.validate()
             controller.save(planet)
@@ -64,6 +57,8 @@ class PlanetControllerSpec extends Specification {
 
     @Unroll
     void "Test the update action performs an update on a valid domain instance"() {
+        given:
+            def system = StellarSystem.build()
         when:"Update is called for a domain instance that doesn't exist"
             controller.update(null)
 
@@ -80,8 +75,7 @@ class PlanetControllerSpec extends Specification {
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
-            populateValidParams(params)
-            planet = new Planet(params).save(flush: true)
+            planet = Planet.build(system: system).save(flush: true)
             controller.update(planet)
 
         then:"The response status is OK and the updated instance is returned"
@@ -91,6 +85,8 @@ class PlanetControllerSpec extends Specification {
 
     @Unroll
     void "Test that the delete action deletes an instance if it exists"() {
+        given:
+            def system = StellarSystem.build()
         when:"The delete action is called for a null instance"
             controller.delete(null)
 
@@ -99,8 +95,7 @@ class PlanetControllerSpec extends Specification {
 
         when:"A domain instance is created"
             response.reset()
-            populateValidParams(params)
-            def planet = new Planet(params).save(flush: true)
+            def planet = Planet.build(system: system).save(flush: true)
 
         then:"It exists"
             Planet.count() == 1
