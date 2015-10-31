@@ -5,6 +5,7 @@ import com.astrovisor.Trade
 import com.astrovisor.StellarSystem
 
 import grails.util.Environment
+import grails.converters.JSON
 
 import static com.astrovisor.Planet.Type.*
 
@@ -17,6 +18,10 @@ class BootStrap {
             planetTestData()
             descriptionTestData()
             tradeTestData()
+        }
+        JSON.registerObjectMarshaller(StellarSystem) {
+            return [code_name: it.code_name, name:it.name,
+                    planets:it.planets]
         }
     }
 
