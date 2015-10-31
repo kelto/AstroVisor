@@ -31,5 +31,11 @@
     vm.user = function () {
     };
 
+    vm.username = function () {
+      if(vm.isAuthenticated()) {
+        return $auth.getPayload().sub;
+      }
+    };
+
   });
 })();
