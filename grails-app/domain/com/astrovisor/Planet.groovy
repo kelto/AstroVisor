@@ -18,7 +18,7 @@ class Planet {
     Climate climate
     Type type
 
-    static embedded = ['climate']
+    static embedded = ['climate', 'orbit']
 
     static hasMany = [descriptions: Description,
                       trades: Trade
@@ -36,7 +36,7 @@ class Planet {
         name blank: false, nullable: true
         image blank: false, nullable: false
         age min: 0
-        orbit nullable: true
+        orbit nullable: false
         description nullable: true, blank: true
         climate nullable: true
         type nullable: false

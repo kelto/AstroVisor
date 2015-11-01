@@ -3,6 +3,7 @@ import com.astrovisor.Planet
 import com.astrovisor.User
 import com.astrovisor.Trade
 import com.astrovisor.StellarSystem
+import com.astrovisor.Orbit
 
 import grails.util.Environment
 import grails.converters.JSON
@@ -53,16 +54,18 @@ class BootStrap {
     }
 
     def planetTestData() {
+        def orbit = new Orbit(semimajor_axis:10000, semiminor_axis:10000,
+                              orbital_speed:50.0, revolution_period:365)
         def system = StellarSystem.get(1)
 
         def planet = new Planet(code_name: "XO-000", age:0, name: 'kelto',
             image: "mars", description: "desc", system:system,
-            type: GAS)
+            type: GAS, orbit: orbit)
         assert planet.save(failOnError:true, flush:true, insert: true)
 
         planet = new Planet(code_name: "XO-001",age:0, name: 'keltorin',
             image: "pluto", description: "desc", system:system,
-            type: TELLURIC)
+            type: TELLURIC, orbit: orbit)
         assert planet.save(failOnError:true, flush:true, insert: true)
         assert Planet.count == 2;
     }
