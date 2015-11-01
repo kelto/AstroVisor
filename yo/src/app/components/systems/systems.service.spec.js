@@ -1,66 +1,74 @@
 (function() {
   'use strict';
 
-  describe('test a planets service', function() {
-    var planets;
+  describe('test a systems service', function() {
+    var systems;
     var $httpBackend;
 
     beforeEach(module('yo'));
-    beforeEach(inject(function(_planets_, _$httpBackend_) {
-      planets = _planets_;
+    beforeEach(inject(function(_systems_, _$httpBackend_) {
+      systems = _systems_;
       $httpBackend = _$httpBackend_;
     }));
 
     it('should be registered', function() {
-      expect(planets).not.toEqual(null);
+      expect(systems).not.toEqual(null);
     });
 
-    describe('fetchPlanets function', function() {
+    describe('fetchSystems function', function() {
       it('should exist', function () {
-        expect(planets.fetchPlanets).not.toEqual(null);
+        expect(systems.fetchSystems).not.toEqual(null);
       });
 
       it('should return data', function() {
-        $httpBackend.when('GET',  planets.uri).respond(200, [{pprt: 'value'}]);
+        $httpBackend.when('GET',  systems.uri).respond(200, [{name:'Alpha Centauri', planets:[{}, {}]}, {name:'Proxima Centaure', planets:[{}, {}]}, {name:'Sol', planets:[]}]);
         var data;
-        planets.fetchPlanets().then(function(fetchedData) {
+        systems.fetchSystems().then(function(fetchedData) {
           data = fetchedData;
         });
 
         $httpBackend.flush();
         expect(data).toEqual(jasmine.any(Array));
-        expect(data.length === 1).toBeTruthy();
+        expect(data.length === 2).toBeTruthy();
         expect(data[0]).toEqual(jasmine.any(Object));
       });
 
       it('should return an error', function() {
-        $httpBackend.when('GET',  planets.uri).respond(500);
-        planets.fetchPlanets().catch(function(error){
+        $httpBackend.when('GET',  systems.uri).respond(500);
+        systems.fetchSystems().catch(function(error){
           expect(error).toEqual(jasmine.stringMatching('XHR Failed for'));
         });
         $httpBackend.flush();
       });
 
       it('should return an error', function() {
-        $httpBackend.when('GET',  planets.uri).respond(200, []);
-        planets.fetchPlanets().catch(function(error){
-          expect(error).toEqual(jasmine.stringMatching('No planets found.'));
+        $httpBackend.when('GET',  systems.uri).respond(200, []);
+        systems.fetchSystems().catch(function(error){
+          expect(error).toEqual(jasmine.stringMatching('No systems found.'));
+        });
+        $httpBackend.flush();
+      });
+
+      it('should return an error', function() {
+        $httpBackend.when('GET',  systems.uri).respond(200, [{name:'Sol', planets:[]}]);
+        systems.fetchSystems().catch(function(error){
+          expect(error).toEqual(jasmine.stringMatching('Systems were empty.'));
         });
         $httpBackend.flush();
       });
     });
 
-    describe('getPlanets function', function() {
+    describe('getSystems function', function() {
       it('should exist', function() {
-        expect(planets.getPlanets).not.toEqual(null);
+        expect(systems.getSystems).not.toEqual(null);
       });
 
       it('should return data', function() {
-        $httpBackend.when('GET',  planets.uri).respond(200, [{pprt: 'value'}]);
+        $httpBackend.when('GET',  systems.uri).respond(200, [{name:'Alpha Centauri', planets:[{}, {}]}, {name:'Proxima Centaure', planets:[{}, {}]}, {name:'Sol', planets:[]}]);
         var data1, data2;
-        planets.getPlanets().then(function(fetchedData1) {
+        systems.getSystems().then(function(fetchedData1) {
           data1 = fetchedData1;
-          planets.getPlanets().then(function(fetchedData2) {
+          systems.getSystems().then(function(fetchedData2) {
             data2 = fetchedData2;
             expect(data2).toEqual(data1);
           });
@@ -68,18 +76,18 @@
 
         $httpBackend.flush();
         expect(data1).toEqual(jasmine.any(Array));
-        expect(data1.length === 1).toBeTruthy();
+        expect(data1.length === 2).toBeTruthy();
         expect(data1[0]).toEqual(jasmine.any(Object));
 
         expect(data2).toEqual(jasmine.any(Array));
-        expect(data2.length === 1).toBeTruthy();
+        expect(data2.length === 2).toBeTruthy();
         expect(data2[0]).toEqual(jasmine.any(Object));
       });
     });
 
     describe('get a planet by code name', function(){
       it('should exist', function(){
-        expect(planets.getPlanetByCodeName).not.toEqual(null);
+        expect(systems.getPlanetByCodeName).not.toEqual(null);
       });
 
       var data = [{
@@ -110,10 +118,10 @@
       }];
 
       it('it should return data', function(){
-        $httpBackend.when('GET',  planets.uri).respond(200, data);
-        planets.fetchPlanets().then(function(){
+        $httpBackend.when('GET',  systems.uri).respond(200, data);
+        systems.fetchSystems().then(function(){
           var code = 'ae3ede123sqd';
-          var res = planets.getPlanetByCodeName(code);
+          var res = systems.getPlanetByCodeName(code);
           expect(res).toEqual(jasmine.any(Object));
           expect(res['code_name']).toEqual(code);
         });
@@ -122,10 +130,10 @@
       });
 
       it('it should return a not found exception', function(){
-        $httpBackend.when('GET',  planets.uri).respond(200, data);
-        planets.fetchPlanets().then(function(){
+        $httpBackend.when('GET',  systems.uri).respond(200, data);
+        systems.fetchSystems().then(function(){
           expect(function(){
-            planets.getPlanetByCodeName('test');
+            systems.getPlanetByCodeName('test');
           }).toThrow('Planet not found.');
         });
 
@@ -134,8 +142,8 @@
 
       it('it should return a not found exception', function(){
         expect(function(){
-          planets.getPlanetByCodeName('test');
-        }).toThrow('No planets available.');
+          systems.getPlanetByCodeName('test');
+        }).toThrow('No systems available.');
       });
     });
   });
