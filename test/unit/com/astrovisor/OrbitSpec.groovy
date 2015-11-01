@@ -12,7 +12,7 @@ class OrbitSpec extends Specification {
     Orbit orbit
 
     def setup() {
-        orbit = new Orbit()
+        orbit = new Orbit(planet: new Planet())
     }
 
     def cleanup() {

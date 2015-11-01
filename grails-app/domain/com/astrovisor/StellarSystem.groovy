@@ -8,6 +8,6 @@ class StellarSystem {
     static hasMany = [planets: Planet]
     static constraints = {
         code_name blank: false, unique: true, nullable: false
-        name blank: false, nullable: true
+        name blank: true, nullable: true
     }
 }

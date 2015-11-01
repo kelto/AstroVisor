@@ -14,6 +14,9 @@ class StellarSystemController {
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond StellarSystem.list(max: 10), [status: OK]
+
+        grails.converters.JSON.use("deep"){
+            respond StellarSystem.list(max: 10), [status: OK]
+        }
     }
 }
