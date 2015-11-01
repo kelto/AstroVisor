@@ -1,7 +1,5 @@
 package com.astrovisor
 
-import static com.astrovisor.Planet.Type.*
-
 import spock.lang.*
 
 /**
@@ -13,7 +11,8 @@ class TradeServiceSpec extends Specification {
 
     void "test save or update"() {
         given:"A trade"
-            def planet = Planet.build()
+            def orbit = Orbit.build(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
+            def planet = Planet.build(orbit:orbit)
             def trade = new Trade(name: "trade", planet: planet)
 
         when:
@@ -38,7 +37,8 @@ class TradeServiceSpec extends Specification {
 
     void "test get trades of a planet"() {
         given:
-            def planet = Planet.build()
+            def orbit = Orbit.build(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
+            def planet = Planet.build(orbit:orbit)
             (1..5).collect { Trade.build(planet: planet) }
 
         when:
@@ -60,7 +60,8 @@ class TradeServiceSpec extends Specification {
 
     void "test get trades"() {
         given:
-            def planet = Planet.build()
+            def orbit = Orbit.build(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
+            def planet = Planet.build(orbit:orbit)
             (1..10).collect { Trade.build(planet: planet) }
 
         when:

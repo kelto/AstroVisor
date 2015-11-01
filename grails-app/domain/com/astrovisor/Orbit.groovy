@@ -8,6 +8,7 @@ class Orbit {
     float orbital_speed
     float revolution_period
 
+    static belongsTo = [planet:Planet]
     static constraints = {
         semimajor_axis validator: { val ->
             return val > 0.0

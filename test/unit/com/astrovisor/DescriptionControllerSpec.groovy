@@ -13,17 +13,17 @@ import grails.buildtestdata.mixin.Build
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
 @TestFor(DescriptionController)
-@Mock([Description, DescriptionService, Planet, Trade])
-@Build([Planet, Trade, Description])
+@Mock([Description, DescriptionService, Planet, Orbit, Trade])
+@Build([Planet, Orbit, Trade, Description])
 class DescriptionControllerSpec extends Specification {
 
     @Unroll
     void "Test the index action returns the correct model"() {
         given:
             def serviceMock = mockFor(DescriptionService)
-            def planet = Planet.build()
+            def planet = Planet.build(orbit:new Orbit(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365))
             def planetDescriptions = (1..5).collect { Description.build(planet: planet) }
-            def trade = Trade.build()
+            def trade = Trade.build(planet: planet)
             def tradeDescriptions = (1..5).collect { Description.build(trade: trade) }
 
         when:"The index action is executed"
@@ -71,7 +71,8 @@ class DescriptionControllerSpec extends Specification {
 
         when:"The save action is executed with a valid instance"
             response.reset()
-            def planet = Planet.build()
+            def orbit = Orbit.build(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
+            def planet = Planet.build(orbit:orbit)
             description = Description.build(planet: planet)
             controller.save(description)
 
@@ -98,7 +99,8 @@ class DescriptionControllerSpec extends Specification {
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
-            def planet = Planet.build()
+            def orbit = Orbit.build(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
+            def planet = Planet.build(orbit:orbit)
             description = Description.build(planet: planet)
             controller.update(description)
 
@@ -117,7 +119,8 @@ class DescriptionControllerSpec extends Specification {
 
         when:"A domain instance is created"
             response.reset()
-            def planet = Planet.build()
+            def orbit = Orbit.build(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
+            def planet = Planet.build(orbit:orbit)
             def description = Description.build(planet: planet)
 
         then:"It exists"
