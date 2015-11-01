@@ -4,8 +4,8 @@
 
   angular.module('yo').directive('asSphere', sphere);
 
-  sphere.$inject = ['$document', 'planets'];
-  function sphere($document, planets){
+  /** @ngInject */
+  function sphere($document, $log, systems){
     var directive = {
       restrict:'A',
       require:'^asMap',
@@ -30,13 +30,15 @@
 
     function linkFunc(scope, el, attr, vm){
       var planetId = attr.id;
-      var planet = planets.getPlanetByCodeName(planetId);
+      var planet = systems.getPlanetByCodeName(planetId);
       el.append(renderer(planet));
 
       vm.newRenderedPlanet();
     }
 
     function renderer(data){
+      $log.debug(data);
+
       var width = sizeEnum[data.size]*standardWidth;
       var height = sizeEnum[data.size]*standardHeight;
 
@@ -65,14 +67,14 @@
       var planet = createPlanetFromTexture(data.texture, data.type);
       scene.add(planet);
       updateFcts.push(function (delta) {
-        planet.rotation.y += data.orbital_speed/20*delta;
+        planet.rotation.y += data.orbit.orbital_speed/20*delta;
       });
 
       if(data.atmosphere){
         var atmosphere = createAtmosphere();
         scene.add(atmosphere);
         updateFcts.push(function (delta) {
-          atmosphere.rotation.y += data.orbital_speed/8*delta;
+          atmosphere.rotation.y += data.orbit.orbital_speed/8*delta;
         });
       }
       else if(data.rings){

@@ -13,9 +13,9 @@
     var $scope;
 
     beforeEach(module('yo'));
-    beforeEach(inject(function(_$compile_, _$rootScope_, _planets_, $q) {
+    beforeEach(inject(function(_$compile_, _$rootScope_, _systems_, $q) {
       $scope = _$rootScope_;
-      spyOn(_planets_, 'getPlanets').and.callFake(function() {
+      spyOn(_systems_, 'getSystems').and.callFake(function() {
         return $q.when([{name:'sys1', planets:[]}, {name:'sys2', planets:[]}, {name:'sys3', planets:[]}, {name:'sys4', planets:[]}]);
       });
 
@@ -34,8 +34,8 @@
     it('should have scope object with instanciate members', function() {
       expect(vm).toEqual(jasmine.any(Object));
 
-      expect(vm.planets).toEqual(jasmine.any(Array));
-      expect(vm.planets.length).toEqual(4);
+      expect(vm.systems).toEqual(jasmine.any(Array));
+      expect(vm.systems.length).toEqual(4);
     });
 
     it('test using $digest', function() {
