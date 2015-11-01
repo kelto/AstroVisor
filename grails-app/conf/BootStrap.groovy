@@ -1,5 +1,6 @@
 import com.astrovisor.Description
 import com.astrovisor.Planet
+import com.astrovisor.Orbit
 import com.astrovisor.User
 import com.astrovisor.Trade
 import com.astrovisor.StellarSystem
@@ -7,6 +8,7 @@ import com.astrovisor.StellarSystem
 import grails.util.Environment
 
 import static com.astrovisor.Planet.Type.*
+import static com.astrovisor.Planet.Size.*
 
 class BootStrap {
 
@@ -48,19 +50,28 @@ class BootStrap {
     }
 
     def planetTestData() {
-        def system = StellarSystem.get(1)
+        def system = StellarSystem.get(2)
+        def orbit = new Orbit(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:20.0, revolution_period:450);
 
         def planet = new Planet(code_name: "XO-000", age:0, name: 'kelto',
-            image: "mars", description: "desc", system:system,
-            type: GAS)
+            texture: "mars", description: "desc", system:system, orbit:orbit,
+            type: GAS, size: SMALL)
         assert planet.save(failOnError:true, flush:true, insert: true)
 
-        planet = new Planet(code_name: "XO-001",age:0, name: 'keltorin',
-            image: "pluto", description: "desc", system:system,
-            type: TELLURIC)
+        orbit = new Orbit(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:250.0, revolution_period:450);
+        planet = new Planet(code_name: "XO-001", age:0, name: 'keltorin',
+            texture: "pluto", description: "desc", system:system, orbit:orbit,
+            type: TELLURIC, size: SMALL)
         assert planet.save(failOnError:true, flush:true, insert: true)
 
-        assert Planet.count == 2;
+        system = StellarSystem.get(1)
+        orbit = new Orbit(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365);
+        planet = new Planet(code_name: "XO-002", age:0, name: 'La Terre',
+                texture: "earth", description: "desc", system:system, orbit:orbit,
+                type: TELLURIC, size: SMALL, atmosphere: true)
+        assert planet.save(failOnError:true, flush:true, insert: true)
+
+        assert Planet.count == 3;
     }
 
     def descriptionTestData(){
