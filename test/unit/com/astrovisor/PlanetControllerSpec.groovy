@@ -8,6 +8,7 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 import static com.astrovisor.Planet.Type.*
+import static com.astrovisor.Planet.Size.*
 
 @TestFor(PlanetController)
 @Mock(Planet)
@@ -15,12 +16,14 @@ class PlanetControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
-        params['name'] = "test"
-        params['code_name'] = "XO-003"
-        params['age'] = 10
-        params['image'] = 'image'
-        params['type'] = GAS
-        params['region'] = "region"
+        params["name"] = "test"
+        params["code_name"] = "XO-003"
+        params["age"] = 10
+        params["texture"] = "pluto"
+        params["type"] = GAS
+        params["size"] = SMALL
+        params["system"] = new StellarSystem()
+        params["orbit"] = new Orbit()
     }
 
     @Unroll

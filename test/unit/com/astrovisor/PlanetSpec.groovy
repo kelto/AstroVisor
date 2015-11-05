@@ -5,6 +5,7 @@ import grails.test.mixin.support.GrailsUnitTestMixin
 import spock.lang.Specification
 
 import static com.astrovisor.Planet.Type.*
+import static com.astrovisor.Planet.Size.*
 
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
@@ -13,17 +14,16 @@ import static com.astrovisor.Planet.Type.*
 class PlanetSpec extends Specification {
 
     def setup() {
+        mockForConstraintsTests(Planet, [new Planet(code_name: '123456')])
     }
 
     def cleanup() {
     }
 
-    //todo : change last row planet_age to 100, should still pass.
     void "test invalid planet"() {
         given : "An invalid planet"
         Planet planet = new Planet(code_name: planet_code_name, age: planet_age,
-                                   name: planet_name, image: image, type: type,
-                                   region: region)
+                                   name: planet_name, texture: texture, type: type, size:size, orbit:new Orbit(), system: new StellarSystem())
 
         when: "We try to validate"
         def isValid = planet.validate()
@@ -32,22 +32,22 @@ class PlanetSpec extends Specification {
         isValid == false
 
         where:
-        planet_code_name | planet_age | planet_name | image  | type | region
-        ""               | 0          | null        | null   | GAS  | "region"
-        "XO-344"         | -1         | null        | null   | GAS  | "region"
-        null             | 100        | null        | null   | GAS  | "region"
-        "XO-355"         | -100       | ""          | ""     | GAS  | "region"
-        "XO-355"         | -100       | ""          | ""     | null | "region"
-        "XO-355"         | -100       | ""          | ""     | null | ""
-        "XO-355"         | -100       | ""          | ""     | null | null
-
+        planet_code_name | planet_age  | planet_name | texture | type      | size
+        ""               | 0           | "mars"      | "mars"  | TELLURIC  | SMALL
+        "123456"         | 0           | "mars"      | "mars"  | TELLURIC  | SMALL
+        null             | 0           | "mars"      | "mars"  | TELLURIC  | SMALL
+        "X0-344"         | -1          | "mars"      | "mars"  | TELLURIC  | SMALL
+        "X0-344"         | 15000000000 | "mars"      | "mars"  | TELLURIC  | SMALL
+        "X0-344"         | 13000000000 | "mars"      | "mars"  | ""        | SMALL
+        "X0-344"         | 13000000000 | "mars"      | "mars"  | null      | SMALL
+        "X0-344"         | 150000      | "mars"      | "mars"  | TELLURIC  | ""
+        "X0-344"         | 150000      | "mars"      | "mars"  | TELLURIC  | null
     }
 
     void "test valid planet" () {
         given: "A valid planet"
         Planet planet = new Planet(code_name: planet_code_name, age: planet_age,
-                                   name: planet_name, image: image, type: type,
-                                   region: region)
+                                   name: planet_name, texture: texture, type: type, size:size, orbit:new Orbit(), system: new StellarSystem())
 
         when: "We try to validate"
         def isValid = planet.validate()
@@ -56,10 +56,11 @@ class PlanetSpec extends Specification {
         isValid == true
 
         where:
-        planet_code_name | planet_age | planet_name   | image   | type     | region
-        "Test"           | 0          | null          | "image" | GAS      | "region"
-        "XO-345"         | 1          | "HelloPlanet" | "image" | GAS      | "region"
-        "XA-033"         | 100        | null          | "image" | GAS      | "region"
-        "XO-356"         | 100        | "ByePlanet"   | "image" | TELLURIC | "region"
+        planet_code_name | planet_age       | planet_name   | texture | type      | size
+        "X0-000"         | 13700000000      | "La Terre"    | "earth" | TELLURIC  | NORMAL
+        "Test"           | 0                | null          | "image" | GAS       | XS
+        "XO-345"         | 1                | "HelloPlanet" | "image" | GAS       | LARGE
+        "XA-033"         | 100              | null          | "image" | GAS       | SMALL
+        "XO-356"         | 100              | "ByePlanet"   | "image" | TELLURIC  | XXL
     }
 }

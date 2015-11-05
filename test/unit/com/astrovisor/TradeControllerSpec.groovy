@@ -9,18 +9,17 @@ import grails.buildtestdata.mixin.Build
 
 import static org.springframework.http.HttpStatus.*
 
-import static com.astrovisor.Planet.Type.*
-
 @TestFor(TradeController)
-@Mock([Trade, TradeService, Planet])
-@Build([Planet, Trade])
+@Mock([Trade, TradeService, Planet, Orbit])
+@Build([Planet, Trade, Orbit])
 class TradeControllerSpec extends Specification {
 
     @Unroll
     void "Test the index action returns the correct model"() {
         given:
             def serviceMock = mockFor(TradeService)
-            def planet = Planet.build()
+            def orbit = Orbit.build(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
+            def planet = Planet.build(orbit: orbit)
             def trades = (1..5).collect { Trade.build(planet: planet) }
 
         when:"The index action is executed"
@@ -47,7 +46,9 @@ class TradeControllerSpec extends Specification {
 
     void "test save ok"() {
         given:
-            controller.request.json = Trade.build()
+            def orbit = Orbit.build(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
+            def planet = Planet.build(orbit: orbit)
+            controller.request.json = Trade.build(planet:planet)
             controller.request.method = 'POST'
             def serviceMock = mockFor(TradeService)
             serviceMock.demand.insertOrUpdate {}
@@ -98,7 +99,9 @@ class TradeControllerSpec extends Specification {
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
-            trade = Trade.build().save(flush: true)
+            def orbit = Orbit.build(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
+            def planet = Planet.build(orbit: orbit)
+            trade = Trade.build(planet:planet).save(flush: true)
 
             def serviceMock = mockFor(TradeService)
             serviceMock.demand.insertOrUpdate {}
@@ -123,7 +126,9 @@ class TradeControllerSpec extends Specification {
 
         when:"A domain instance is created"
             response.reset()
-            def trade = Trade.build().save(flush: true)
+            def orbit = Orbit.build(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
+            def planet = Planet.build(orbit: orbit)
+            def trade = Trade.build(planet: planet).save(flush: true)
 
         then:"It exists"
             Trade.count() == 1

@@ -10,7 +10,8 @@ class DescriptionServiceSpec extends Specification {
 
     void "test get descriptions of a planet"() {
         given:
-            def planet = Planet.build()
+            def orbit = Orbit.build(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
+            def planet = Planet.build(orbit:orbit)
             (1..5).collect { Description.build(planet: planet) }
 
         when:
@@ -32,8 +33,9 @@ class DescriptionServiceSpec extends Specification {
 
     void "test get descriptions"() {
         given:
-            def planet = Planet.build()
-            def trade = Trade.build()
+            def orbit = Orbit.build(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
+            def planet = Planet.build(orbit:orbit)
+            def trade = Trade.build(planet:planet)
             (1..5).collect { Description.build(planet: planet) }
             (1..5).collect { Description.build(trade: trade) }
 

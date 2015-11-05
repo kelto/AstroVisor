@@ -3,10 +3,10 @@
 
   angular.module('yo').controller('MapController', MapController);
 
-  /* @ngInject */
-  function MapController(planets,$state) {
+  /** @ngInject */
+  function MapController(systems, $state) {
     var vm = this;
-    vm.planets = [];
+    vm.systems = [];
     vm.totalPlanets = 0;
     vm.rendered = 0;
     vm.$state = $state;
@@ -15,22 +15,23 @@
     };
 
     vm.openPlanet = function(id) {
+      alert(id);
       $state.go('.planet', {id: id});
     };
 
     activate();
 
     function activate(){
-      return getPlanets();
+      return getSystems();
     }
 
-    function getPlanets() {
-      return planets.getPlanets().then(function(data){
-        vm.planets = data;
-        for(var i=0; i<vm.planets.length; i++){
-          vm.totalPlanets += vm.planets[i].planets.length;
+    function getSystems() {
+      return systems.getSystems().then(function(data){
+        vm.systems = data;
+        for(var i=0; i<vm.systems.length; i++){
+          vm.totalPlanets += vm.systems[i].planets.length;
         }
-        return vm.planets;
+        return vm.systems;
       });
     }
   }
