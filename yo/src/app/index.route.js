@@ -36,6 +36,12 @@
         templateUrl: 'app/components/modalView/planet/planet_modal.html',
         controller: 'PlanetController as vm',
         bindToController:true
+      })
+      .state('home.me', {
+        url: 'me',
+        animation: true,
+        templateUrl: 'app/components/user/user_modal.html',
+        controller: 'UserController as user'
       });
 
 

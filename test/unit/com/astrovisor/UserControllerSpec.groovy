@@ -1,13 +1,11 @@
 package com.astrovisor
 
-import grails.converters.JSON
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 import spock.lang.Unroll
 
 import static org.springframework.http.HttpStatus.*
-
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
@@ -57,16 +55,27 @@ class UserControllerSpec extends Specification {
 
     @Unroll
     void "Test the update action"() {
-        when:"Update is called for a domain instance that doesn't exist"
-            controller.update(null)
 
-        then:"The response status is NOT_FOUND"
-            response.status == NOT_FOUND.value
+        when: "An invalid password is passed to the update action"
+            response.reset()
+            params.user = new User()
+            params.password = "wrong password"
+            def serviceMock = mockFor(UserService)
+            serviceMock.demand.checkPassword { return false}
+            controller.userService = serviceMock.createMock()
+            controller.update()
+
+        then: "The response status is UNAUTHORIZED"
+            response.status == UNAUTHORIZED.value
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            User user = new User()
-            controller.update(user)
+            params.user = new User()
+            params.password = "password";
+            serviceMock.demand.checkPassword { return true }
+            serviceMock.demand.updateUser { return null }
+            controller.userService = serviceMock.createMock()
+            controller.update()
 
         then:"The response status is NOT_ACCEPTABLE"
             response.status == NOT_ACCEPTABLE.value
@@ -74,12 +83,12 @@ class UserControllerSpec extends Specification {
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            user = new User(params).save(flush: true)
-
-            def serviceMock = mockFor(UserService)
-            serviceMock.demand.insertOrUpdate {}
+            params.user = new User(params).save(flush: true)
+            params.password = "password"
+            serviceMock.demand.checkPassword { return true }
+            serviceMock.demand.updateUser { return new User()}
             controller.userService = serviceMock.createMock()
-            controller.update(user)
+            controller.update()
 
         then:"The response status is OK and the updated instance is returned"
             response.status == OK.value

@@ -17,7 +17,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right" ng-show="navbar.isAuthenticated()">
           <li>
-            <a ng-click="navbar.user()">{{navbar.username()}}</a>
+            <a ui-sref=".me">{{navbar.username()}}</a>
           </li>
           <li>
             <a ng-click="navbar.logout()">Logout</a>
