@@ -10,7 +10,13 @@ class UserController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT"]
 
-    UserService userService
+    UserService userService;
+
+    @Transactional
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def me() {
+        respond userService.currentUser(), [status: OK]
+    }
 
     @Transactional
     @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
