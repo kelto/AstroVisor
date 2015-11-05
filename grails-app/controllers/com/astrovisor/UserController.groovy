@@ -37,18 +37,21 @@ class UserController {
 
     @Transactional
     @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
-    def update(User user) {
-        if(user == null) {
-            render status: NOT_FOUND
+    def update() {
+
+        def params = request.JSON;
+        if(!userService.checkPassword(params.password)) {
+            render status: UNAUTHORIZED
             return
         }
 
-        if(!user.validate()) {
+        User user = userService.updateUser(params.user);
+        if(!user) {
             render status: NOT_ACCEPTABLE
             return
         }
 
-        userService.insertOrUpdate(user)
-        respond user, [status: OK]
+        render status: OK
+        return
     }
 }

@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <h5>User</h5>
+
+</div>
+
+<div class="modal-body">
+  <tabset>
+    <tab heading="Home">
+      <div class="well">
+
+      </div>
+    </tab>
+    <tab heading="Update">
+      <form id="form" name="form" novalidate>
+        <div class="form-group"  ng-class="{ 'has-error' : form.username.$dirty && form.username.$invalid}">
+          <label for="usernameInput" class="control-label">Username</label>
+          <input ng-model="user.user.username" class="form-control" id="usernameInput" type="text" name="username" ng-minlength="4" required>
+          <div ng-messages="form.username.$dirty && form.username.$error">
+            <p ng-message="required">Your username is required.</p>
+            <p ng-message="minlength">Your username should be at least 4 characters.</p>
+          </div>
+        </div>
+        <div class="form-group"  ng-class="{ 'has-error' : form.password.$dirty && form.password.$invalid}">
+          <label for="passwordInput" class="control-label">New Password</label>
+          <input ng-model="user.user.password" class="form-control" id="passwordInput" type="password" name="password" ng-minlength="5" required>
+          <div ng-messages="form.password.$dirty && form.password.$error">
+            <p ng-message="required">Your password is required.</p>
+            <p ng-message="minlength">Your password should be at least 5 characters.</p>
+          </div>
+        </div>
+        <div class="form-group"  ng-class="{ 'has-error' : form.confirmPassword.$dirty && form.confirmPassword.$invalid}">
+          <label for="confirmPassInput" class="control-label">Old Password</label>
+          <input ng-model="user.password" class="form-control" id="confirmPassInput" type="password" name="confirmPassword" required>
+        </div>
+        <button class="btn btn-primary" ng-click="user.update()" type="submit">Update</button>
+        <button class="btn btn-danger" ng-click="user.close()">Close</button>
+    </tab>
+  </tabset>
+
+</div>
