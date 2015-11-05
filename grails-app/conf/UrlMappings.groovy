@@ -24,6 +24,9 @@ class UrlMappings {
             "/users/$id?"(controller: "user") {
                 action = [POST: "save", PUT: "update"]
             }
+            "/me"(controller: "user") {
+                action = [GET: "me"]
+            }
         }
 
         "/"(view:"/index")
