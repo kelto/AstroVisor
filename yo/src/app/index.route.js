@@ -34,7 +34,8 @@
         url: 'planet/{id:int}',
         animation: true,
         templateUrl: 'app/components/modalView/planet/planet_modal.html',
-        controller: 'PlanetController as vm'
+        controller: 'PlanetController as vm',
+        bindToController:true
       });
 
 

@@ -4,7 +4,7 @@
   angular.module('yo').controller('MapController', MapController);
 
   /** @ngInject */
-  function MapController(systems, $state) {
+  function MapController(systems, $state, $rootScope) {
     var vm = this;
     vm.systems = [];
     vm.totalPlanets = 0;
@@ -19,6 +19,10 @@
       vm.controllable = false;
       $state.go('.planet', {id: id});
     };
+
+    $rootScope.$on('planet.closed', function(){
+      vm.controllable = true;
+    });
 
     activate();
 

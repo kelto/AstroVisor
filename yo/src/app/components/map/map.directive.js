@@ -4,7 +4,7 @@
   angular.module('yo').directive('asMap', map);
 
   /** @ngInject */
-  function map($timeout) {
+  function map() {
     var directive = {
       restrict: 'E',
       templateUrl: 'app/components/map/map.html',
