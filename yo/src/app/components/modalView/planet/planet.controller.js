@@ -1,25 +1,27 @@
-angular.module('yo').controller('PlanetController', function ($scope,$http, $stateParams) {
-  /* jshint validthis: true */
-  var vm = this;
-  vm.currentDesc = 1;
+(function() {
+  'use strict';
+  angular.module('yo').controller('PlanetController', function ($scope, $stateParams, planetService) {
+    /* jshint validthis: true */
+    var vm = this;
+    vm.currentDesc = 1;
 
-  //TODO: This must be moved to a service
-  $http.get('/api/descriptions?planet='+$stateParams.id).then(function(data) {
-    vm.descriptions = data.data;
-    vm.nbDesc = vm.descriptions.length;
-  });
+    planetService.getPlanet($stateParams.id).then(function(response) {
+      vm.planet = response.data;
+    });
 
-  $http.get('/api/planets/'+$stateParams.id).then(function(data) {
-    vm.planet = data.data;
-  });
+    planetService.getDescriptionOfPlanet($stateParams.id).then(function(response) {
+      vm.descriptions = response.data;
+      vm.nbDesc = vm.descriptions.length;
+    });
 
-  $http.get('/api/trades?planet='+$stateParams.id).then(function(data) {
-    vm.trades = data.data;
-  });
+    planetService.getTradesOfPlanet($stateParams.id).then(function(response) {
+      vm.trades = response.data;
+    });
 
-  vm.currentDescription = function() {
-    return vm.descriptions ? vm.descriptions[vm.currentDesc - 1] : '';
-  };
+    vm.currentDescription = function () {
+      return vm.descriptions ? vm.descriptions[vm.currentDesc - 1] : '';
+    };
 
-});
+  })
+})();
 
