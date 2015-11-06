@@ -9,13 +9,14 @@
     vm.systems = [];
     vm.totalPlanets = 0;
     vm.rendered = 0;
+    vm.controllable = true;
     vm.$state = $state;
     vm.newRenderedPlanet = function(){
       vm.rendered++;
     };
 
     vm.openPlanet = function(id) {
-      alert(id);
+      vm.controllable = false;
       $state.go('.planet', {id: id});
     };
 

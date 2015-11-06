@@ -14,14 +14,20 @@
       <div class="well">
       {{vm.currentDescription().text}}
       </div>
-        <pager total-items="vm.nbDesc" ng-model="vm.currentDesc" items-per-page="1"></pager>
+      <pager total-items="vm.nbDesc" ng-model="vm.currentDesc" items-per-page="1"></pager>
+      <hr/>
+      <h1>Create description</h1>
+      <div ng-controller="descEditorController as descEditor">
+        <div text-angular="text-angular" name="htmlcontent" ng-model="htmlcontent" ta-disabled='disabled'></div>
+      </div>
+      <a class="btn btn-primary">Send description</a>
     </tab>
     <tab heading="Commerces">
       <div class="well">
-      <ul>
-        <li data-ng-repeat="trade in vm.trades"><a>{{trade.name}}</a></li>
-      </ul>
-        </div>
+        <ul>
+          <li data-ng-repeat="trade in vm.trades"><a>{{trade.name}}</a></li>
+        </ul>
+      </div>
       <a ui-shref="home.create-trade" class="btn btn-primary">Create Trade</a>
     </tab>
     <tab heading="Information">
