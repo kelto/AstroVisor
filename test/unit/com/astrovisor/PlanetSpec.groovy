@@ -6,6 +6,7 @@ import grails.buildtestdata.mixin.Build
 import spock.lang.*
 
 import static com.astrovisor.Planet.Type.*
+import static com.astrovisor.Planet.Size.*
 
 @TestFor(Planet)
 @Mock([Orbit, StellarSystem])
@@ -17,7 +18,7 @@ class PlanetSpec extends Specification {
     void "test invalid planet"() {
         given : "An invalid planet"
             Planet planet = new Planet(code_name: planet_code_name, age: planet_age,
-                                       name: planet_name, image: image, type: type,
+                                       name: planet_name, texture: image, type: type,
                                        system: system, orbit: orbit)
 
         when: "We try to validate"
@@ -27,16 +28,17 @@ class PlanetSpec extends Specification {
             isValid == false
 
         where:
-            planet_code_name | planet_age | planet_name | image  | type | system                | orbit
-            ""               | 0          | null        | null   | GAS  | Mock(StellarSystem)   | Mock(Orbit)
-            "XO-344"         | -1         | null        | null   | GAS  | Mock(StellarSystem)   | Mock(Orbit)
-            null             | 100        | null        | null   | GAS  | Mock(StellarSystem)   | Mock(Orbit)
-            "XO-355"         | -100       | ""          | ""     | GAS  | Mock(StellarSystem)   | Mock(Orbit)
-            "XO-355"         | -100       | ""          | ""     | null | Mock(StellarSystem)   | Mock(Orbit)
-            "XO-355"         | -100       | ""          | ""     | null | Mock(StellarSystem)   | Mock(Orbit)
-            "XO-355"         | -100       | ""          | ""     | null | Mock(StellarSystem)   | Mock(Orbit)
-            "XO-355"         | -100       | ""          | ""     | GAS  | null                  | Mock(Orbit)
-            "XO-355"         | 100        | "planet"    | "img"  | GAS  | null                  | null
+            planet_code_name | planet_age | planet_name | image  | type | system                | orbit       | size
+            ""               | 0          | null        | null   | GAS  | Mock(StellarSystem)   | Mock(Orbit) | SMALL
+            "XO-344"         | -1         | null        | null   | GAS  | Mock(StellarSystem)   | Mock(Orbit) | SMALL
+            null             | 100        | null        | null   | GAS  | Mock(StellarSystem)   | Mock(Orbit) | SMALL
+            "XO-355"         | -100       | ""          | ""     | GAS  | Mock(StellarSystem)   | Mock(Orbit) | SMALL
+            "XO-355"         | -100       | ""          | ""     | null | Mock(StellarSystem)   | Mock(Orbit) | SMALL
+            "XO-355"         | -100       | ""          | ""     | null | Mock(StellarSystem)   | Mock(Orbit) | SMALL
+            "XO-355"         | -100       | ""          | ""     | null | Mock(StellarSystem)   | Mock(Orbit) | SMALL
+            "XO-355"         | -100       | ""          | ""     | GAS  | null                  | Mock(Orbit) | SMALL
+            "XO-355"         | 100        | "planet"    | "img"  | GAS  | null                  | null        | SMALL
+            "XO-355"         | 100        | "planet"    | "img"  | GAS  | null                  | null        | null
 
     }
 
@@ -45,17 +47,19 @@ class PlanetSpec extends Specification {
         given: "A valid planet"
             def orbit = Orbit.build()
             Planet planet = new Planet(code_name: planet_code_name, age: planet_age,
-                                       name: planet_name, image: image, type: type,
-                                       system: Mock(StellarSystem), orbit: orbit)
+                                       name: planet_name, texture: texture, type: type,
+                                       system: Mock(StellarSystem), orbit: orbit,
+                                       size: SMALL)
 
         when: "We try to validate"
             def isValid = planet.validate()
+            println planet.errors
 
         then: "The validation fail"
             isValid == true
 
         where:
-            planet_code_name | planet_age | planet_name   | image   | type
+            planet_code_name | planet_age | planet_name   | texture | type
             "Test"           | 0          | null          | "image" | GAS
             "XO-345"         | 1          | "HelloPlanet" | "image" | GAS
             "XA-033"         | 100        | null          | "image" | GAS

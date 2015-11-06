@@ -9,6 +9,7 @@ import grails.util.Environment
 import grails.converters.JSON
 
 import static com.astrovisor.Planet.Type.*
+import static com.astrovisor.Planet.Size.*
 
 class BootStrap {
 
@@ -59,13 +60,13 @@ class BootStrap {
         def system = StellarSystem.get(1)
 
         def planet = new Planet(code_name: "XO-000", age:0, name: 'kelto',
-            image: "mars", description: "desc", system:system,
-            type: GAS, orbit: orbit)
+            texture: "mars", description: "desc", system:system,
+            type: GAS, orbit: orbit, size: SMALL)
         assert planet.save(failOnError:true, flush:true, insert: true)
 
         planet = new Planet(code_name: "XO-001",age:0, name: 'keltorin',
-            image: "pluto", description: "desc", system:system,
-            type: TELLURIC, orbit: orbit)
+            texture: "pluto", description: "desc", system:system,
+            type: TELLURIC, orbit: orbit, size: SMALL)
         assert planet.save(failOnError:true, flush:true, insert: true)
         assert Planet.count == 2;
     }
