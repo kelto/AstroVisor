@@ -45,8 +45,8 @@
       });
 
       var setControls = function(value){
-        $.fn.fullpage.setAllowScrolling(value);
-        $.fn.fullpage.setKeyboardScrolling(value);
+        jQuery.fn.fullpage.setAllowScrolling(value);
+        jQuery.fn.fullpage.setKeyboardScrolling(value);
       }
     }
   }
