@@ -11,7 +11,8 @@ class DescriptionServiceSpec extends Specification {
     void "test get descriptions of a planet"() {
         given:
             def planet = Planet.build()
-            (1..5).collect { Description.build(planet: planet) }
+            def user = User.build()
+            (1..5).collect { Description.build(planet: planet, user: user) }
 
         when:
             def descriptions = descriptionService.getDescriptionsOfPlanet(planet.id, 0, 10)
@@ -34,8 +35,9 @@ class DescriptionServiceSpec extends Specification {
         given:
             def planet = Planet.build()
             def trade = Trade.build()
-            (1..5).collect { Description.build(planet: planet) }
-            (1..5).collect { Description.build(trade: trade) }
+            def user = User.build()
+            (1..5).collect { Description.build(planet: planet, user: user) }
+            (1..5).collect { Description.build(trade: trade, user: user) }
 
         when:
             def descriptions = descriptionService.getDescriptions(0, 8)

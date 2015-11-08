@@ -72,12 +72,13 @@ class BootStrap {
     }
 
     def descriptionTestData(){
+        def user = User.get(1)
         def planet = Planet.get(1)
-        def description = new Description(text:"Hehehe", planet: planet)
+        def description = new Description(text:"Hehehe", planet: planet, user: user)
         assert description.save(failOnError:true, flush:true, insert: true)
 
         planet = Planet.get(2)
-        description = new Description(text:"Hehehe", planet: planet)
+        description = new Description(text:"Hehehe", planet: planet, user: user)
         assert description.save(failOnError:true, flush:true, insert: true)
 
         assert Description.count == 2
