@@ -30,7 +30,7 @@
 
     function linkFunc(scope, el, attr, vm){
       var planetId = attr.id;
-      var planet = systems.getPlanetByCodeName(planetId);
+      var planet = systems.getPlanetById(planetId);
       el.append(renderer(planet));
 
       vm.newRenderedPlanet();

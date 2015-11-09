@@ -1,33 +1,58 @@
 (function(){
   'use strict';
 
-  angular.module('yo').controller('PlanetController', function ($rootScope, $scope, $http, $stateParams) {
-    /* jshint validthis: true */
+  angular.module('yo').controller('PlanetController', PlanetController);
+
+  /** @ngInject */
+  function PlanetController($log, $rootScope, $scope, $stateParams, systems, descriptions) {
     var vm = this;
+    vm.planet;
+    vm.descriptions = [];
+    vm.nbDesc = 0;
     vm.currentDesc = 1;
-
-    $scope.$on('modal.closing', function(){
-      $rootScope.$broadcast('planet.closed');
-    });
-
-    //TODO: This must be moved to a service
-    $http.get('/api/descriptions?planet='+$stateParams.id).then(function(data) {
-      vm.descriptions = data.data;
-      vm.nbDesc = vm.descriptions.length;
-    });
-
-    $http.get('/api/planets/'+$stateParams.id).then(function(data) {
-      vm.planet = data.data;
-    });
-
-    $http.get('/api/trades?planet='+$stateParams.id).then(function(data) {
-      vm.trades = data.data;
-    });
+    vm.trades = [];
+    vm.nbTrades = 0;
+    vm.descEditor = '';
 
     vm.currentDescription = function() {
       return vm.descriptions ? vm.descriptions[vm.currentDesc - 1] : '';
     };
 
-  });
+    vm.upvote = function(){
+      alert('upvoted');
+    };
+
+    vm.downvote = function(){
+      alert('downvote');
+    };
+
+    vm.sendDescEditorContent = function(){
+      descriptions.sendNewDescription(vm.descEditor, vm.planet.id);
+      vm.clearDescEditorContent();
+    };
+
+    vm.clearDescEditorContent = function(){
+      vm.descEditor = '';
+    };
+
+    $scope.$on('modal.closing', function(){
+      $rootScope.$broadcast('planet.closed');
+    });
+
+    activate();
+
+    function activate(){
+      try{
+        vm.planet = systems.getPlanetById($stateParams.id);
+        vm.descriptions = vm.planet.descriptions;
+        vm.nbDesc = vm.descriptions.length;
+        vm.trades = vm.planet.trades;
+        vm.nbTrades = vm.trades.length;
+      }
+      catch(err){
+        $log.error(err);
+      }
+    }
+  }
 })();
 

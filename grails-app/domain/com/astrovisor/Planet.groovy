@@ -17,35 +17,38 @@ class Planet {
     String description
     boolean rings
     boolean atmosphere
-    Size size
-    Orbit orbit
     Climate climate
-    Type type
+    String type
+    String size
 
     static embedded = ['climate', 'orbit']
 
-    static hasMany = [descriptions: Description,
-                      trades: Trade
-                     ]
+    static hasOne = [orbit:Orbit]
 
-    static belongsTo = [system: StellarSystem]
+    static hasMany = [
+        descriptions: Description,
+        trades: Trade
+    ]
 
+    static belongsTo = [system:StellarSystem]
     static mapping = {
+        description type: "text"//Overcomes VARCHAR(255) limit
         descriptions cascade: 'all'
         trades: 'all'
     }
 
     static constraints = {
-        code_name blank: false, unique: true, nullable: false
-        name blank: false, nullable: true
+        code_name blank: true, unique: true, nullable: true
+        name blank: true, nullable: true /*data binder will convert blank strings to null*/
         texture blank: false, nullable: false
         age validator: { val ->
-                return val >= 0 && val < 14000000000
+            return val >= 0 && val < 14000000000
         }
         orbit nullable: false
         description nullable: true, blank: true
         climate nullable: true
-        type nullable: false
+        type blank: false, nullable: false
         size blank: false, nullable: false
     }
+    /*Ref : http://grails.github.io/grails-doc/latest/ref/Constraints/nullable.html*/
 }

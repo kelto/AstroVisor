@@ -1,45 +1,59 @@
 <div class="modal-header">
-  <h5>{{vm.planet.code_name}}</h5>
-
+  <h3>
+    <span ng-if="vm.planet.code_name">{{vm.planet.code_name}}</span>
+    <span ng-if="vm.planet.code_name && vm.planet.name">a.k.a.</span>
+    <span ng-if="vm.planet.name">{{vm.planet.name}}</span>
+  </h3>
 </div>
 
 <div class="modal-body">
   <tabset>
-    <tab heading="Home">
-      <div class="well">
-      {{vm.planet.description}}
+    <tab heading="Codex">
+      <div id="codexContent">
+        <p ng-bind-html="vm.planet.description"></p>
+        <hr ng-if="vm.planet.description" />
+        <ul>
+          <li>Has Ring : {{vm.planet.ring ? 'Yes' : 'No'}}</li>
+          <li>Size : {{vm.planet.size}}</li>
+          <li>Climate : {{vm.planet.climate }}</li>
+          <li>Orbit : {{vm.planet.orbit}}</li>
+        </ul>
+      </div>
+    </tab>
+
+    <tab ng-if="vm.nbDesc" heading="Descriptions">
+      <div id="descContent">
+        <div ng-bind-html="vm.currentDescription().text" id="currentText"></div>
+        <div id="currentEval">
+          <span ng-click="vm.upvote()" id="upvotes">
+            <i class="fa fa-2x fa-thumbs-up"></i>
+            {{vm.currentDescription().upvotes}}
+          </span>
+          <span ng-click="vm.downvote()" id="downvotes">
+            <i class="fa fa-2x fa-thumbs-down"></i>
+            {{vm.currentDescription().downvotes}}
+          </span>
+        </div>
+        <pager total-items="vm.nbDesc" ng-model="vm.currentDesc" items-per-page="1"></pager>
         </div>
     </tab>
-    <tab heading="Descriptions">
-      <div class="well">
-      {{vm.currentDescription().text}}
-      </div>
-      <pager total-items="vm.nbDesc" ng-model="vm.currentDesc" items-per-page="1"></pager>
-      <hr/>
-      <h1>Create description</h1>
-      <div ng-controller="descEditorController as descEditor">
-        <div text-angular="text-angular" name="htmlcontent" ng-model="htmlcontent" ta-disabled='disabled'></div>
-      </div>
-      <a class="btn btn-primary">Send description</a>
-    </tab>
-    <tab heading="Commerces">
+
+    <tab ng-if="vm.nbTrades" heading="Commerces">
       <div class="well">
         <ul>
           <li data-ng-repeat="trade in vm.trades"><a>{{trade.name}}</a></li>
         </ul>
       </div>
-      <a ui-shref="home.create-trade" class="btn btn-primary">Create Trade</a>
     </tab>
-    <tab heading="Information">
-      <div class="well">
-      <ul>
-        <li>Has Ring : {{vm.planet.ring ? 'Yes' : 'No'}}</li>
-        <li>Size : {{vm.planet.size}}</li>
-        <li>Climate : {{vm.planet.climate }}</li>
-        <li>Orbit : {{vm.planet.orbit}}</li>
-      </ul>
+
+    <tab heading="Ajouter une description">
+      <div class="editorContent">
+        <div text-angular="text-angular" ng-model="vm.descEditor" ta-disabled='disabled'></div>
+        <a ng-click="vm.sendDescEditorContent()" class="btn btn-primary btn-long btn-block">Envoyer description</a>
+        <a ng-click="vm.clearDescEditorContent()" class="btn btn-danger btn-long btn-block">Effacer description</a>
       </div>
     </tab>
+
   </tabset>
 
 </div>

@@ -12,7 +12,7 @@
       systems:null,
       fetchSystems:fetchSystems,
       getSystems:getSystems,
-      getPlanetByCodeName:getPlanetByCodeName
+      getPlanetById:getPlanetById
     };
 
     return service;
@@ -60,7 +60,7 @@
       }
     }
 
-    function getPlanetByCodeName(code){
+    function getPlanetById(id){
       if(service.systems == null || service.systems.length < 1){
         throw 'No systems available.';
       }
@@ -70,7 +70,7 @@
         var system = service.systems[i];
         for(var j=0; j<system.planets.length; j++){
           var planet = system.planets[j];
-          if(planet.code_name === code){
+          if(planet.id == id){
             res = planet;
             break;
           }

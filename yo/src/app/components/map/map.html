@@ -1,7 +1,7 @@
 <div id="map">
   <div id="map-contents">
     <div ng-repeat="system in vm.systems" id="{{system.name}}" class="section stellar-system">
-      <div as-sphere ng-repeat="planet in system.planets" id="{{planet.code_name}}" class="slide" data-anchor="{{planet.name}}" ng-click="vm.openPlanet(planet.id)"></div>
+      <div as-sphere ng-repeat="planet in system.planets | orderBy:'+id'" id="{{planet.id}}" class="slide" data-anchor="{{planet.name}}" ng-click="vm.openPlanet(planet.id)"></div>
     </div>
   </div>
 </div>
