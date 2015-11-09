@@ -5,21 +5,24 @@
   <form id="form" name="form" novalidate>
     <div class="form-group"  ng-class="{ 'has-error' : form.tradename.$dirty && form.tradename.$invalid}">
       <label for="tradenameInput" class="control-label">Name of the trade</label>
-      <input ng-model=".tradename" class="form-control" id="tradenameInput" type="text" name="tradename" ng-minlength="4" required>
+      <input ng-model="trade.tradename" class="form-control" id="tradenameInput" type="text" name="tradename" ng-minlength="4" required>
       <div ng-messages="form.tradename.$dirty && form.tradename.$error">
         <p ng-message="required">A name is required.</p>
         <p ng-message="minlength">The name should be at least 4 characters.</p>
       </div>
     </div>
-    <div class="form-group"  ng-class="{ 'has-error' : form.description.$dirty && form.description.$invalid}">
+    <!--<div class="form-group"  ng-class="{ 'has-error' : form.description.$dirty && form.description.$invalid}">-->
       <label for="descriptionInput" class="control-label">Description</label>
-      <textarea ng-model=".description" class="form-control" id="descriptionInput" type="description" name="description" form="form" rows="5" required>
-      </textarea>
+      <!--<textarea ng-model=".description" class="form-control" id="descriptionInput" type="description" name="description" form="form" rows="5" required>
+      </textarea>-->
+      <div ng-controller="descEditorController as descEditor">
+        <div text-angular="text-angular" name="description" ng-model="descriptionInput" id="descriptionInput" type="description" name="description" ta-disabled='disabled'></div>
+      </div>
         <div ng-messages="form.description.$dirty && form.description.$error">
         <p ng-message="required">Write a description!</p>
       </div>
-    </div>
-    <button class="btn btn-primary" ng-click=".signup()" type="submit">Confirmer</button>
-    <button class="btn btn-danger" ng-click=".close()">Annuler</button>
+    <!--</div>-->
+    <button class="btn btn-primary" ng-click="trade.createTreade()" type="submit">Confirmer</button>
+    <button class="btn btn-danger" ng-click="createTrade.close()">Annuler</button>
   </form>
 </div>

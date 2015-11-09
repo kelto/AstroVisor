@@ -1,4 +1,4 @@
-angular.module('yo').controller('TradeController', function ($scope, $modalInstance, $auth,toastr) {
+angular.module('yo').controller('CreateTradeController', function ($scope, $modalInstance, $auth,toastr) {
   /* jshint validthis: true */
   var vm = this;
   vm.trade = {
