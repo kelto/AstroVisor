@@ -4,7 +4,7 @@
   angular.module('yo').controller('PlanetController', PlanetController);
 
   /** @ngInject */
-  function PlanetController($log, $rootScope, $scope, $stateParams, systems, descriptions) {
+  function PlanetController($log, $rootScope, $scope, $stateParams, systems, descriptions, toastr) {
     var vm = this;
     vm.planet;
     vm.descriptions = [];
@@ -27,8 +27,14 @@
     };
 
     vm.sendDescEditorContent = function(){
-      descriptions.sendNewDescription(vm.descEditor, vm.planet.id);
-      vm.clearDescEditorContent();
+      descriptions.sendNewDescription(vm.descEditor, vm.planet.id).then(function(e){
+        $log.debug(e);
+        vm.clearDescEditorContent();
+        toastr.success('Description enregistrée');
+      }).catch(function(e){
+        $log.error(e);
+        toastr.error('Impossible d\'enregistrer la description');
+      });
     };
 
     vm.clearDescEditorContent = function(){
