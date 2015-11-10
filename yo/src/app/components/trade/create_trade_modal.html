@@ -16,13 +16,13 @@
       <!--<textarea ng-model=".description" class="form-control" id="descriptionInput" type="description" name="description" form="form" rows="5" required>
       </textarea>-->
       <div ng-controller="descEditorController as descEditor">
-        <div text-angular="text-angular" name="description" ng-model="trade.trade.description" id="descriptionInput" type="description" name="description" ta-disabled='disabled'></div>
+        <div text-angular="text-angular" name="description" ng-model="trade.description.text" id="descriptionInput" type="description" name="description" ta-disabled='disabled'></div>
       </div>
         <div ng-messages="form.description.$dirty && form.description.$error">
         <p ng-message="required">Write a description!</p>
       </div>
     <!--</div>-->
-    <button class="btn btn-primary" ng-click="trade.createTreade()" type="submit">Confirmer</button>
+    <button class="btn btn-primary" ng-click="trade.createTrade()" type="submit">Confirmer</button>
     <button class="btn btn-danger" ng-click="trade.close()">Annuler</button>
   </form>
 </div>

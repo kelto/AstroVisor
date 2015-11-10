@@ -1,5 +1,15 @@
-(function(){
-  'use strict';
+angular.module('yo').controller('PlanetController', function ($scope,$http, $stateParams, trades,systems) {
+  /* jshint validthis: true */
+  var vm = this;
+  vm.currentDesc = 1;
+  vm.planet = systems.getPlanetById($stateParams.id);
+  vm.trades = vm.planet.trades;
+  vm.nbTrades = vm.trades.length;
+  vm.currentTr = 1;
+
+  vm.currentTrade = function(){
+    return vm.trades ? vm.trades[vm.currentTr - 1] : '';
+  };
 
   angular.module('yo').controller('PlanetController', PlanetController);
 

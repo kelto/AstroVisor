@@ -53,12 +53,18 @@
         </div>
       </div>
     </tab>
-
-    <tab ng-if="vm.nbTrades" heading="Commerces">
+    <!--<tab heading="Commerces">
       <div class="well">
         <ul>
           <li data-ng-repeat="trade in vm.trades"><a>{{trade.name}}</a></li>
         </ul>
+      </div>
+      <a ui-sref="home.planet.create-trade" class="btn btn-primary">Create Trade</a>
+    </tab>-->
+    <tab ng-if="vm.nbTrades" heading="Trades">
+      <div id="tradeContent" label="vm.currentTrade().name">
+        <div ng-bind-html="vm.currentTrade().text" id="currentTextTrade"></div>
+        <pager total-items="vm.nbTrades" ng-model="vm.currentTr" items-per-page="1"></pager>
       </div>
       <a ui-sref="home.planet.create-trade" class="btn btn-primary">Create Trade</a>
     </tab>
