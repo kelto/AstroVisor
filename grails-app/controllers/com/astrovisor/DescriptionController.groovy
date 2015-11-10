@@ -51,6 +51,7 @@ class DescriptionController {
     }
 
     @Transactional
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def update(Description description) {
         if(description == null) {
             render status: NOT_FOUND
@@ -68,6 +69,7 @@ class DescriptionController {
     }
 
     @Transactional
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def delete(Description description) {
         if(description == null) {
             render status: NOT_FOUND
