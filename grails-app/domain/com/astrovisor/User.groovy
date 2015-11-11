@@ -10,8 +10,9 @@ class User {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+	int totalVotes
 
-	static transients = ['springSecurityService']
+	static transients = ['springSecurityService', 'totalVotes']
 
 	static constraints = {
 		username blank: false, unique: true, minSize: 4

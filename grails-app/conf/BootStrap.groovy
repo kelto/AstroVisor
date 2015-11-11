@@ -36,6 +36,11 @@ class BootStrap {
                     description:it.description, rings:it.rings, atmosphere:it.atmosphere, orbit:it.orbit
             ]
         }
+
+        JSON.registerObjectMarshaller(User) {
+            return [username: it.username, totalVotes: it.totalVotes
+            ]
+        }
     }
 
     def destroy = {

@@ -17,7 +17,26 @@ class UserService {
     }
 
     User currentUser() {
+        User user = springSecurityService.currentUser;
+        if(!user) {
+            throw new Exception("You are not authenticated");
+        }
+        user.totalVotes = totalVoteOfUser(user)
         return springSecurityService.currentUser;
+    }
+
+    int totalVoteOfUser(User user) {
+        def criteria = Description.createCriteria()
+        def result = criteria.list {
+            eq('user',user)
+            projections {
+                sum('upvotes')
+                sum('downvotes')
+            }
+        }
+        int upvotes = result[0][0] == null ? 0 : result[0][0]
+        int downvotes = result[0][1] == null ? 0 : result[0][1]
+        return upvotes - downvotes
     }
     /**
      *
