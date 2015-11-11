@@ -1,18 +1,17 @@
 (function(){
   'use strict';
 
-  angular.module('yo').factory('planets', planets);
+  angular.module('yo').factory('trades', trades);
 
   /** @ngInject */
-  function planets($http, $q) {
+  function trades($http, $q) {
     var uri = 'api/trades';
     var service = {
       uri: uri,
       planet:null,
-      trades:null,
+      trades:[],
       fetchTrades:fetchTrades,
-      getTrades:getTrades,
-      getTradeByName:getTradeByName
+      getTrades:getTrades
     };
 
     return service;
@@ -60,30 +59,6 @@
       }
     }
 
-    function getTradeByName(name){
-      if(service.trades.length < 1){
-        throw 'No trades available.';
-      }
-
-      var res = null;
-      if (service.trades != null){
-        for(var i=0; i<service.trades.length;i++){
-          var trade = service.trades[i];
-          if(trade.name == name){
-            res = trade;
-            break;
-          }
-        }
-
-        if(res == null){
-          throw 'Trade not found.';
-        }
-      }
-      else {
-        throw 'No trade.';
-      }
-      return res;
-    }
   }
 
 })();

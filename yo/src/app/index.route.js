@@ -36,12 +36,11 @@
         templateUrl: 'app/components/modalView/planet/planet_modal.html',
         controller: 'PlanetController as vm'
       })
-      .state('home.create-trade', {
-        url: 'createtrade',
+      .state('home.planet.create-trade', {
+        url: '/createtrade',
         animation: true,
-        templateUrl: 'app/components/trade/create_trade_modal.html'
-        //controller: 'PlanetController as vm'
-        controller: 'PlanetController as vm',
+        templateUrl: 'app/components/trades/create_trade_modal.html',
+        controller: 'CreateTradeController as trade',
         bindToController:true
       })
       .state('home.me', {

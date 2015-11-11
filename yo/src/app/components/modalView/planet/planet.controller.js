@@ -1,4 +1,4 @@
-angular.module('yo').controller('PlanetController', function ($scope,$http, $stateParams,systems, planets, descriptions) {
+angular.module('yo').controller('PlanetController', function ($scope,$http, $stateParams,systems, descriptions) {
   /* jshint validthis: true */
 
   /** @ngInject */
