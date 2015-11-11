@@ -16,6 +16,6 @@ class Description {
         text blank: false
         planet nullable: true, validator: {field, inst -> (inst.trade || field) && (inst.trade == null || field == null)}
         trade nullable: true
-        user nullable: false
+        user nullable: true
     }
 }

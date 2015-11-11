@@ -12,9 +12,11 @@ import static com.astrovisor.Planet.Size.*
  */
 @TestMixin(GrailsUnitTestMixin)
 class PlanetSpec extends Specification {
+    def orbit
 
     def setup() {
         mockForConstraintsTests(Planet, [new Planet(code_name: '123456')])
+        orbit = new Orbit(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
     }
 
     def cleanup() {
@@ -23,7 +25,7 @@ class PlanetSpec extends Specification {
     void "test invalid planet"() {
         given : "An invalid planet"
         Planet planet = new Planet(code_name: planet_code_name, age: planet_age,
-                                   name: planet_name, texture: texture, type: type, size:size, orbit:new Orbit(), system: new StellarSystem())
+                                   name: planet_name, texture: texture, type: type, size:size, orbit:orbit, system: new StellarSystem())
 
         when: "We try to validate"
         def isValid = planet.validate()
@@ -45,7 +47,7 @@ class PlanetSpec extends Specification {
     void "test valid planet" () {
         given: "A valid planet"
         Planet planet = new Planet(code_name: planet_code_name, age: planet_age,
-                                   name: planet_name, texture: texture, type: type, size:size, orbit:new Orbit(), system: new StellarSystem())
+                                   name: planet_name, texture: texture, type: type, size:size, orbit:orbit, system: new StellarSystem())
 
         when: "We try to validate"
         def isValid = planet.validate()
