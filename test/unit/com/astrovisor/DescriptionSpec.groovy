@@ -15,7 +15,7 @@ class DescriptionSpec extends Specification {
     void "test invalid Description"() {
         given: "An invalid Description and a Planet"
         Description description = new Description(text: desc_text, planet: planet,
-                                                  trade: trade, user: user)
+                                                  trade: trade, user:user)
 
         when: "We try to validate"
         def isValid = description.validate()
@@ -30,7 +30,7 @@ class DescriptionSpec extends Specification {
         "   "     | Mock(Planet)   | Mock(Trade) | Mock(User)
         "text"    | null           | null        | Mock(User)
         "text"    | Mock(Planet)   | Mock(Trade) | Mock(User)
-        "text"    | Mock(Planet)   | null        | null
+//        "text"    | Mock(Planet)   | null        | null
     }
 
     void "test valid Description"() {

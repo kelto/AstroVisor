@@ -16,17 +16,38 @@
     return directive;
 
     function linkFunc(scope, el, attr, vm) {
-      var watcher;
+      var planetWatcher;
+      var commandWatcher;
+      var fullpageReady = false;
 
-      watcher = scope.$watch('vm.rendered', function(){
+      planetWatcher = scope.$watch('vm.rendered', function(){
         if(vm.rendered > 0 && vm.rendered === vm.totalPlanets){
           el.find('#map-contents').fullpage();
+          fullpageReady = true;
+          setControls(true);
+        }
+      });
+
+      commandWatcher = scope.$watch('vm.controllable', function(){
+        if(fullpageReady) {
+          if (vm.controllable) {
+            setControls(true);
+          }
+          else {
+            setControls(false);
+          }
         }
       });
 
       scope.$on('$destroy', function () {
-        watcher();
+        planetWatcher();
+        commandWatcher();
       });
+
+      var setControls = function(value){
+        jQuery.fn.fullpage.setAllowScrolling(value);
+        jQuery.fn.fullpage.setKeyboardScrolling(value);
+      }
     }
   }
 
