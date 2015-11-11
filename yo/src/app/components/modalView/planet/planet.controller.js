@@ -4,7 +4,7 @@
   angular.module('yo').controller('PlanetController', PlanetController);
 
   /** @ngInject */
-  function PlanetController($log, $rootScope, $scope, $stateParams, $filter, systems, descriptions, toastr) {
+  function PlanetController($log, $rootScope, $scope, $stateParams, $filter, $auth, systems, descriptions, toastr) {
     var vm = this;
     vm.planet;
     vm.descriptions = [];
@@ -19,39 +19,54 @@
     };
 
     vm.upvote = function(){
-      var desc = vm.descriptions[vm.currentDesc - 1];
-      descriptions.updateDescription(desc.id, desc.text, desc.upvotes+1, desc.downvotes, vm.planet.id).then(function(e){
-        $log.debug(e);
-        refresh();
-        toastr.success('Like enregistré');
-      }).catch(function(e){
-        $log.error(e);
-        toastr.error('Impossible d\'enregistrer le like');
-      });
+      if($auth.isAuthenticated()){
+        var desc = vm.descriptions[vm.currentDesc - 1];
+        descriptions.updateDescription(desc.id, desc.text, desc.upvotes+1, desc.downvotes, vm.planet.id).then(function(e){
+          $log.debug(e);
+          refresh();
+          toastr.success('Like enregistré');
+        }).catch(function(e){
+          $log.error(e);
+          toastr.error('Impossible d\'enregistrer le like');
+        });
+      }
+      else{
+        toastr.error('Vous n\'êtes pas connecté');
+      }
     };
 
     vm.downvote = function(){
-      var desc = vm.descriptions[vm.currentDesc - 1];
-      descriptions.updateDescription(desc.id, desc.text, desc.upvotes, desc.downvotes+1, vm.planet.id).then(function(e){
-        $log.debug(e);
-        refresh();
-        toastr.success('Dislike enregistré');
-      }).catch(function(e){
-        $log.error(e);
-        toastr.error('Impossible d\'enregistrer le dislike');
-      });
+      if($auth.isAuthenticated()){
+        var desc = vm.descriptions[vm.currentDesc - 1];
+        descriptions.updateDescription(desc.id, desc.text, desc.upvotes, desc.downvotes+1, vm.planet.id).then(function(e){
+          $log.debug(e);
+          refresh();
+          toastr.success('Dislike enregistré');
+        }).catch(function(e){
+          $log.error(e);
+          toastr.error('Impossible d\'enregistrer le dislike');
+        });
+      }
+      else{
+        toastr.error('Vous n\'êtes pas connecté');
+      }
     };
 
     vm.sendDescEditorContent = function(){
-      descriptions.sendNewDescription(vm.descEditor, vm.planet.id).then(function(e){
-        $log.debug(e);
-        vm.clearDescEditorContent();
-        refresh();
-        toastr.success('Description enregistrée');
-      }).catch(function(e){
-        $log.error(e);
-        toastr.error('Impossible d\'enregistrer la description');
-      });
+      if($auth.isAuthenticated()){
+        descriptions.sendNewDescription(vm.descEditor, vm.planet.id).then(function(e){
+          $log.debug(e);
+          vm.clearDescEditorContent();
+          refresh();
+          toastr.success('Description enregistrée');
+        }).catch(function(e){
+          $log.error(e);
+          toastr.error('Impossible d\'enregistrer la description');
+        });
+      }
+      else{
+        toastr.error('Vous n\'êtes pas connecté');
+      }
     };
 
     vm.clearDescEditorContent = function(){
