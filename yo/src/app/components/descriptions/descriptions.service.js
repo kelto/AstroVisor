@@ -5,15 +5,45 @@
 
   /** @ngInject */
   function descriptions($http, $q) {
-    var uri = '/api/descriptions';
-
+    var uri = 'api/descriptions';
     var service = {
       uri: uri,
+      descTr:null,
+      getDescByIdTrade:getDescByIdTrade,
       sendNewDescription:sendNewDescription,
       updateDescription:updateDescription
     };
 
     return service;
+
+    function getDescByIdTrade(id){
+      return $q(function(resolve, reject) {
+        $http.get(uri).then(getDescComplete).catch(getDescFailed);
+
+        function getDescComplete(response) {
+          if (response.data.length > 0) {
+            var tmp = null;
+            response.data.forEach(function (desc) {
+              if (id == desc.trade.id) {
+                tmp = desc;
+                return;
+              }
+            });
+
+            if (tmp != null) {
+              service.descTr = tmp;
+              resolve(tmp);
+            }
+            else {
+              reject('Trade is empty.');
+            }
+          }
+          else {
+            reject('No desc found.');
+          }
+        }
+      });
+    }
 
     function sendNewDescription(text, planetId){
       return $q(function(resolve, reject){
@@ -41,6 +71,10 @@
 
         function updateDescriptionFailed(e){
           reject(e);
+        }
+
+        function getDescFailed(error){
+          reject('XHR failed for getDesc.\n' + angular.toJson(error.data, true));
         }
       });
     }
