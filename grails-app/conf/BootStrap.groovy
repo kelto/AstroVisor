@@ -1,3 +1,4 @@
+import com.astrovisor.Climate
 import com.astrovisor.Description
 import com.astrovisor.Planet
 import com.astrovisor.Orbit
@@ -10,6 +11,8 @@ import grails.converters.JSON
 
 import static com.astrovisor.Planet.Type.*
 import static com.astrovisor.Planet.Size.*
+
+import static com.astrovisor.Climate.ClimateType.*
 
 class BootStrap {
 
@@ -68,10 +71,11 @@ class BootStrap {
         String desc =
         "<p>Seule une poignée de stations héliothermiques ont pu être aménagées sur les \"pics de lumière éternelle\" situés aux pôles nord et sud de Mercure. En effet, la proximité de cette planète avec le soleil et sa vitesse de révolution orbitale élevée limitent considérablement son développement.</p>"
 
+        def climate = new Climate(minTemp:-183, maxTemp:427, meanTemp:169, seasons:1, type:DRY)
         def orbit = new Orbit(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365);
         def planet = new Planet(age:4000000000, name: 'Mercure',
         texture: "mercury", description:desc, system:system, orbit:orbit,
-        type: TELLURIC, size: SMALL, atmosphere: false)
+        type: TELLURIC, size: SMALL, atmosphere: false, climate:climate)
         assert planet.save(failOnError:true, flush:true, insert: true)
 
         desc = "<p>Vénus est la deuxième planète du Système Solaire.</p>"+
@@ -88,10 +92,11 @@ class BootStrap {
         "<p>Le niveau des mers s'est élevé de deux mètres au cours des deux siècles derniers et les abus environnementaux du XXIe siècle ont provoqué un dérèglement climatique sensible. Cependant, les dernières décennies ont aussi vu des améliorations significatives dans ce domaine grâce aux avancées technologiques récentes.</p>"+
         "<blockquote>La Terre est le berceau de l'Humanité, mais on ne passe pas sa vie entière dans un berceau.<footer>Constantin Tsiolkovski</footer></blockquote>"
 
+        climate = new Climate(minTemp:-93.2, maxTemp:56.7, meanTemp:15, seasons:4, type:MODERATE)
         orbit = new Orbit(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365);
         planet = new Planet(age:4000000000, name: 'La Terre',
             texture: "earth", description:desc, system:system, orbit:orbit,
-            type: TELLURIC, size: NORMAL, atmosphere: true)
+            type: TELLURIC, size: NORMAL, atmosphere: true, climate:climate)
         assert planet.save(failOnError:true, flush:true, insert: true)
 
         desc = "<p>Autrefois candidate potentielle à l'acclimatation humaine, Mars est devenue un trou perdu suite à la découverte du vol supraluminique. Son pôle sud est une réserve historique protégée, constituée autour des ruines prothéennes qui y ont été découvertes. L'immigration et le développement sont fortement jugulés pour donner priorité à la recherche d'artefacts prothéens.</p>"

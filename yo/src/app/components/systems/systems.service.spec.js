@@ -85,15 +85,16 @@
       });
     });
 
-    describe('get a planet by code name', function(){
+    describe('get a planet by id', function(){
       it('should exist', function(){
-        expect(systems.getPlanetByCodeName).not.toEqual(null);
+        expect(systems.getPlanetById).not.toEqual(null);
       });
 
       var data = [{
         "name": "Alpha Centauri",
         "planets": [
           {
+            "id":1,
             "code_name": "ae3ede123swwwwwqd",
             "name": "Pandora",
             "type": "gas",
@@ -104,6 +105,7 @@
             "orbital_speed": 6.0,
             "size": "XXL"
           },{
+            "id":2,
             "code_name":"ae3ede123sqd",
             "name":"Cérès",
             "type":"telluric",
@@ -120,10 +122,10 @@
       it('it should return data', function(){
         $httpBackend.when('GET',  systems.uri).respond(200, data);
         systems.fetchSystems().then(function(){
-          var code = 'ae3ede123sqd';
-          var res = systems.getPlanetByCodeName(code);
+          var code = 1;
+          var res = systems.getPlanetById(code);
           expect(res).toEqual(jasmine.any(Object));
-          expect(res['code_name']).toEqual(code);
+          expect(res['id']).toEqual(code);
         });
 
         $httpBackend.flush();
@@ -133,7 +135,7 @@
         $httpBackend.when('GET',  systems.uri).respond(200, data);
         systems.fetchSystems().then(function(){
           expect(function(){
-            systems.getPlanetByCodeName('test');
+            systems.getPlanetById('test');
           }).toThrow('Planet not found.');
         });
 
@@ -142,7 +144,7 @@
 
       it('it should return a not found exception', function(){
         expect(function(){
-          systems.getPlanetByCodeName('test');
+          systems.getPlanetById('test');
         }).toThrow('No systems available.');
       });
     });
