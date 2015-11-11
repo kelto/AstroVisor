@@ -23,7 +23,15 @@ class BootStrap {
         }
         JSON.registerObjectMarshaller(StellarSystem) {
             return [code_name: it.code_name, name:it.name,
-                    planets:it.planets]
+                    planets:it.planets
+            ]
+        }
+
+        JSON.registerObjectMarshaller(Planet) {
+            return [id:it.id, code_name: it.code_name, name:it.name, age:it.age, texture:it.texture,
+                    descriptions:it.descriptions, trades:it.trades, type:it.type, size:it.size, climate:it.climate,
+                    description:it.description, rings:it.rings, atmosphere:it.atmosphere, orbit:it.orbit
+            ]
         }
     }
 
@@ -129,7 +137,7 @@ class BootStrap {
         assert planet.save(failOnError:true, flush:true, insert: true)
 
         system = StellarSystem.get(2)
-        desc = "<p>Watson a fait la une des médias humain à deux titres : ses marée spectaculaires provoquées par une line disproportionnée, et l'imbroglio administratif quant à la primeur de sa découverte. Watson est en effet un monde-éden revendiqué simultanément en 2165 par la Fédération populaire de Chine, les Etats-Unis d'Amérique du Nord et l'Union européenne. L'Alliance interstellaire a donc négocié le tristement célèbre \"compromis de Reykjavik\" qui accorde à chaque coalition un droit de colonisation limité, dans des villes constituées de ressortissants de chaque nation.</p>"+
+        desc = "<p>Watson a fait la une des médias humain à deux titres : ses marée spectaculaires provoquées par une lne disproportionnée, et l'imbroglio administratif quant à la primeur de sa découverte. Watson est en effet un monde-éden revendiqué simultanément en 2165 par la Fédération populaire de Chine, les Etats-Unis d'Amérique du Nord et l'Union européenne. L'Alliance interstellaire a donc négocié le tristement célèbre \"compromis de Reykjavik\" qui accorde à chaque coalition un droit de colonisation limité, dans des villes constituées de ressortissants de chaque nation.</p>"+
         "<p>Watson elle-même est plus froide que la Terre . Sa zone tempérée s'étend sur environ 30 degrés de latitude de part et d'autre de l'équateur. L'évolution du biotope local diffère sensiblement de celle de la Terre : certaines îles comportent des espèces semblables aux mammifères terrestres à placenta, d'autres grouillent d'arthropodes. On estime qu'il faudra encore au moins deux générations de xénozoologistes pour dresser une classification à peu près exhaustive des espèces locales.</p>"
         orbit = new Orbit(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365);
         planet = new Planet(code_name:'LVMA-450b', age:4000000000, name: 'Watson',
