@@ -24,7 +24,8 @@
     <tab ng-if="vm.nbDesc" heading="Descriptions">
       <div id="descContent">
         <div ng-bind-html="vm.currentDescription().text" id="currentText"></div>
-        <div id="currentEval">
+        <div id="descSubContent">
+          <div id="currentEval">
           <span ng-click="vm.upvote()" id="upvotes">
             <i class="fa fa-2x fa-thumbs-up"></i>
             {{vm.currentDescription().upvotes}}
@@ -33,9 +34,10 @@
             <i class="fa fa-2x fa-thumbs-down"></i>
             {{vm.currentDescription().downvotes}}
           </span>
+          </div>
+          <pager total-items="vm.nbDesc" ng-model="vm.currentDesc" items-per-page="1"></pager>
         </div>
-        <pager total-items="vm.nbDesc" ng-model="vm.currentDesc" items-per-page="1"></pager>
-        </div>
+      </div>
     </tab>
 
     <tab ng-if="vm.nbTrades" heading="Commerces">

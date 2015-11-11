@@ -4,14 +4,20 @@
   }
 
   #descContent {
-    #currentEval {
-      margin:30px 0px 30px 0px;
-      text-align:center;
-    }
+    #descSubContent {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
 
-    #currentEval span {
-      display:inline-block;
-      margin:0px 20px 0 20px;
+      #currentEval {
+        margin:30px 0px 30px 0px;
+        text-align:center;
+
+        span {
+          display:inline-block;
+          margin:0px 20px 0 20px;
+        }
+      }
     }
   }
 
