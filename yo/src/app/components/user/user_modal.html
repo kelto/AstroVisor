@@ -7,14 +7,15 @@
   <tabset>
     <tab heading="Home">
       <div class="well">
-
+        <p>UserName: {{user.user.username}}</p>
+        <p>Total Votes: {{user.user.totalVotes}}</p>
       </div>
     </tab>
     <tab heading="Update">
       <form id="form" name="form" novalidate>
         <div class="form-group"  ng-class="{ 'has-error' : form.username.$dirty && form.username.$invalid}">
           <label for="usernameInput" class="control-label">Username</label>
-          <input ng-model="user.user.username" class="form-control" id="usernameInput" type="text" name="username" ng-minlength="4" required>
+          <input ng-model="user.user.username" class="form-control" id="usernameInput" type="text" name="username" ng-minlength="4" disabled>
           <div ng-messages="form.username.$dirty && form.username.$error">
             <p ng-message="required">Your username is required.</p>
             <p ng-message="minlength">Your username should be at least 4 characters.</p>
