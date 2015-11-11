@@ -12,12 +12,26 @@
       <div id="codexContent">
         <p ng-bind-html="vm.planet.description"></p>
         <hr ng-if="vm.planet.description" />
-        <ul>
-          <li>Has Ring : {{vm.planet.ring ? 'Yes' : 'No'}}</li>
-          <li>Size : {{vm.planet.size}}</li>
-          <li>Climate : {{vm.planet.climate }}</li>
-          <li>Orbit : {{vm.planet.orbit}}</li>
-        </ul>
+
+        <div ng-if="vm.planet.orbit" id="orbital_data">
+          <h5>Paramètres orbitaux</h5>
+          <ul id="orbit">
+            <li>Vitesse orbitale : {{vm.planet.orbit.orbital_speed}} m.s<sup>-1</sup></li>
+            <li>Période de révolution : {{vm.planet.orbit.revolution_period}} jour(s)</li>
+            <li>Demi-grand axe : {{vm.planet.orbit.semimajor_axis}} km(s)</li>
+            <li>Demi-petit axe : {{vm.planet.orbit.semiminor_axis}} km(s)</li>
+          </ul>
+        </div>
+
+        <div ng-if="vm.planet.climate" id="climate_data">
+          <h5>Données climatiques</h5>
+          <ul id="climate">
+            <li>Température minimale : {{vm.planet.climate.minTemp}} °C</li>
+            <li>Température maximale : {{vm.planet.climate.maxTemp}} °C</li>
+            <li>Température moyenne : {{vm.planet.climate.meanTemp}} °C</li>
+            <li>Nombre de saisons : {{vm.planet.climate.seasons}}</li>
+          </ul>
+        </div>
       </div>
     </tab>
 
