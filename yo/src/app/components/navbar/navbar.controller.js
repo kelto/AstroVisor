@@ -1,7 +1,7 @@
-(function () {
+(function() {
+  'use strict';
 
   angular.module('yo').controller('NavbarController', function ($scope, $modal, $auth) {
-    /* jshint validthis: true */
     var vm = this;
 
     vm.login = function () {
