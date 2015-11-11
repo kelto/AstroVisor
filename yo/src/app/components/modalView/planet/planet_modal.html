@@ -8,64 +8,22 @@
 
 <div class="modal-body">
   <tabset>
-    <tab heading="Codex">
-      <div id="codexContent">
-        <p ng-bind-html="vm.planet.description"></p>
-        <hr ng-if="vm.planet.description" />
-
-        <div ng-if="vm.planet.orbit" id="orbital_data">
-          <h5>Paramètres orbitaux</h5>
-          <ul id="orbit">
-            <li>Vitesse orbitale : {{vm.planet.orbit.orbital_speed}} m.s<sup>-1</sup></li>
-            <li>Période de révolution : {{vm.planet.orbit.revolution_period}} jour(s)</li>
-            <li>Demi-grand axe : {{vm.planet.orbit.semimajor_axis}} km(s)</li>
-            <li>Demi-petit axe : {{vm.planet.orbit.semiminor_axis}} km(s)</li>
-          </ul>
-        </div>
-
-        <div ng-if="vm.planet.climate" id="climate_data">
-          <h5>Données climatiques</h5>
-          <ul id="climate">
-            <li>Température minimale : {{vm.planet.climate.minTemp}} °C</li>
-            <li>Température maximale : {{vm.planet.climate.maxTemp}} °C</li>
-            <li>Température moyenne : {{vm.planet.climate.meanTemp}} °C</li>
-            <li>Nombre de saisons : {{vm.planet.climate.seasons}}</li>
-          </ul>
-        </div>
-      </div>
-    </tab>
-
-    <tab ng-if="vm.nbDesc" heading="Descriptions">
-      <div id="descContent">
-        <div ng-bind-html="vm.currentDescription().text" id="currentText"></div>
-        <div id="descSubContent">
-          <div id="currentEval">
-          <span ng-click="vm.upvote()" id="upvotes">
-            <i class="fa fa-2x fa-thumbs-up"></i>
-            {{vm.currentDescription().upvotes}}
-          </span>
-          <span ng-click="vm.downvote()" id="downvotes">
-            <i class="fa fa-2x fa-thumbs-down"></i>
-            {{vm.currentDescription().downvotes}}
-          </span>
-          </div>
-          <pager total-items="vm.nbDesc" ng-model="vm.currentDesc" items-per-page="1"></pager>
-        </div>
-      </div>
-    </tab>
-    <!--<tab heading="Commerces">
+    <tab heading="Home">
       <div class="well">
-        <ul>
-          <li data-ng-repeat="trade in vm.trades"><a>{{trade.name}}</a></li>
-        </ul>
+      {{vm.planet.description}}
+        </div>
+    </tab>
+    <tab heading="Descriptions">
+      <div class="well">
+      {{vm.currentDescription().text}}
       </div>
-      <a ui-sref="home.planet.create-trade" class="btn btn-primary">Create Trade</a>
-    </tab>-->
+    </tab>
     <tab ng-if="vm.nbTrades" heading="Trades">
-      <div id="tradeContent" label="vm.currentTrade().name">
-        <div ng-bind-html="vm.currentTrade().text" id="currentTextTrade"></div>
-        <pager total-items="vm.nbTrades" ng-model="vm.currentTr" items-per-page="1"></pager>
+      <h3>{{vm.currentTrade().name}}</h3>
+      <div class="well">
+        {{vm.trade.text}}
       </div>
+      <pager total-items="vm.nbTrades" ng-model="vm.currentTr" items-per-page="1"></pager>
       <a ui-sref="home.planet.create-trade" class="btn btn-primary">Create Trade</a>
     </tab>
 

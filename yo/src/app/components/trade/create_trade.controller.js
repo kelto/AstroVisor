@@ -1,4 +1,4 @@
-angular.module('yo').controller('CreateTradeController', function ($scope, $modalInstance, $http, $stateParams, toastr, trades) {
+angular.module('yo').controller('CreateTradeController', function ($scope, $modalInstance, $http, $stateParams, toastr, systems, planets) {
   /* jshint validthis: true */
   var vm = this;
   vm.trade = {
@@ -15,15 +15,21 @@ angular.module('yo').controller('CreateTradeController', function ($scope, $moda
   }
 
   vm.createTrade = function () {
-    $http.post('/api/trades/' + $stateParams.id, vm.trade).then(function () {
-      //console.log("here : " + vm.trade.id);
+    $http.post('/api/trades', vm.trade).then(function () {
+      console.log("trade on planet id=" + vm.trade.planet.id + " and name=" + vm.trade.name + " created !");
     })
       .catch(function () {
         toastr.error('Something gone wrong.', 'Failed to create a trade!');
       });
 
-    vm.description.trade.id = trades.getTrades().length;
+    planets.planet = systems.getPlanetById($stateParams.id);
+    planets.fetchTrades();
+    console.log(planets.trades);
+    var tr = planets.getTradeByName(vm.trade.name);
+    vm.description.trade.id = tr.id;
+    console.log("id of the last trade = " + tr.id);
     $http.post('/api/descriptions', vm.description).then(function () {
+        console.log("desc text=" + vm.description.text+ " on trade id=" + vm.description.trade.id + " created !");
       toastr.success('Trade "' + vm.trade.name + '" successfuly created!');
       $modalInstance.close();
     })

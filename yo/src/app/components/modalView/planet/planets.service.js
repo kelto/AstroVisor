@@ -1,32 +1,32 @@
 (function(){
   'use strict';
 
-  angular.module('yo').factory('trades', trades);
+  angular.module('yo').factory('planets', planets);
 
   /** @ngInject */
-  function trades($http, $q) {
+  function planets($http, $q) {
     var uri = 'api/trades';
-
     var service = {
       uri: uri,
+      planet:null,
       trades:null,
       fetchTrades:fetchTrades,
       getTrades:getTrades,
-      getTradeById:getTradeById
+      getTradeByName:getTradeByName
     };
 
     return service;
 
     function fetchTrades(){
       return $q(function(resolve, reject){
-        return $http.get(fetchTradesComplete).catch(fetchTradesFailed);
+        return $http.get(uri).then(fetchTradesComplete).catch(fetchTradesFailed);
 
         function fetchTradesComplete(response){
           if(response.data.length > 0){
             var tmp = [];
-            response.data.forEach(function(planet){
-              if(planet.trades.length > 0 ){
-                tmp.push(planet);
+            response.data.forEach(function(trade){
+              if(trade.planet.id == service.planet.id){
+                tmp.push(trade);
               }
             });
 
@@ -35,7 +35,7 @@
               resolve(tmp);
             }
             else{
-              reject('Trades were empty.');
+              reject('Planets were empty.');
             }
           }
           else{
@@ -44,7 +44,7 @@
         }
 
         function fetchTradesFailed(error){
-          reject('XHR failed for getTrades.\n' + angular.toJson(error.data, true));
+          reject('XHR failed for getPlanets.\n' + angular.toJson(error.data, true));
         }
       });
     }
@@ -60,24 +60,28 @@
       }
     }
 
-    function getTradeById(id){
-      if(service.trades == null || service.trades.length < 1){
+    function getTradeByName(name){
+      if(service.trades.length < 1){
         throw 'No trades available.';
       }
 
       var res = null;
-      for(var i=0; i<service.trades.length;i++){
-        var trade = system.trades[i];
-        if(trade.id == id){
-          res = trade;
-          break;
+      if (service.trades != null){
+        for(var i=0; i<service.trades.length;i++){
+          var trade = service.trades[i];
+          if(trade.name == name){
+            res = trade;
+            break;
+          }
+        }
+
+        if(res == null){
+          throw 'Trade not found.';
         }
       }
-
-      if(res == null){
-        throw 'Trade not found.';
+      else {
+        throw 'No trade.';
       }
-
       return res;
     }
   }

@@ -1,17 +1,5 @@
-angular.module('yo').controller('PlanetController', function ($scope,$http, $stateParams, trades,systems) {
+angular.module('yo').controller('PlanetController', function ($scope,$http, $stateParams,systems, planets, descriptions) {
   /* jshint validthis: true */
-  var vm = this;
-  vm.currentDesc = 1;
-  vm.planet = systems.getPlanetById($stateParams.id);
-  vm.trades = vm.planet.trades;
-  vm.nbTrades = vm.trades.length;
-  vm.currentTr = 1;
-
-  vm.currentTrade = function(){
-    return vm.trades ? vm.trades[vm.currentTr - 1] : '';
-  };
-
-  angular.module('yo').controller('PlanetController', PlanetController);
 
   /** @ngInject */
   function PlanetController($log, $rootScope, $scope, $stateParams, $filter, $auth, systems, descriptions, toastr) {
@@ -20,14 +8,25 @@ angular.module('yo').controller('PlanetController', function ($scope,$http, $sta
     vm.descriptions = [];
     vm.nbDesc = 0;
     vm.currentDesc = 1;
-    vm.trades = [];
+    vm.planet = systems.getPlanetById($stateParams.id);
+    vm.trades = vm.planet.trades;
     vm.nbTrades = 0;
     vm.descEditor = '';
+    vm.nbTrades = vm.trades.length;
+    vm.currentTr = 1;
 
-    vm.currentDescription = function() {
-      return vm.descriptions ? vm.descriptions[vm.currentDesc - 1] : '';
-    };
+  vm.currentDescription = function() {
+    return vm.descriptions ? vm.descriptions[vm.currentDesc - 1] : '';
+  };
 
+  vm.currentTrDescription = function() {
+    var res;
+    descriptions.planet = vm.planet;
+    res = descriptions.getDescByIdTrade(vm.currentTrade().id);
+    return res;
+  }
+
+  vm.trade = vm.currentTrDescription();
     vm.upvote = function(){
       if($auth.isAuthenticated()){
         var desc = vm.descriptions[vm.currentDesc - 1];
@@ -43,6 +42,10 @@ angular.module('yo').controller('PlanetController', function ($scope,$http, $sta
       else{
         toastr.error('Vous n\'êtes pas connecté');
       }
+    };
+
+    vm.currentTrade = function(){
+      return vm.trades ? vm.trades[vm.currentTr - 1] : '';
     };
 
     vm.downvote = function(){
