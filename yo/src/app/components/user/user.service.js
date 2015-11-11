@@ -10,10 +10,6 @@
         return $http.put("/api/users",data);
       };
 
-    this.getUsername = function() {
-      return $auth.getPayload().sub;
-    }
-
     this.info = function() {
       return $http.get("/api/me");
     }
