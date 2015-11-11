@@ -9,7 +9,8 @@
 
     var service = {
       uri: uri,
-      sendNewDescription:sendNewDescription
+      sendNewDescription:sendNewDescription,
+      updateDescription:updateDescription
     };
 
     return service;
@@ -24,6 +25,21 @@
         }
 
         function sendNewDescriptionFailed(e){
+          reject(e);
+        }
+      });
+    }
+
+    function updateDescription(descId, text, upvotes, downvotes, planetId){
+      return $q(function(resolve, reject){
+        var data = {text:text, planet:{id:planetId}, upvotes:upvotes, downvotes:downvotes};
+        return $http.put(uri+'/'+descId, data).then(updateDescriptionComplete).catch(updateDescriptionFailed);
+
+        function updateDescriptionComplete(e){
+          resolve(e);
+        }
+
+        function updateDescriptionFailed(e){
           reject(e);
         }
       });
