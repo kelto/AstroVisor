@@ -1,19 +1,23 @@
-angular.module('yo').directive('confirmPassword', function(){
-  return{
-    require:'ngModel',
-    scope : {
-      confirmPassword: '='
-    },
-    link: function(scope, elem, attrs, ctrl){
+(function(){
+  'use strict';
 
-      ctrl.$parsers.unshift(confirmPassword);
-      function confirmPassword(viewValue){
-        var valid = scope.confirmPassword === viewValue;
-        ctrl.$setValidity('confirm-password',valid);
+  angular.module('yo').directive('confirmPassword', function(){
+    return{
+      require:'ngModel',
+      scope : {
+        confirmPassword: '='
+      },
+      link: function(scope, elem, attrs, ctrl){
 
-        return viewValue;
+        ctrl.$parsers.unshift(confirmPassword);
+        function confirmPassword(viewValue){
+          var valid = scope.confirmPassword === viewValue;
+          ctrl.$setValidity('confirm-password',valid);
+
+          return viewValue;
+        }
+
       }
-
-    }
-  };
-});
+    };
+  });
+})();

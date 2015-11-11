@@ -1,26 +1,28 @@
-angular.module('yo').controller('SignupController', function ($scope, $modalInstance, $auth,toastr) {
-  /* jshint validthis: true */
-  var vm = this;
-  vm.user = {
-    username: "",
-    password: ""
-  };
-  vm.confirmPassword = "";
+(function(){
+  'use strict';
 
-  vm.signup = function() {
-    $auth.signup(vm.user)
-      .then(function() {
-        toastr.success('Signup success')
-        $modalInstance.close();
-      })
-      .catch(function() {
-        toastr.error('This username is probably used already.','Failed to signup');
-      });
-  };
+  angular.module('yo').controller('SignupController', function ($scope, $modalInstance, $auth, toastr) {
+    var vm = this;
+    vm.user = {
+      username: "",
+      password: ""
+    };
+    vm.confirmPassword = "";
 
-  vm.close = function() {
-    $modalInstance.dismiss('cancel');
-  };
+    vm.signup = function() {
+      $auth.signup(vm.user)
+        .then(function() {
+          toastr.success('Signup success')
+          $modalInstance.close();
+        })
+        .catch(function() {
+          toastr.error('This username is probably used already.','Failed to signup');
+        });
+    };
 
-});
+    vm.close = function() {
+      $modalInstance.dismiss('cancel');
+    };
 
+  });
+})();
