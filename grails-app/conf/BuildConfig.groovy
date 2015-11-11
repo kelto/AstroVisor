@@ -81,6 +81,7 @@ grails.project.dependency.resolution = {
         test(":code-coverage:2.0.3-3") {
             export = false
         }
+        build ":codenarc:0.24.1"
         compile ":build-test-data:2.2.3"
 
         // plugins needed at runtime but not for compilation
