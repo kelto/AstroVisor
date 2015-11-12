@@ -23,7 +23,7 @@ script:
     - cd yo
     - gulp test
 after_success:
-    - cd ..
-    - python merge-xml-coverage.py yo/coverage/cobertura.xml target/test-reports/cobertura/coverage.xml
-    - cp coverage-merged.xml target/test-reports/cobertura/coverage.xml
+    - cd ../target/test-reports/cobertura
+    - wget -O coverage.xml https://docs.google.com/uc?id=0B25ViosYm6ByOVRrU1RCSkJGVjQ&export=download
+    - cd ../../..
     - ./grailsw coveralls
