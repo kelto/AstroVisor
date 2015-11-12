@@ -12,6 +12,7 @@
       systems:null,
       fetchSystems:fetchSystems,
       getSystems:getSystems,
+      getPlanetByCodeName:getPlanetByCodeName,
       getPlanetById:getPlanetById
     };
 
@@ -58,6 +59,34 @@
       else{
         return this.fetchSystems();
       }
+    }
+
+    function getPlanetByCodeName(code){
+      if(service.systems == null || service.systems.length < 1){
+        throw 'No systems available.';
+      }
+
+      var res = null;
+      for(var i=0; i<service.systems.length; i++){
+        var system = service.systems[i];
+        for(var j=0; j<system.planets.length; j++){
+          var planet = system.planets[j];
+          if(planet.code_name === code){
+            res = planet;
+            break;
+          }
+        }
+
+        if(res != null){
+          break;
+        }
+      }
+
+      if(res === null){
+        throw 'Planet not found.';
+      }
+
+      return res;
     }
 
     function getPlanetById(id){

@@ -6,13 +6,16 @@
   /** @ngInject */
   function PlanetController($log, $rootScope, $scope, $stateParams, $filter, $auth, systems, descriptions, toastr) {
     var vm = this;
-    vm.planet;
     vm.descriptions = [];
     vm.nbDesc = 0;
     vm.currentDesc = 1;
-    vm.trades = [];
+    vm.planet = systems.getPlanetById($stateParams.id);
+    vm.trades = vm.planet.trades;
     vm.nbTrades = 0;
     vm.descEditor = '';
+    vm.nbTrades = vm.trades.length;
+    vm.currentTr = 1;
+    vm.currentTrDesc = null;
 
     vm.currentDescription = function() {
       return vm.descriptions ? vm.descriptions[vm.currentDesc - 1] : '';
@@ -77,6 +80,19 @@
       $rootScope.$broadcast('planet.closed');
     });
 
+    vm.currentTrDescription = function() {
+      descriptions.planet = vm.planet;
+      descriptions.getDescByIdTrade(vm.currentTrade().id).then(function (data) {
+        console.log(data.text);
+        vm.currentTrDesc = data;
+        return data;
+      });
+    }
+
+    vm.currentTrade = function(){
+      return vm.trades ? vm.trades[vm.currentTr - 1] : '';
+    };
+
     activate();
 
     function activate(){
@@ -86,7 +102,7 @@
         vm.nbDesc = vm.descriptions.length;
         vm.trades = vm.planet.trades;
         vm.nbTrades = vm.trades.length;
-      }
+     }
       catch(err){
         $log.error(err);
       }

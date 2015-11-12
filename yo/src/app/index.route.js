@@ -37,6 +37,12 @@
         controller: 'PlanetController as vm',
         bindToController:true
       })
+      .state('home.planet.create-trade', {
+        url: '/createtrade',
+        animation: true,
+        templateUrl: 'app/components/trades/create_trade_modal.html',
+        controller: 'CreateTradeController as trade'
+      })
       .state('home.me', {
         url: 'me',
         animation: true,
