@@ -9,7 +9,7 @@
     var deferred;
 
     beforeEach(module('yo'));
-    beforeEach(inject(function(_$controller_, _$rootScope_, _$auth_, _$q_, $log) {
+    beforeEach(inject(function(_$controller_, _$rootScope_, _$auth_, _$q_) {
       $rootScope = _$rootScope_;
 
       deferred = _$q_.defer();
@@ -24,8 +24,8 @@
       spyOn(modalInstance, 'dismiss');
 
       toastr = {
-        success: function (message) {},
-        error: function (message){}
+        success: function () {},
+        error: function (){}
       };
 
       spyOn(toastr, 'success');
