@@ -67,6 +67,8 @@ else:
 
 
 # constants
+COVERAGE = 'coverage'
+SOURCES_LIST = 'sources/source'
 PACKAGES_LIST = 'packages/package';
 PACKAGES_ROOT = 'packages'
 CLASSES_LIST = 'classes/class';
@@ -83,6 +85,9 @@ def merge_xml (xmlfile1, xmlfile2, outputfile):
         xml1 = ET.parse(xmlfile1)
         xml2 = ET.parse(xmlfile2)
 
+        root1 = xml1.getroot()
+        root2 = xml2.getroot()
+
         # get packages
         packages1 = filter_xml(xml1)
         packages2 = filter_xml(xml2)
@@ -90,13 +95,14 @@ def merge_xml (xmlfile1, xmlfile2, outputfile):
         # find root
         packages1root = xml1.find(PACKAGES_ROOT)
 
+        root = merge_root(root1, root2)
+
 
         # merge packages
-        merge (packages1root, packages1, packages2, 'name', merge_packages);
+        merge (root, packages1, packages2, 'name', merge_packages);
 
         # write result to output file
         xml1.write (outputfile,  encoding="UTF-8", xml_declaration=True)
-
 
 def filter_xml (xmlfile):
         xmlroot = xmlfile.getroot()
@@ -146,6 +152,14 @@ def get_attributes_chain (obj, attrs):
         else:
                 return  obj.attrib[attrs]
 
+def merge_root (root1, root2):
+        root1.attrib['line-rate'] = str((float(root1.attrib['line-rate']) + float(root2.attrib['line-rate']))/2)
+        root1.attrib['branch-rate'] = str((float(root1.attrib['branch-rate']) + float(root2.attrib['branch-rate']))/2)
+        root1.attrib['lines-valid'] = str(float(root1.attrib['lines-valid']) + float(root2.attrib['lines-valid']))
+        root1.attrib['lines-covered'] = str(float(root1.attrib['lines-covered']) + float(root2.attrib['lines-covered']))
+        root1.attrib['branches-valid'] = str(float(root1.attrib['branches-valid']) + float(root2.attrib['branches-valid']))
+        root1.attrib['branches-covered'] = str(float(root1.attrib['branches-covered']) + float(root2.attrib['branches-covered']))
+        return root1
 
 def merge (root, list1, list2, attr, merge_function):
         """ Groups given lists based on group attributes. Process of merging items with same key is handled by
