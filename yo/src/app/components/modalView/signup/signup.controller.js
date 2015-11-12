@@ -16,7 +16,7 @@
           $modalInstance.close();
         })
         .catch(function() {
-          toastr.error('This username is probably used already.','Failed to signup');
+          toastr.error('This username is probably used already.', 'Failed to signup');
         });
     };
 

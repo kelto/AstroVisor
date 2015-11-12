@@ -37,8 +37,8 @@
       spyOn(modalInstance, 'dismiss');
 
       toastr = {
-        success: function (message) {},
-        error: function (message){}
+        success: function () {},
+        error: function (){}
       };
 
       spyOn(toastr, 'success');
