@@ -7,9 +7,6 @@ import static com.astrovisor.Climate.ClimateType.DRY
 import static com.astrovisor.Planet.Size.SMALL
 import static com.astrovisor.Planet.Type.TELLURIC
 
-/**
- *
- */
 class UserServiceSpec extends Specification {
 
     UserService userService

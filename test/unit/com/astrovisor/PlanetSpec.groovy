@@ -1,11 +1,16 @@
 package com.astrovisor
 
+import static com.astrovisor.Planet.Type.TELLURIC
+import static com.astrovisor.Planet.Type.GAS
+import static com.astrovisor.Planet.Size.SMALL
+import static com.astrovisor.Planet.Size.LARGE
+import static com.astrovisor.Planet.Size.XXL
+import static com.astrovisor.Planet.Size.NORMAL
+import static com.astrovisor.Planet.Size.XS
+
 import grails.test.mixin.TestMixin
 import grails.test.mixin.support.GrailsUnitTestMixin
 import spock.lang.Specification
-
-import static com.astrovisor.Planet.Type.*
-import static com.astrovisor.Planet.Size.*
 
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
@@ -17,9 +22,6 @@ class PlanetSpec extends Specification {
     def setup() {
         mockForConstraintsTests(Planet, [new Planet(code_name: '123456')])
         orbit = new Orbit(semimajor_axis:10000, semiminor_axis:10000, orbital_speed:50.0, revolution_period:365)
-    }
-
-    def cleanup() {
     }
 
     void "test invalid planet"() {

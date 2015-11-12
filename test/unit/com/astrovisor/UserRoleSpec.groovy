@@ -51,7 +51,7 @@ class UserRoleSpec extends Specification {
             user.save(flush: true)
             role.save(flush: true)
         when:
-            def userRole = UserRole.create(user, role, true)
+            UserRole.create(user, role, true)
         then:
             UserRole.exists(user.id, role.id)
     }
@@ -62,7 +62,7 @@ class UserRoleSpec extends Specification {
             def role = new Role(authority: "role")
             user.save(flush: true)
             role.save(flush: true)
-            def userRole = UserRole.create(user, role, true)
+            UserRole.create(user, role, true)
         when:
             UserRole.remove(user, role, true)
         then:
@@ -75,7 +75,7 @@ class UserRoleSpec extends Specification {
             def role = new Role(authority: "role")
             user.save(flush: true)
             role.save(flush: true)
-            def userRole = UserRole.create(user, role, true)
+            UserRole.create(user, role, true)
         when:
             UserRole.removeAll(user, true)
         then:
@@ -85,13 +85,13 @@ class UserRoleSpec extends Specification {
     void "test remove all roles of user"() {
         given:
             def user = new User(username:"user", password: "password")
-            def role = new Role(authority: "role")
+            def myRole = new Role(authority: "role")
             user.save(flush: true)
-            role.save(flush: true)
-            def userRole = UserRole.create(user, role, true)
+            myRole.save(flush: true)
+            UserRole.create(user, myRole, true)
         when:
-            UserRole.removeAll(role, true)
+            UserRole.removeAll(myRole, true)
         then:
-           UserRole.where {role == role}.size() == 0
+           UserRole.where {role == myRole}.size() == 0
     }
 }

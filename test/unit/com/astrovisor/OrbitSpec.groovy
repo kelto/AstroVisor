@@ -15,9 +15,6 @@ class OrbitSpec extends Specification {
         orbit = new Orbit()
     }
 
-    def cleanup() {
-    }
-
     void "test an orbit validity"() {
         given:"an orbit"
         orbit.revolution_period = aPeriod

@@ -1,6 +1,6 @@
 package com.astrovisor
 
-import spock.lang.*
+import spock.lang.Specification
 
 class StellarSystemServiceSpec extends Specification {
 

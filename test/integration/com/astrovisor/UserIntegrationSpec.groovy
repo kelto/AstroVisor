@@ -1,19 +1,8 @@
 package com.astrovisor
 
+import spock.lang.Specification
 
-
-import spock.lang.*
-
-/**
- *
- */
 class UserIntegrationSpec extends Specification {
-
-    def setup() {
-    }
-
-    def cleanup() {
-    }
 
     void "test that password is encoded before insert"() {
         given:
@@ -25,7 +14,7 @@ class UserIntegrationSpec extends Specification {
         then:
             user.password != "password"
     }
-    
+
     void "test that password is encoded before update"() {
         given:
         def user

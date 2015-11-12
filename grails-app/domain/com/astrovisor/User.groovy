@@ -1,5 +1,10 @@
 package com.astrovisor
 
+import groovy.transform.ToString
+import groovy.transform.EqualsAndHashCode
+
+@EqualsAndHashCode
+@ToString
 class User {
 
 	transient springSecurityService

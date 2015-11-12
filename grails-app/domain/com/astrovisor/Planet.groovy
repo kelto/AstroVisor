@@ -1,11 +1,18 @@
 package com.astrovisor
 
+import groovy.transform.ToString
+import groovy.transform.EqualsAndHashCode
+
+@EqualsAndHashCode
+@ToString
 class Planet {
 
+    @ToString
     public enum Type {
         TELLURIC, GAS
     }
 
+    @ToString
     public enum Size {
         XS, SMALL, MEDIUM, NORMAL, LARGE, XL, XXL, XXXL
     }

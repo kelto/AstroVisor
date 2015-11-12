@@ -1,5 +1,10 @@
 package com.astrovisor
 
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
+
+@EqualsAndHashCode
+@ToString
 class Climate {
 
     float minTemp //In Celsius
@@ -7,10 +12,10 @@ class Climate {
     float meanTemp
     int seasons
 
+    @ToString
     enum ClimateType {
         POLAR, CONTINENTAL, MODERATE, TROPICAL, DRY
     }
-
     ClimateType type
 
     static constraints = {

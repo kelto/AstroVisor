@@ -11,12 +11,6 @@ import spock.lang.Specification
 @Mock([UserRole, Role])
 class UserSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "test a valid user"(String username, String password) {
         given: "A valid username and password"
 

@@ -1,8 +1,6 @@
 package com.astrovisor
 
-import static com.astrovisor.Planet.Type.*
-
-import spock.lang.*
+import spock.lang.Specification
 
 class DescriptionServiceSpec extends Specification {
 

@@ -8,8 +8,6 @@ import spock.lang.Specification
 import spock.lang.Unroll
 import grails.buildtestdata.mixin.Build
 
-import static com.astrovisor.Planet.Type.*
-
 @TestFor(PlanetController)
 @Mock([StellarSystem,, Planet])
 @Build([Planet, StellarSystem])

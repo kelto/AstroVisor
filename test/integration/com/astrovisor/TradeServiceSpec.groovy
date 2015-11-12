@@ -1,12 +1,7 @@
 package com.astrovisor
 
-import static com.astrovisor.Planet.Type.*
+import spock.lang.Specification
 
-import spock.lang.*
-
-/**
- *
- */
 class TradeServiceSpec extends Specification {
 
     TradeService tradeService

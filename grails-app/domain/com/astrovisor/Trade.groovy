@@ -1,7 +1,9 @@
 package com.astrovisor
 
 import groovy.transform.ToString
+import groovy.transform.EqualsAndHashCode
 
+@EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true, excludes = "metaClass,class")
 class Trade {
 

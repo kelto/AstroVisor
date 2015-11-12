@@ -1,7 +1,11 @@
 package com.astrovisor
 
 import org.apache.commons.lang.builder.HashCodeBuilder
+import groovy.transform.ToString
+import groovy.transform.EqualsAndHashCode
 
+@EqualsAndHashCode
+@ToString
 class UserRole implements Serializable {
 
 	private static final long serialVersionUID = 1

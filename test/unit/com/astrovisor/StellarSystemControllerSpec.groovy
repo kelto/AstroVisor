@@ -1,15 +1,17 @@
 package com.astrovisor
 
+import static org.springframework.http.HttpStatus.OK
+import static org.springframework.http.HttpStatus.NO_CONTENT
+import static org.springframework.http.HttpStatus.NOT_FOUND
+import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE
+import static org.springframework.http.HttpStatus.CREATED
+
 import grails.converters.JSON
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 import spock.lang.Unroll
 import grails.buildtestdata.mixin.Build
-
-import static org.springframework.http.HttpStatus.*
-
-import static com.astrovisor.Planet.Type.*
 
 @TestFor(StellarSystemController)
 @Mock([StellarSystem, StellarSystemService])

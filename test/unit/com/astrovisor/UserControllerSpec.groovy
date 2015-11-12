@@ -1,29 +1,25 @@
 package com.astrovisor
 
+import static org.springframework.http.HttpStatus.OK
+import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE
+import static org.springframework.http.HttpStatus.NOT_FOUND
+import static org.springframework.http.HttpStatus.CREATED
+import static org.springframework.http.HttpStatus.UNAUTHORIZED
+
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 import spock.lang.Unroll
+import grails.buildtestdata.mixin.Build
 
-import static org.springframework.http.HttpStatus.*
-/**
- * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
- */
 @TestFor(UserController)
 @Mock([User, UserService])
+@Build([User])
 class UserControllerSpec extends Specification {
-
-    def populateValidParams(params) {
-        assert params != null
-        params['username'] = "test"
-        params['password'] = "password"
-    }
 
     void "test save ok"() {
         given:
-            populateValidParams(params)
-            controller.request.json = params
-            controller.request.method = 'POST'
+            def user = User.build()
             def serviceMock = mockFor(UserService)
             serviceMock.demand.insertOrUpdate {}
             controller.userService = serviceMock.createMock()
@@ -34,7 +30,7 @@ class UserControllerSpec extends Specification {
             response.status == NOT_FOUND.value
 
         when:
-            controller.save()
+            controller.save(user)
 
         then:
            controller.response.status == CREATED.value
@@ -42,12 +38,9 @@ class UserControllerSpec extends Specification {
 
     void "test save not ok"() {
         given:
-            populateValidParams(params)
-            controller.request.json = ['username':'username']
-            controller.request.method = 'POST'
-
+            def user = new User()
         when:
-            controller.save()
+            controller.save(user)
 
         then:
            controller.response.status == NOT_ACCEPTABLE.value
@@ -82,11 +75,11 @@ class UserControllerSpec extends Specification {
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
-            populateValidParams(params)
-            params.user = new User(params).save(flush: true)
+            params.user = User.build()
             params.password = "password"
             serviceMock.demand.checkPassword { return true }
             serviceMock.demand.updateUser { return new User()}
+
             controller.userService = serviceMock.createMock()
             controller.update()
 
