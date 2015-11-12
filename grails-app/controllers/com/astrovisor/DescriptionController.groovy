@@ -25,10 +25,12 @@ class DescriptionController {
         if(params.planet)
             descriptions = descriptionService.getDescriptionsOfPlanet(params.planet, offset, max)
         else{
-            if(params.trade)
+            if(params.trade) {
                 descriptions = descriptionService.getDescriptionsOfTrade(params.trade, offset, max)
-            else
+            }
+            else {
                 descriptions = descriptionService.getDescriptions(offset, max)
+            }
         }
         respond descriptions, [status: OK]
     }

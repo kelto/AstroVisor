@@ -12,11 +12,9 @@ class StellarSystemSpec extends Specification {
     void "test invalid stellar system"() {
         given :
         StellarSystem system = new StellarSystem(code_name: code_name, name: name)
-        println name
 
         when:
         def isValid = system.validate()
-        println StellarSystem.constraints.name
 
         then:
         isValid == false

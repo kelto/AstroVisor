@@ -22,10 +22,12 @@ class TradeController {
         max = Math.min(max ?: 10, 100)
         int offset = params.offset ?: 0
         def trades = []
-        if(params.planet)
+        if(params.planet) {
             trades = tradeService.getTradesOfPlanet(params.planet, offset, max)
-        else
+        }
+        else {
             trades = tradeService.getTrades(offset, max)
+        }
         respond trades, [status: OK]
     }
 
