@@ -24,7 +24,3 @@ script:
     - gulp test
 after_success:
     - ./grailsw coveralls
-deploy:
-    provider: heroku
-    api_key: 2794dcca-5acc-4d83-907d-3899c866e128
-    app: astrovisor
