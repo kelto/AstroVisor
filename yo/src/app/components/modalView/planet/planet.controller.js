@@ -15,7 +15,7 @@
     vm.descEditor = '';
 
     vm.currentDescription = function() {
-      return vm.descriptions ? vm.descriptions[vm.currentDesc - 1] : '';
+      return vm.descriptions.length ? vm.descriptions[vm.currentDesc - 1] : '';
     };
 
     vm.upvote = function(){
