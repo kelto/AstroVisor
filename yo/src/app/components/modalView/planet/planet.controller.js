@@ -10,7 +10,7 @@ angular.module('yo').controller('PlanetController', function ($scope,$http, $sta
     vm.currentDesc = 1;
     vm.planet = systems.getPlanetById($stateParams.id);
     vm.trades = vm.planet.trades;
-    vm.nbTrades = 0;
+    vm.currentTrDesc = null;
     vm.descEditor = '';
     vm.nbTrades = vm.trades.length;
     vm.currentTr = 1;
@@ -20,12 +20,14 @@ angular.module('yo').controller('PlanetController', function ($scope,$http, $sta
   };
 
   vm.currentTrDescription = function() {
-    var res;
     descriptions.planet = vm.planet;
-    res = descriptions.getDescByIdTrade(vm.currentTrade().id);
-    return res;
-  }
+    descriptions.getDescByIdTrade(vm.currentTrade().id).then(function(data){
+      console.log(data.text);
+      vm.currentTrDesc = data;
+      return data;
+    });
 
+  }
   vm.trade = vm.currentTrDescription();
     vm.upvote = function(){
       if($auth.isAuthenticated()){

@@ -21,7 +21,7 @@
     <tab ng-if="vm.nbTrades" heading="Trades">
       <h3>{{vm.currentTrade().name}}</h3>
       <div class="well">
-        {{vm.trade.text}}
+        {{vm.currentTrDesc.text}}
       </div>
       <pager total-items="vm.nbTrades" ng-model="vm.currentTr" items-per-page="1"></pager>
       <a ui-sref="home.planet.create-trade" class="btn btn-primary">Create Trade</a>

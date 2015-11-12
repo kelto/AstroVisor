@@ -23,6 +23,7 @@ angular.module('yo').controller('CreateTradeController', function ($scope, $moda
 
       $http.post('/api/descriptions', vm.description).then(function () {
         toastr.success('Trade "' + vm.trade.name + '" successfuly created!');
+        systems.fetchSystems();
         $modalInstance.close();
       })
         .catch(function () {

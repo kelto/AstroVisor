@@ -17,20 +17,19 @@
     return service;
 
     function getDescByIdTrade(id){
-      return $q(function(resolve, reject) {
+
+      return $q(function(resolve, reject){
         $http.get(uri).then(getDescComplete).catch(getDescFailed);
 
         function getDescComplete(response) {
           if (response.data.length > 0) {
             var tmp = null;
-            response.data.forEach(function (desc) {
-              if (id == desc.trade.id) {
-                tmp = desc;
-                return;
+            response.data.forEach(function(desc){
+              if(desc.trade != null && desc.trade.id == id){
+                tmp = desc
               }
             });
-
-            if (tmp != null) {
+            if (tmp != null){
               service.descTr = tmp;
               resolve(tmp);
             }
